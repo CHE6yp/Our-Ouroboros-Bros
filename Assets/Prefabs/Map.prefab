@@ -46,3 +46,4 @@ MonoBehaviour:
   mapLength: 5
   chunkPrefab: {fileID: 6424096682369810487, guid: 0019d284123a9be41943950d5bdfec4e, type: 3}
   chunkDistance: 16
+  camBoundary: {fileID: 3989898414694275984, guid: be9900b0947bb1c409120e911509e8a8, type: 3}
