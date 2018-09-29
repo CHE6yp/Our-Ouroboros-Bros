@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CharacterController : PhysicsObject
 {
-    public float maxSpeed = 7;
-    public float jumpTakeOffSpeed = 7;
+    public float maxSpeed = 15;
+    public float jumpTakeOffSpeed = 15;
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
@@ -44,6 +44,6 @@ public class CharacterController : PhysicsObject
         animator.SetBool("grounded", grounded);
         animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
 
-        targetVelocity = move * maxSpeed;
+        targetVelocity = move * maxSpeed /2;
     }
 }
