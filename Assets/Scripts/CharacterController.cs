@@ -10,6 +10,8 @@ public class CharacterController : PhysicsObject
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
+    public int health = 10;
+
     // Use this for initialization
     void Awake()
     {
@@ -45,5 +47,20 @@ public class CharacterController : PhysicsObject
         animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
 
         targetVelocity = move * maxSpeed /2;
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Enemy")
+        {
+            if (health >= 0)
+            {
+                health -= 2;
+            }
+            else
+            {
+                Debug.Log("You Died");
+            }
+        }
     }
 }
