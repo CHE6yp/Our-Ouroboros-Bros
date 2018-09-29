@@ -28,6 +28,7 @@ public class Chunk : MonoBehaviour
             for (int k = 0; k < template[i].Length; k++)
             {
                 SpawnBlock(k, i, template[i][k]);
+                SpawnBlock(k, -i, template[i][k]);
             }
         }
     }
