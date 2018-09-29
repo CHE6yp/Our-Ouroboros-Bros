@@ -22,6 +22,11 @@ public class FollowCam : MonoBehaviour
         if (camBound.bound)
             return;
 
+        PlayerPosition();
+    }
+
+    public void PlayerPosition()
+    {
         this.transform.position = new Vector3(player.position.x, yValue, -10);
     }
 }

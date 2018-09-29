@@ -32,7 +32,8 @@ public class PlayerController : MonoBehaviour
         playerRed.SetActive(red);
         cam.player = (red) ? playerRed.transform : playerGreen.transform;
         cam.camBound = (red) ? playerRed.GetComponent<CamBound>() : playerGreen.GetComponent<CamBound>();
-        cam.yValue = (red) ? 11 : 0;
+        cam.yValue = (red) ? 10.5f : 0;
+        cam.PlayerPosition();
     }
 
 

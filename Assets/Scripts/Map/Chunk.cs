@@ -5,19 +5,6 @@ using UnityEngine;
 public class Chunk : MonoBehaviour
 {
     public GameObject solidBox;
-    public int[][] templ1 = new int[10][] 
-    {
-        new int[16] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-        new int[16] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[16] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[16] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[16] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[16] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[16] { 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[16] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[16] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[16] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-    };
 
     public void GenerateChunk(int tempId)
     {
@@ -33,7 +20,7 @@ public class Chunk : MonoBehaviour
         }
     }
 
-    void SpawnBlock(int x, int y, int type)
+    void SpawnBlock(float x, float y, int type)
     {
         switch (type)
         {
@@ -43,7 +30,7 @@ public class Chunk : MonoBehaviour
                 break;
             case 1:
                 GameObject b = Instantiate(solidBox, this.transform, false);
-                b.transform.localPosition = new Vector3(x, -y);
+                b.transform.localPosition = new Vector3(x/2, -y/2);
                 break;
         }
 
