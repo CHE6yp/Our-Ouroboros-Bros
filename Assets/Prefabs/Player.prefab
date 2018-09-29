@@ -96,10 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 781c33a339d2d22419bae65317230dea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minGroundNormalY: 0.65
-  gravityModifier: 1
-  maxSpeed: 8
-  jumpTakeOffSpeed: 7
+  minGroundNormalY: 0
+  gravityModifier: 5
+  maxSpeed: 15
+  jumpTakeOffSpeed: 15
 --- !u!61 &7325146604392247865
 BoxCollider2D:
   m_ObjectHideFlags: 0
