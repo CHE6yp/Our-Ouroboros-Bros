@@ -32,8 +32,8 @@ public class MapGenChunk : MonoBehaviour
 
     public MapGenBlock[][] mapGenBlocks = new MapGenBlock[20][];
 
-    
 
+    bool reversed = false;
 
     public void Start()
     {
@@ -44,6 +44,14 @@ public class MapGenChunk : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
             CopyTemplate();
+        if (Input.GetKeyDown(KeyCode.R))
+            ReverseMap();
+    }
+
+    public void ReverseMap()
+    {
+        reversed = !reversed;
+        Camera.main.transform.position = (reversed) ? new Vector3(0, 10.5f, -10) : new Vector3(0, 0, -10);
     }
 
     public void GenerateChunk()
@@ -54,20 +62,26 @@ public class MapGenChunk : MonoBehaviour
             mapGenBlocks[i] = new MapGenBlock[32];
             for (int k = 0; k < emptyTemplate[i].Length; k++)
             {
-                SpawnBlock(k, i + 1, emptyTemplate[i][k]);
-                //SpawnBlock(k, -(i + 1), emptyTemplate[i][k]);
+                MapGenBlock block = SpawnBlock(k, i + 1, emptyTemplate[i][k],true);
+                MapGenBlock blockReversed = SpawnBlock(k, -(i + 1), emptyTemplate[i][k], false);
+
+                block.relatedBlock = blockReversed;
+                blockReversed.relatedBlock = block;
             }
         }
     }
 
-    void SpawnBlock(int x, int y, int type)
+    MapGenBlock SpawnBlock(int x, int y, int type, bool toMatrix)
     {
         
         GameObject b = Instantiate(mapGenBlock, this.transform, false);
         b.transform.localPosition = new Vector3((float)x / 2, (float)-y / 2);
         b.GetComponent<MapGenBlock>().SetBlockType(type);
 
-        mapGenBlocks[y-1][x] = b.GetComponent<MapGenBlock>();
+        //Debug.Log(x + " " + y);
+        if (toMatrix)
+            mapGenBlocks[y-1][x] = b.GetComponent<MapGenBlock>();
+        return b.GetComponent<MapGenBlock>();
 
     }
 
@@ -89,12 +103,12 @@ public class MapGenChunk : MonoBehaviour
 
     string GetTemplateMatrixText()
     {
-        string newTemplate = "new int[20][] { ";
+        string newTemplate = "new int[20][] \n        { ";
 
         for (int i = 0; i < mapGenBlocks.Length; i++)
         {
             //new int[32] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1  },
-            newTemplate += "new int[32] { ";
+            newTemplate += "\n            new int[32] { ";
             for (int k = 0; k < mapGenBlocks[i].Length; k++)
             {
                 newTemplate += mapGenBlocks[i][k].blockType.ToString();
@@ -104,7 +118,7 @@ public class MapGenChunk : MonoBehaviour
             newTemplate += "}";
             newTemplate +=  (i == mapGenBlocks.Length - 1) ? "" : ",";
         }
-        newTemplate += "},";
+        newTemplate += "\n        },";
 
         return newTemplate;
     }

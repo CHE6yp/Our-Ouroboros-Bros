@@ -9,6 +9,8 @@ public class MapGenBlock : MonoBehaviour
 
     public Sprite[] sprites;
 
+    public MapGenBlock relatedBlock;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,12 @@ public class MapGenBlock : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetBothBlocksType(int type)
+    {
+        SetBlockType(type);
+        relatedBlock.SetBlockType(type);
     }
 
     public void SetBlockType(int type)
@@ -33,10 +41,10 @@ public class MapGenBlock : MonoBehaviour
     void OnMouseOver()
     {
         if (Input.GetMouseButton(0))
-            SetBlockType(1);
+            SetBothBlocksType(1);
         else
             if (Input.GetMouseButton(1))
-            SetBlockType(0);
+            SetBothBlocksType(0);
     }
 
 }
