@@ -25,6 +25,9 @@ public class Map : MonoBehaviour
 
     void GenerateMap()
     {
+        ChunkTemplates.GetFromTxt();
+
+        Debug.Log(ChunkTemplates.templates[0][0][0]);
 
         GameObject start_ch = Instantiate(chunkPrefab, transform, false);
         start_ch.transform.localPosition = new Vector3(0, 5.5f);
@@ -35,7 +38,7 @@ public class Map : MonoBehaviour
         {
             GameObject ch = Instantiate(chunkPrefab,  transform, false);
             ch.transform.localPosition = new Vector3(i * chunkDistance, 5.5f);
-            ch.GetComponent<Chunk>().GenerateChunk(Random.Range(2, ChunkTemplates.templates.Length));
+            ch.GetComponent<Chunk>().GenerateChunk(Random.Range( 2, ChunkTemplates.templates.Count));
         }
 
         GameObject finish_ch = Instantiate(chunkPrefab, transform, false);

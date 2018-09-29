@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapGenChunk : MonoBehaviour
 {
@@ -37,15 +38,20 @@ public class MapGenChunk : MonoBehaviour
 
     public void Start()
     {
+        ChunkTemplates.GetFromTxt();
         GenerateChunk();
     }
 
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
-            CopyTemplate();
+            SaveTemplateAsNew();
         if (Input.GetKeyDown(KeyCode.R))
             ReverseMap();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     public void ReverseMap()
@@ -91,6 +97,7 @@ public class MapGenChunk : MonoBehaviour
 
         for (int i = 0; i < mapGenBlocks.Length; i++)
         {
+            newTemplate[i] = new int[32];
             for (int k = 0; k < mapGenBlocks[i].Length; k++)
             {
                 newTemplate[i][k] = mapGenBlocks[i][k].blockType;
@@ -131,6 +138,12 @@ public class MapGenChunk : MonoBehaviour
         te.text = GetTemplateMatrixText();
         te.SelectAll();
         te.Copy();
+    }
+
+    public void SaveTemplateAsNew()
+    {
+        ChunkTemplates.templates.Add(GetTemplateMatrix());
+        ChunkTemplates.SaveToTxt();
     }
 
     
