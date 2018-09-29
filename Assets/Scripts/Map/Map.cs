@@ -41,6 +41,6 @@ public class Map : MonoBehaviour
         GameObject finish_ch = Instantiate(chunkPrefab, transform, false);
         finish_ch.transform.localPosition = new Vector3((mapLength-1)*chunkDistance, 5.5f);
         finish_ch.GetComponent<Chunk>().GenerateChunk(1);
-        Instantiate(camBoundary, new Vector3(finish_ch.transform.position.x + 4.5f, 8), Quaternion.identity);
+        Instantiate(camBoundary, new Vector3(finish_ch.transform.position.x + 12f, 8), Quaternion.identity);
     }
 }
