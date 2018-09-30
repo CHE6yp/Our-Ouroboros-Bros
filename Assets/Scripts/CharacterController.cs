@@ -12,12 +12,6 @@ public class CharacterController : PhysicsObject
 
     public int health = 1;
 
-    public GameObject playerGreen;
-    public GameObject playerRed;
-    public FollowCam cam;
-
-    public bool red = false;
-
     // Use this for initialization
     void Awake()
     {
@@ -57,10 +51,11 @@ public class CharacterController : PhysicsObject
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        PlayerController pc = new PlayerController(); //GetComponent<PlayerController>().SwitchPlayers();
         if (col.gameObject.tag == "Enemy")
         {
             Debug.Log("You Died");
-            //SwitchPlayers();
+            pc.SwitchPlayers();
         }
     }
 }
