@@ -5,6 +5,8 @@ using UnityEngine;
 public class Chunk : MonoBehaviour
 {
     public GameObject solidBox;
+    public GameObject enemyPref;
+    public GameObject spikes;
 
     public void GenerateChunk(int tempId)
     {
@@ -26,11 +28,17 @@ public class Chunk : MonoBehaviour
         {
             default:
                 break;
-            case 0:
-                break;
             case 1:
                 GameObject b = Instantiate(solidBox, this.transform, false);
                 b.transform.localPosition = new Vector3(x/2, -y/2);
+                break;
+            case 2:
+                GameObject e = Instantiate(enemyPref, this.transform, false);
+                e.transform.localPosition = new Vector3(x / 2, -y / 2);
+                break;
+            case 3:
+                GameObject s = Instantiate(spikes, this.transform, false);
+                s.transform.localPosition = new Vector3(x / 2, -y / 2);
                 break;
         }
 

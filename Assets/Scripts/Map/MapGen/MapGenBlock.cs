@@ -41,7 +41,7 @@ public class MapGenBlock : MonoBehaviour
     void OnMouseOver()
     {
         if (Input.GetMouseButton(0))
-            SetBothBlocksType(1);
+            SetBothBlocksType(MapGenChunk.placedBlockType);
         else
             if (Input.GetMouseButton(1))
             SetBothBlocksType(0);

@@ -41,8 +41,11 @@ public class MapGenChunk : MonoBehaviour
 
     public TextMesh chunkIdText;
 
+    public static int placedBlockType = 0;
+
     public void Start()
     {
+        
         ChunkTemplates.GetFromTxt();
         GenerateChunk();
         chunkIdText.text = "new";
@@ -90,6 +93,16 @@ public class MapGenChunk : MonoBehaviour
             SetChunk(ChunkTemplates.templates[tempId]);
             chunkIdText.text = tempId.ToString();
         }
+
+        ///=============
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            placedBlockType = 1;
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            placedBlockType = 2;
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            placedBlockType = 3;
+
+
     }
 
     public void ReverseMap()
