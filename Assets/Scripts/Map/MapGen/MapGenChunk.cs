@@ -41,7 +41,7 @@ public class MapGenChunk : MonoBehaviour
 
     public TextMesh chunkIdText;
 
-    public static int placedBlockType = 0;
+    public static int placedBlockType = 1;
 
     public void Start()
     {
