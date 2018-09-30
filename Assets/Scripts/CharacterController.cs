@@ -10,7 +10,7 @@ public class CharacterController : PhysicsObject
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
-    public int health = 10;
+    public int health = 1;
 
     // Use this for initialization
     void Awake()
@@ -51,16 +51,11 @@ public class CharacterController : PhysicsObject
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        PlayerController pc = new PlayerController(); //GetComponent<PlayerController>().SwitchPlayers();
         if (col.gameObject.tag == "Enemy")
         {
-            if (health >= 0)
-            {
-                health -= 2;
-            }
-            else
-            {
-                Debug.Log("You Died");
-            }
+            Debug.Log("You Died");
+            pc.SwitchPlayers();
         }
     }
 }

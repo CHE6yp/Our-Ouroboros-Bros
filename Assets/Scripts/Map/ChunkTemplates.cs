@@ -11,7 +11,7 @@ public class ChunkTemplates
 
     public static void GetFromTxt()
     {
-
+        templates = new List<int[][]>();
         string filePath = Application.streamingAssetsPath + "/chunks.txt";
         Debug.Log(filePath);
 

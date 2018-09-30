@@ -36,22 +36,73 @@ public class MapGenChunk : MonoBehaviour
 
     bool reversed = false;
 
+    bool newChunk = true;
+    public int tempId = 0;
+
+    public TextMesh chunkIdText;
+
+    public static int placedBlockType = 1;
+
     public void Start()
     {
+        
         ChunkTemplates.GetFromTxt();
         GenerateChunk();
+        chunkIdText.text = "new";
     }
 
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
-            SaveTemplateAsNew();
+            SaveTemplate();
         if (Input.GetKeyDown(KeyCode.R))
             ReverseMap();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene(0);
         }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            newChunk = false;
+            SetChunk(ChunkTemplates.templates[tempId]);
+            chunkIdText.text = tempId.ToString();
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            newChunk = true;
+            SetChunk(emptyTemplate);
+            chunkIdText.text = "new";
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            newChunk = false;
+            if (tempId == 0)
+                tempId = ChunkTemplates.templates.Count - 1;
+            else
+                tempId--;
+            SetChunk(ChunkTemplates.templates[tempId]);
+            chunkIdText.text = tempId.ToString();
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            newChunk = false;
+            if (tempId == ChunkTemplates.templates.Count - 1)
+                tempId = 0;
+            else
+                tempId++;
+            SetChunk(ChunkTemplates.templates[tempId]);
+            chunkIdText.text = tempId.ToString();
+        }
+
+        ///=============
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            placedBlockType = 1;
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            placedBlockType = 2;
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            placedBlockType = 3;
+
+
     }
 
     public void ReverseMap()
@@ -76,6 +127,20 @@ public class MapGenChunk : MonoBehaviour
             }
         }
     }
+
+
+    public void SetChunk(int[][] template)
+    {
+        for (int i = 0; i < emptyTemplate.Length; i++)
+        {
+            
+            for (int k = 0; k < emptyTemplate[i].Length; k++)
+            {
+                mapGenBlocks[i][k].SetBothBlocksType(template[i][k]);
+            }
+        }
+    }
+    
 
     MapGenBlock SpawnBlock(int x, int y, int type, bool toMatrix)
     {
@@ -138,6 +203,18 @@ public class MapGenChunk : MonoBehaviour
         te.text = GetTemplateMatrixText();
         te.SelectAll();
         te.Copy();
+    }
+
+    public void SaveTemplate()
+    {
+        if (newChunk)
+            SaveTemplateAsNew();
+        else
+        {
+            Debug.Log("Save existing template");
+            ChunkTemplates.templates[tempId] = GetTemplateMatrix();
+            ChunkTemplates.SaveToTxt();
+        }
     }
 
     public void SaveTemplateAsNew()
