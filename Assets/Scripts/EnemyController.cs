@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public GameObject player;
-    public float speed = 2;
+    public float speed = 1;
     public float dist = 0;
     public float pos = 4;
     public float direction = -1f;
@@ -14,6 +14,10 @@ public class EnemyController : MonoBehaviour
     public LayerMask enemyMask;
     Transform mTrans;
     float mWidth, mHeight;
+
+    bool isGrounded;
+    bool isBlocked;
+    public float timer = 0;
 
     void Start()
     {
@@ -27,22 +31,20 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector2 lineCastPos = mTrans.position.toVector2() - mTrans.right.toVector2() * mWidth + Vector2.up * mHeight;
-        Debug.DrawLine(lineCastPos, lineCastPos + Vector2.down);
-        bool isGrounded = Physics2D.Linecast(lineCastPos, lineCastPos + Vector2.down, enemyMask);
-        Debug.DrawLine(lineCastPos, lineCastPos - mTrans.right.toVector2() * .1f);
-        bool isBlocked = Physics2D.Linecast(lineCastPos, lineCastPos - mTrans.right.toVector2() * .1f, enemyMask);
+        timer += Time.deltaTime;
 
         //Разворот, если нет пола или впереди блок
-        if (!isGrounded || isBlocked)
+        if /*(!isGrounded || isBlocked)*/ (timer >= 5)
         {
-            //speed *= -1;
+            Debug.Log("Сработало условие");
+            speed *= -1;
+            timer = 0;
+            /*
             Vector2 curRot = mTrans.eulerAngles;
             curRot.y += 180 * Time.deltaTime;
             mTrans.eulerAngles = curRot;
-            /*
             Vector2 curScale = mTrans.localScale;
-            curScale.x -= 1 * Time.deltaTime;
+            curScale.x *= -1;// * Time.deltaTime;
             mTrans.localScale = curScale;
             */
         }
@@ -51,6 +53,12 @@ public class EnemyController : MonoBehaviour
         Vector2 mVelocity = rBody.velocity;
         mVelocity.x = -speed;
         rBody.velocity = mVelocity;
+
+        Vector2 lineCastPos = mTrans.position.toVector2() - mTrans.right.toVector2() * mWidth + Vector2.up * mHeight;
+        Debug.DrawLine(lineCastPos, lineCastPos + Vector2.down);
+        isGrounded = Physics2D.Linecast(lineCastPos, lineCastPos + Vector2.down, enemyMask);
+        Debug.DrawLine(lineCastPos, lineCastPos - mTrans.right.toVector2() * .1f);
+        isBlocked = Physics2D.OverlapArea(lineCastPos, lineCastPos - mTrans.right.toVector2() * .1f, enemyMask);
 
         /*
         dist = Vector2.Distance(player.transform.position, transform.position);

@@ -10,7 +10,13 @@ public class CharacterController : PhysicsObject
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
-    public int health = 10;
+    public int health = 1;
+
+    public GameObject playerGreen;
+    public GameObject playerRed;
+    public FollowCam cam;
+
+    public bool red = false;
 
     // Use this for initialization
     void Awake()
@@ -53,14 +59,8 @@ public class CharacterController : PhysicsObject
     {
         if (col.gameObject.tag == "Enemy")
         {
-            if (health >= 0)
-            {
-                health -= 2;
-            }
-            else
-            {
-                Debug.Log("You Died");
-            }
+            Debug.Log("You Died");
+            //SwitchPlayers();
         }
     }
 }
