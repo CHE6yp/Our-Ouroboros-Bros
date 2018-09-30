@@ -641,6 +641,7 @@ PrefabInstance:
       value: Enemy
       objectReference: {fileID: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
     - target: {fileID: 7309876380622751652, guid: 1a9dddb205b1aa142bfc10e8e7abe197, type: 3}
       propertyPath: m_BodyType
       value: 0
@@ -717,6 +718,8 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.newSize.y
       value: 1.44
       objectReference: {fileID: 0}
+=======
+>>>>>>> 3ee7de70c90a1fcf9228b34887d8442dc8a7bfa7
 =======
 >>>>>>> 3ee7de70c90a1fcf9228b34887d8442dc8a7bfa7
     m_RemovedComponents: []
