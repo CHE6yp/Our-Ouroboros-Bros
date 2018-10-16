@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterController : PhysicsObject
+public class EnemyController : PhysicsObject
 {
+
     public float maxSpeed = 15;
     public float jumpTakeOffSpeed = 15;
 
@@ -12,30 +13,26 @@ public class CharacterController : PhysicsObject
 
     public int health = 10;
 
-    // Use this for initialization
-    void Awake()
+    public float timeSpan = 10;
+    public float time = 0;
+    public bool goRight = false;
+
+
+    void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
 
+
+
     protected override void ComputeVelocity()
     {
         Vector2 move = Vector2.zero;
 
-        move.x = Input.GetAxis("Horizontal");
+        move.x = DirectionTimed();
 
-        if (Input.GetButtonDown("Jump") && grounded)
-        {
-            velocity.y = jumpTakeOffSpeed;
-        }
-        else if (Input.GetButtonUp("Jump"))
-        {
-            if (velocity.y > 0)
-            {
-                velocity.y = velocity.y * 0.5f;
-            }
-        }
+
 
         bool flipSprite = (spriteRenderer.flipX ? (move.x > 0.01f) : (move.x < 0.01f));
         if (flipSprite)
@@ -46,21 +43,17 @@ public class CharacterController : PhysicsObject
         animator.SetBool("grounded", grounded);
         animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
 
-        targetVelocity = move * maxSpeed /2;
+        targetVelocity = move * maxSpeed / 2;
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    public float DirectionTimed()
     {
-        if (col.gameObject.tag == "Enemy")
+        time += Time.deltaTime;
+        if (time >= timeSpan)
         {
-            if (health >= 0)
-            {
-                health -= 2;
-            }
-            else
-            {
-                Debug.Log("You Died");
-            }
+            goRight = !goRight;
+            time = 0;
         }
+        return (goRight) ? 1 : -1;
     }
 }

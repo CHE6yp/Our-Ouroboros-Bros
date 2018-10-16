@@ -30,15 +30,15 @@ public class Chunk : MonoBehaviour
                 break;
             case 1:
                 GameObject b = Instantiate(solidBox, this.transform, false);
-                b.transform.localPosition = new Vector3(x/2, -y/2);
+                b.transform.localPosition = new Vector3(x, -y);
                 break;
             case 2:
                 GameObject e = Instantiate(enemyPref, this.transform, false);
-                e.transform.localPosition = new Vector3(x / 2, -y / 2);
+                e.transform.localPosition = new Vector3(x, -y);
                 break;
             case 3:
                 GameObject s = Instantiate(spikes, this.transform, false);
-                s.transform.localPosition = new Vector3(x / 2, -y / 2);
+                s.transform.localPosition = new Vector3(x, -y);
                 break;
         }
 

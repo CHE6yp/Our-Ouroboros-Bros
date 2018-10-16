@@ -43,6 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1804ac60d477f4cb81971db11920cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  solidBox: {fileID: 1927055553922694520, guid: da7958857a4cc1846a5fac4447bab6e3, type: 3}
-  enemyPref: {fileID: 7309876380622751654, guid: 1a9dddb205b1aa142bfc10e8e7abe197, type: 3}
+  solidBox: {fileID: 1927055553922694520, guid: da7958857a4cc1846a5fac4447bab6e3,
+    type: 3}
+  enemyPref: {fileID: 1449560398367684457, guid: 1a9dddb205b1aa142bfc10e8e7abe197,
+    type: 3}
   spikes: {fileID: 5000351898554189269, guid: c689b0ee437f6454692ed54398a234c6, type: 3}
