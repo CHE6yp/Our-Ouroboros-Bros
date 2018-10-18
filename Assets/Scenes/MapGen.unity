@@ -161,7 +161,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.16037738, g: 0.0970174, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -305,55 +305,68 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f, type: 3}
+    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.75
       objectReference: {fileID: 0}
-    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f, type: 3}
+    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f,
+        type: 3}
       propertyPath: m_LocalPosition.y
       value: 5.25
       objectReference: {fileID: 0}
-    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f, type: 3}
+    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f,
+        type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f, type: 3}
+    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f, type: 3}
+    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f,
+        type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f, type: 3}
+    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f,
+        type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f, type: 3}
+    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f,
+        type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f, type: 3}
+    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f,
+        type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f, type: 3}
+    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f,
+        type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f, type: 3}
+    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f,
+        type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f, type: 3}
+    - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f,
+        type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8270095710714248195, guid: ef4b9e92087cfce4daf65e3ad458389f, type: 3}
+    - target: {fileID: 8270095710714248195, guid: ef4b9e92087cfce4daf65e3ad458389f,
+        type: 3}
       propertyPath: m_Name
       value: MapGenChunk
       objectReference: {fileID: 0}
-    - target: {fileID: 8270095710714248192, guid: ef4b9e92087cfce4daf65e3ad458389f, type: 3}
+    - target: {fileID: 8270095710714248192, guid: ef4b9e92087cfce4daf65e3ad458389f,
+        type: 3}
       propertyPath: chunkIdText
       value: 
       objectReference: {fileID: 1047840234}

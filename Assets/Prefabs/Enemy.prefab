@@ -26,7 +26,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGroundNormalY: 0
   gravityModifier: 10
-  maxSpeed: 30
+  maxSpeed: 15
   jumpTakeOffSpeed: 30
   spriteRenderer: {fileID: 3976967348734177224}
   health: 10
