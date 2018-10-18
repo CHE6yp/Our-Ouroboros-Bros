@@ -8,7 +8,7 @@ public class CharacterController : PhysicsObject
     public float maxSpeed = 15;
     public float jumpTakeOffSpeed = 15;
 
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     private Animator animator;
 
     public int health = 1;
@@ -16,7 +16,7 @@ public class CharacterController : PhysicsObject
     // Use this for initialization
     void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        //spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
 
@@ -53,11 +53,11 @@ public class CharacterController : PhysicsObject
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        PlayerController pc = new PlayerController(); //GetComponent<PlayerController>().SwitchPlayers();
+        //PlayerController pc = new PlayerController(); //GetComponent<PlayerController>().SwitchPlayers();
         if (col.gameObject.tag == "Enemy")
         {
             Debug.Log("You Died");
-            pc.SwitchPlayers();
+            PlayerController.instance.SwitchPlayers();
         }
     }
 }

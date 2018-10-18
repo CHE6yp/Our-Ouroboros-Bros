@@ -45,6 +45,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   solidBox: {fileID: 1927055553922694520, guid: da7958857a4cc1846a5fac4447bab6e3,
     type: 3}
+  solidBoxHell: {fileID: 6265410734784421526, guid: c31d0e50bc3d7904f8ec938774a7a34c,
+    type: 3}
   enemyPref: {fileID: 1449560398367684457, guid: 1a9dddb205b1aa142bfc10e8e7abe197,
     type: 3}
   spikes: {fileID: 5000351898554189269, guid: c689b0ee437f6454692ed54398a234c6, type: 3}
+  spikesHell: {fileID: 6809151045434254522, guid: 99c7f1928df33af4dbf8cea0c7068e06,
+    type: 3}

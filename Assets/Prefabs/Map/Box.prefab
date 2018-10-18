@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8496519152586609011}
   - component: {fileID: 8492131669136983484}
   - component: {fileID: 4326180820289573299}
+  - component: {fileID: 7853637274752798564}
   m_Layer: 0
   m_Name: Box
   m_TagString: Untagged
@@ -69,7 +70,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d6c0e8bd96be72a439d603aa11cdbc8a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 284f8089bf82c234c9f66b3058e37616, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,3 +107,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7853637274752798564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927055553922694520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc756d0fdf2d55e418e27319525f25d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 8492131669136983484}
+  surfaceSprites:
+  - {fileID: 21300000, guid: 284f8089bf82c234c9f66b3058e37616, type: 3}
+  - {fileID: 21300000, guid: a090607f84fd3aa4d9849e9461dc040e, type: 3}
+  - {fileID: 21300000, guid: d8955972f58ee4b409ecea84de41d23c, type: 3}
+  deepSprites: []

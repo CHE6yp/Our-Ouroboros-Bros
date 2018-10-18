@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
     public GameObject playerGreen;
     public GameObject playerRed;
     public FollowCam cam;
@@ -12,9 +13,9 @@ public class PlayerController : MonoBehaviour
     public bool red = false;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        instance = this;
     }
 
     // Update is called once per frame
@@ -48,7 +49,8 @@ public class PlayerController : MonoBehaviour
         playerRed.SetActive(red);
         cam.player = (red) ? playerRed.transform : playerGreen.transform;
         cam.camBound = (red) ? playerRed.GetComponent<CamBound>() : playerGreen.GetComponent<CamBound>();
-        cam.yValue = (red) ? 10.5f : 0;
+        cam.yValue = (red) ? 10.5f : -10.5f;
+        //cam.GetComponent<Camera>().backgroundColor = (red) ? new Color(41, 25, 0) : new Color(41, 25, 0);
         cam.PlayerPosition();
     }
 

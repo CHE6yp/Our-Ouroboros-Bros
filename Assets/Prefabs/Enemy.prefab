@@ -1,5 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!212 &3976967348734177224 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5081466920460888733, guid: 50a597c555d156e48812fd99b9e5fd7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8193729452389729621}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1449560398367684457 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7325146604392247868, guid: 50a597c555d156e48812fd99b9e5fd7d,
@@ -22,6 +28,7 @@ MonoBehaviour:
   gravityModifier: 10
   maxSpeed: 30
   jumpTakeOffSpeed: 30
+  spriteRenderer: {fileID: 3976967348734177224}
   health: 10
   timeSpan: 0.5
   time: 0
@@ -99,7 +106,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 5e84b3fbe579fc64d91316806611ad38,
         type: 3}
+    - target: {fileID: 5081466920460888733, guid: 50a597c555d156e48812fd99b9e5fd7d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f0ef327eea6a0444f98eee61de3fea6b,
+        type: 3}
     m_RemovedComponents:
-    - {fileID: 7325146604392247864, guid: 50a597c555d156e48812fd99b9e5fd7d, type: 3}
     - {fileID: 866614960170886736, guid: 50a597c555d156e48812fd99b9e5fd7d, type: 3}
+    - {fileID: 1988045777422570612, guid: 50a597c555d156e48812fd99b9e5fd7d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 50a597c555d156e48812fd99b9e5fd7d, type: 3}

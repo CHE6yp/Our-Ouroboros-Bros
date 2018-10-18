@@ -8,7 +8,7 @@ public class EnemyController : PhysicsObject
     public float maxSpeed = 15;
     public float jumpTakeOffSpeed = 15;
 
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     private Animator animator;
 
     public int health = 10;
@@ -20,7 +20,7 @@ public class EnemyController : PhysicsObject
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        //spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
 
