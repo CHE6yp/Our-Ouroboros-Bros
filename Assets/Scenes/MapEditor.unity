@@ -123,7 +123,6 @@ GameObject:
   - component: {fileID: 254555892}
   - component: {fileID: 254555891}
   - component: {fileID: 254555890}
-  - component: {fileID: 254555889}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -131,18 +130,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &254555889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 254555888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1440b1a8aed2184fa838f7e6f682331, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!81 &254555890
 AudioListener:
   m_ObjectHideFlags: 0
@@ -363,7 +350,7 @@ PrefabInstance:
     - target: {fileID: 8270095710714248195, guid: ef4b9e92087cfce4daf65e3ad458389f,
         type: 3}
       propertyPath: m_Name
-      value: MapGenChunk
+      value: MapEditorChunk
       objectReference: {fileID: 0}
     - target: {fileID: 8270095710714248192, guid: ef4b9e92087cfce4daf65e3ad458389f,
         type: 3}

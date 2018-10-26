@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapGenBlock : MonoBehaviour
+public class MapEditorBlock : MonoBehaviour
 {
     public int blockType;
     public SpriteRenderer spriteRenderer;
 
     public Sprite[] sprites;
 
-    public MapGenBlock relatedBlock;
+    public MapEditorBlock relatedBlock;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +41,7 @@ public class MapGenBlock : MonoBehaviour
     void OnMouseOver()
     {
         if (Input.GetMouseButton(0))
-            SetBothBlocksType(MapGenChunk.placedBlockType);
+            SetBothBlocksType(MapEditorChunk.placedBlockType);
         else
             if (Input.GetMouseButton(1))
             SetBothBlocksType(0);

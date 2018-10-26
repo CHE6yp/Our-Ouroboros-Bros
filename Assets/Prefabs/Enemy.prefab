@@ -6,9 +6,75 @@ SpriteRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 8193729452389729621}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5215759721546238768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1859842669007668852}
+  m_Layer: 0
+  m_Name: GroundDetection (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1859842669007668852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5215759721546238768}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.3, y: -0.30000004, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1449560398367684458}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7470913007835357971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 215471584665897967}
+  m_Layer: 0
+  m_Name: GroundDetection
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &215471584665897967
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7470913007835357971}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.3, y: -0.3, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1449560398367684458}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1449560398367684457 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7325146604392247868, guid: 50a597c555d156e48812fd99b9e5fd7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8193729452389729621}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1449560398367684458 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7325146604392247871, guid: 50a597c555d156e48812fd99b9e5fd7d,
     type: 3}
   m_PrefabInstance: {fileID: 8193729452389729621}
   m_PrefabAsset: {fileID: 0}
@@ -26,13 +92,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGroundNormalY: 0
   gravityModifier: 10
-  maxSpeed: 15
+  maxSpeed: 6
   jumpTakeOffSpeed: 30
   spriteRenderer: {fileID: 3976967348734177224}
   health: 10
   timeSpan: 0.5
   time: 0
   goRight: 0
+  groundDetectionCurrent: {fileID: 0}
+  groundDetection1: {fileID: 215471584665897967}
+  groundDetection2: {fileID: 1859842669007668852}
+  groundDetectionDistance: 1
+  obstacleDetectionCurrent: {fileID: 0}
+  obstacleDetection1: {fileID: 0}
+  obstacleDetection2: {fileID: 0}
+  obstacleDetectionDistance: 0.3
 --- !u!1001 &8193729452389729621
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -112,6 +186,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: f0ef327eea6a0444f98eee61de3fea6b,
         type: 3}
+    - target: {fileID: 7325146604392247868, guid: 50a597c555d156e48812fd99b9e5fd7d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 866614960170886736, guid: 50a597c555d156e48812fd99b9e5fd7d, type: 3}
     - {fileID: 1988045777422570612, guid: 50a597c555d156e48812fd99b9e5fd7d, type: 3}

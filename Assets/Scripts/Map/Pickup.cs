@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapGenPlayer : MonoBehaviour
+public class Pickup : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,5 +14,11 @@ public class MapGenPlayer : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+            Destroy(this.gameObject);
     }
 }

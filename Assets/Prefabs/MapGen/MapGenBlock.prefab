@@ -99,6 +99,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 284f8089bf82c234c9f66b3058e37616, type: 3}
   - {fileID: 21300000, guid: f0ef327eea6a0444f98eee61de3fea6b, type: 3}
   - {fileID: 21300000, guid: 855d1fdc061f8944791a5beeb2a9acbf, type: 3}
+  - {fileID: 21300000, guid: 5e84b3fbe579fc64d91316806611ad38, type: 3}
   relatedBlock: {fileID: 0}
 --- !u!61 &7231937034509511261
 BoxCollider2D:

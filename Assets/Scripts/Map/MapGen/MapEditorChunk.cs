@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MapGenChunk : MonoBehaviour
+public class MapEditorChunk : MonoBehaviour
 {
     public GameObject mapGenBlock;
 
@@ -31,7 +31,7 @@ public class MapGenChunk : MonoBehaviour
         new int[32] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1  },
     };
 
-    public MapGenBlock[][] mapGenBlocks = new MapGenBlock[20][];
+    public MapEditorBlock[][] mapGenBlocks = new MapEditorBlock[20][];
 
 
     bool reversed = false;
@@ -101,6 +101,8 @@ public class MapGenChunk : MonoBehaviour
             placedBlockType = 2;
         if (Input.GetKeyDown(KeyCode.Alpha3))
             placedBlockType = 3;
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            placedBlockType = 4;
 
 
     }
@@ -116,11 +118,11 @@ public class MapGenChunk : MonoBehaviour
 
         for (int i = 0; i < emptyTemplate.Length; i++)
         {
-            mapGenBlocks[i] = new MapGenBlock[32];
+            mapGenBlocks[i] = new MapEditorBlock[32];
             for (int k = 0; k < emptyTemplate[i].Length; k++)
             {
-                MapGenBlock block = SpawnBlock(k, i + 1, emptyTemplate[i][k],true);
-                MapGenBlock blockReversed = SpawnBlock(k, -(i + 1), emptyTemplate[i][k], false);
+                MapEditorBlock block = SpawnBlock(k, i + 1, emptyTemplate[i][k],true);
+                MapEditorBlock blockReversed = SpawnBlock(k, -(i + 1), emptyTemplate[i][k], false);
 
                 block.relatedBlock = blockReversed;
                 blockReversed.relatedBlock = block;
@@ -142,17 +144,17 @@ public class MapGenChunk : MonoBehaviour
     }
     
 
-    MapGenBlock SpawnBlock(int x, int y, int type, bool toMatrix)
+    MapEditorBlock SpawnBlock(int x, int y, int type, bool toMatrix)
     {
         
         GameObject b = Instantiate(mapGenBlock, this.transform, false);
         b.transform.localPosition = new Vector3((float)x / 2, (float)-y / 2);
-        b.GetComponent<MapGenBlock>().SetBlockType(type);
+        b.GetComponent<MapEditorBlock>().SetBlockType(type);
 
         //Debug.Log(x + " " + y);
         if (toMatrix)
-            mapGenBlocks[y-1][x] = b.GetComponent<MapGenBlock>();
-        return b.GetComponent<MapGenBlock>();
+            mapGenBlocks[y-1][x] = b.GetComponent<MapEditorBlock>();
+        return b.GetComponent<MapEditorBlock>();
 
     }
 

@@ -60,4 +60,5 @@ public class CharacterController : PhysicsObject
             PlayerController.instance.SwitchPlayers();
         }
     }
+
 }

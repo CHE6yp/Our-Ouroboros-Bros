@@ -91,5 +91,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 2a7b467c9a605a14c89a4c234677ee61,
         type: 3}
+    - target: {fileID: 7853637274752798564, guid: da7958857a4cc1846a5fac4447bab6e3,
+        type: 3}
+      propertyPath: deepSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 3be4502526261dd4eb7cd3262e543927,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da7958857a4cc1846a5fac4447bab6e3, type: 3}

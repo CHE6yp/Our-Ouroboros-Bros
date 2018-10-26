@@ -52,3 +52,4 @@ MonoBehaviour:
   spikes: {fileID: 5000351898554189269, guid: c689b0ee437f6454692ed54398a234c6, type: 3}
   spikesHell: {fileID: 6809151045434254522, guid: 99c7f1928df33af4dbf8cea0c7068e06,
     type: 3}
+  pickup: {fileID: 621477204940001548, guid: 9c8ce3e893603d145b14bea76ed676e8, type: 3}
