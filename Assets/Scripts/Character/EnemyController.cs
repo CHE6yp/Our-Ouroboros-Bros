@@ -79,7 +79,7 @@ public class EnemyController : PhysicsObject
         Vector2 obstacleCheckDirection = (goRight) ? Vector2.right : Vector2.left;
         RaycastHit2D obstacleInfo = Physics2D.Raycast(groundDetectionCurrent.position, obstacleCheckDirection, obstacleDetectionDistance);
         Debug.DrawRay(groundDetectionCurrent.position, obstacleCheckDirection, Color.blue);
-        Debug.Log(obstacleInfo.collider);
+        //Debug.Log(obstacleInfo.collider);
 
         //какой же говнокод
         if (!groundInfo.collider || groundInfo.collider.tag == "Spike" || groundInfo.collider.isTrigger || (obstacleInfo.collider != null && obstacleInfo.collider.tag != "Player"))
