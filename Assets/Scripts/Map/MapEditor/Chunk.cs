@@ -8,6 +8,12 @@ namespace MapEditor
     public class Chunk : MonoBehaviour
     {
         public static Chunk instance;
+
+        public delegate void EditorChunkEvent();
+        public static event EditorChunkEvent switchTemplate;
+        public static event EditorChunkEvent switchBlock;
+
+
         public GameObject mapGenBlock;
 
         public int[][] emptyTemplate = new int[20][]
@@ -39,11 +45,8 @@ namespace MapEditor
 
         bool reversed = false;
 
-        bool newChunk = true;
-        public int tempId = 0;
-
-        public TextMesh chunkIdText;
-
+        public static bool newChunk = true;
+        public static int currentTemplateId = 0;
         public static int placedBlockType = 1;
 
         public void Start()
@@ -51,7 +54,6 @@ namespace MapEditor
             instance = this;
             ChunkTemplates.GetFromTxt();
             GenerateChunk();
-            chunkIdText.text = "new";
         }
 
         public void Update()
@@ -65,10 +67,6 @@ namespace MapEditor
                 chunkIdText.text = tempId.ToString();
             }
             */
-
-            ///=============
-            
-
 
         }
 
@@ -124,7 +122,7 @@ namespace MapEditor
             else
             {
                 Debug.Log("Save existing template");
-                ChunkTemplates.templates[tempId] = GetTemplateMatrix();
+                ChunkTemplates.templates[currentTemplateId] = GetTemplateMatrix();
                 ChunkTemplates.SaveToTxt();
             }
         }
@@ -142,33 +140,36 @@ namespace MapEditor
         {
             newChunk = true;
             SetChunk(emptyTemplate);
-            chunkIdText.text = "new";
+            switchTemplate();
         }
 
         public void NextTemplate()
         {
             newChunk = false;
-            if (tempId == ChunkTemplates.templates.Count - 1)
-                tempId = 0;
+            if (currentTemplateId == ChunkTemplates.templates.Count - 1)
+                currentTemplateId = 0;
             else
-                tempId++;
-            SetChunk(ChunkTemplates.templates[tempId]);
-            chunkIdText.text = tempId.ToString();
+                currentTemplateId++;
+            SetChunk(ChunkTemplates.templates[currentTemplateId]);
+            switchTemplate();
         }
 
         public void PreviousTemplate()
         {
             newChunk = false;
-            if (tempId == 0)
-                tempId = ChunkTemplates.templates.Count - 1;
+            if (currentTemplateId == 0)
+                currentTemplateId = ChunkTemplates.templates.Count - 1;
             else
-                tempId--;
-            SetChunk(ChunkTemplates.templates[tempId]);
-            chunkIdText.text = tempId.ToString();
+                currentTemplateId--;
+            SetChunk(ChunkTemplates.templates[currentTemplateId]);
+            switchTemplate();
         }
 
-
-
+        public static void ChangeBlockType(int id)
+        {
+            placedBlockType = id;
+            switchBlock();
+        }
 
 
         Block SpawnBlock(int x, int y, int type, bool toMatrix)
@@ -195,51 +196,11 @@ namespace MapEditor
                 for (int k = 0; k < mapGenBlocks[i].Length; k++)
                 {
                     newTemplate[i][k] = mapGenBlocks[i][k].blockType;
-                    //SpawnBlock(k, -(i + 1), emptyTemplate[i][k]);
                 }
             }
 
             return newTemplate;
         }
-
-        string GetTemplateMatrixText()
-        {
-            string newTemplate = "new int[20][] \n        { ";
-
-            for (int i = 0; i < mapGenBlocks.Length; i++)
-            {
-                //new int[32] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1  },
-                newTemplate += "\n            new int[32] { ";
-                for (int k = 0; k < mapGenBlocks[i].Length; k++)
-                {
-                    newTemplate += mapGenBlocks[i][k].blockType.ToString();
-                    newTemplate += (k == mapGenBlocks[i].Length - 1) ? "" : ",";
-                    //SpawnBlock(k, -(i + 1), emptyTemplate[i][k]);
-                }
-                newTemplate += "}";
-                newTemplate += (i == mapGenBlocks.Length - 1) ? "" : ",";
-            }
-            newTemplate += "\n        },";
-
-            return newTemplate;
-        }
-
-
-        /// <summary>
-        /// Уже не нужно кажись
-        /// </summary>
-        public void CopyTemplate()
-        {
-            TextEditor te = new TextEditor();
-
-
-            te.text = GetTemplateMatrixText();
-            te.SelectAll();
-            te.Copy();
-        }
-
-
-
 
 
     }

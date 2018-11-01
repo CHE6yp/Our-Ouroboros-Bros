@@ -35,13 +35,13 @@ namespace MapEditor
 
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
-                Chunk.placedBlockType = 1;
+                Chunk.ChangeBlockType(1);
             if (Input.GetKeyDown(KeyCode.Alpha2))
-                Chunk.placedBlockType = 2;
+                Chunk.ChangeBlockType(2);
             if (Input.GetKeyDown(KeyCode.Alpha3))
-                Chunk.placedBlockType = 3;
+                Chunk.ChangeBlockType(3);
             if (Input.GetKeyDown(KeyCode.Alpha4))
-                Chunk.placedBlockType = 4;
+                Chunk.ChangeBlockType(4);
 
             if (Input.GetKeyDown(KeyCode.H))
                 UIManager.instance.ToggleHelp();
