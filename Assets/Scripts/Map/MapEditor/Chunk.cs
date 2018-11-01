@@ -13,47 +13,27 @@ namespace MapEditor
         public static event EditorChunkEvent switchTemplate;
         public static event EditorChunkEvent switchBlock;
 
-
-        public GameObject mapGenBlock;
-
-        public int[][] emptyTemplate = new int[20][]
-        {
-        new int[32] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1  },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        new int[32] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1  },
-        };
-
-        public Block[][] mapGenBlocks = new Block[20][];
-
-
-        bool reversed = false;
-
         public static bool newChunk = true;
         public static int currentTemplateId = 0;
         public static int placedBlockType = 1;
+        static bool reversed = false;
+
+        public GameObject mapGenBlock;
+        public Block[][] mapGenBlocks = new Block[20][];
+
+        public static bool playTesting;
+        public static int[][] playTestTemplate;
+         
 
         public void Start()
         {
             instance = this;
-            ChunkTemplates.GetFromTxt();
             GenerateChunk();
+            if (playTesting)
+                SetChunk(playTestTemplate);
+            else
+                ChunkTemplates.GetFromTxt();
+            
         }
 
         public void Update()
@@ -82,13 +62,13 @@ namespace MapEditor
         void GenerateChunk()
         {
 
-            for (int i = 0; i < emptyTemplate.Length; i++)
+            for (int i = 0; i < ChunkTemplates.emptyTemplate.Length; i++)
             {
                 mapGenBlocks[i] = new Block[32];
-                for (int k = 0; k < emptyTemplate[i].Length; k++)
+                for (int k = 0; k < ChunkTemplates.emptyTemplate[i].Length; k++)
                 {
-                    Block block = SpawnBlock(k, i + 1, emptyTemplate[i][k], true);
-                    Block blockReversed = SpawnBlock(k, -(i + 1), emptyTemplate[i][k], false);
+                    Block block = SpawnBlock(k, i + 1, ChunkTemplates.emptyTemplate[i][k], true);
+                    Block blockReversed = SpawnBlock(k, -(i + 1), ChunkTemplates.emptyTemplate[i][k], false);
 
                     block.relatedBlock = blockReversed;
                     blockReversed.relatedBlock = block;
@@ -102,10 +82,10 @@ namespace MapEditor
         /// <param name="template"></param>
         void SetChunk(int[][] template)
         {
-            for (int i = 0; i < emptyTemplate.Length; i++)
+            for (int i = 0; i < ChunkTemplates.emptyTemplate.Length; i++)
             {
 
-                for (int k = 0; k < emptyTemplate[i].Length; k++)
+                for (int k = 0; k < ChunkTemplates.emptyTemplate[i].Length; k++)
                 {
                     mapGenBlocks[i][k].SetBothBlocksType(template[i][k]);
                 }
@@ -139,7 +119,7 @@ namespace MapEditor
         public void NewTemplate()
         {
             newChunk = true;
-            SetChunk(emptyTemplate);
+            SetChunk(ChunkTemplates.emptyTemplate);
             switchTemplate();
         }
 
@@ -186,7 +166,11 @@ namespace MapEditor
 
         }
 
-        int[][] GetTemplateMatrix()
+        /// <summary>
+        /// Возвращает матрицу текущего шаблона
+        /// </summary>
+        /// <returns></returns>
+        public int[][] GetTemplateMatrix()
         {
             int[][] newTemplate = new int[20][];
 
@@ -201,6 +185,8 @@ namespace MapEditor
 
             return newTemplate;
         }
+
+        
 
 
     }

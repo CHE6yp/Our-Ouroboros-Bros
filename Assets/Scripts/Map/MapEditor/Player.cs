@@ -18,6 +18,7 @@ namespace MapEditor
         {
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton6))
             {
+                Chunk.playTesting = false;
                 SceneManager.LoadScene(0);
             }
 
@@ -27,6 +28,9 @@ namespace MapEditor
                 Chunk.instance.ReverseMap();
             if (Input.GetKeyDown(KeyCode.N))
                 Chunk.instance.NewTemplate();
+            if (Input.GetKeyDown(KeyCode.P))
+                PlayTest();
+
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0)
                 Chunk.instance.PreviousTemplate();
@@ -45,6 +49,13 @@ namespace MapEditor
 
             if (Input.GetKeyDown(KeyCode.H))
                 UIManager.instance.ToggleHelp();
+        }
+
+        public void PlayTest()
+        {
+            Chunk.playTesting = true;
+            Chunk.playTestTemplate = Chunk.instance.GetTemplateMatrix();
+            SceneManager.LoadScene(0);
         }
     }
 }

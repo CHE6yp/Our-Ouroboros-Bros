@@ -11,7 +11,7 @@ public class Chunk : MonoBehaviour
     public GameObject spikesHell;
     public GameObject pickup;
 
-    public void GenerateChunk(int tempId)
+    public void Generate(int tempId)
     {
 
         int[][] template = ChunkTemplates.templates[tempId];
@@ -21,6 +21,18 @@ public class Chunk : MonoBehaviour
             {
                 SpawnBlock(k, i+1, template[i][k]);
                 SpawnBlock(k, -(i+1), template[i][k], true);
+            }
+        }
+    }
+
+    public void Generate(int[][] template)
+    {
+        for (int i = 0; i < template.Length; i++)
+        {
+            for (int k = 0; k < template[i].Length; k++)
+            {
+                SpawnBlock(k, i + 1, template[i][k]);
+                SpawnBlock(k, -(i + 1), template[i][k], true);
             }
         }
     }
@@ -73,5 +85,13 @@ public class Chunk : MonoBehaviour
             }
 
 
+    }
+
+    public void Clear()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }
