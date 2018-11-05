@@ -57,11 +57,13 @@ namespace MapEditor
                     blockText += "Spike";
                     break;
                 case 4:
+                    blockText += "SpikeReverse";
+                    break;
+                case 5:
                     blockText += "Pickup";
                     break;
 
             }
-
 
             blockNameText.text = blockText;
         }

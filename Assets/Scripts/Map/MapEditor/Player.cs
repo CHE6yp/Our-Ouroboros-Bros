@@ -19,7 +19,7 @@ namespace MapEditor
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton6))
             {
                 Chunk.playTesting = false;
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(1);
             }
 
             if (Input.GetKeyDown(KeyCode.S))
@@ -46,6 +46,8 @@ namespace MapEditor
                 Chunk.ChangeBlockType(3);
             if (Input.GetKeyDown(KeyCode.Alpha4))
                 Chunk.ChangeBlockType(4);
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+                Chunk.ChangeBlockType(5);
 
             if (Input.GetKeyDown(KeyCode.H))
                 UIManager.instance.ToggleHelp();
@@ -55,7 +57,7 @@ namespace MapEditor
         {
             Chunk.playTesting = true;
             Chunk.playTestTemplate = Chunk.instance.GetTemplateMatrix();
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
     }
 }

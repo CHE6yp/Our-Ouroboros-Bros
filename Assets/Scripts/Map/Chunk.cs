@@ -9,6 +9,8 @@ public class Chunk : MonoBehaviour
     public GameObject enemyPref;
     public GameObject spikes;
     public GameObject spikesHell;
+    public GameObject spikesRev;
+    public GameObject spikesHellRev;
     public GameObject pickup;
 
     public void Generate(int tempId)
@@ -57,6 +59,10 @@ public class Chunk : MonoBehaviour
                     s.transform.localPosition = new Vector3(x, -y);
                     break;
                 case 4:
+                    GameObject sr = Instantiate(spikesRev, this.transform, false);
+                    sr.transform.localPosition = new Vector3(x, -y);
+                    break;
+                case 5:
                     GameObject p = Instantiate(pickup, this.transform, false);
                     p.transform.localPosition = new Vector3(x, -y);
                     break;
@@ -75,10 +81,14 @@ public class Chunk : MonoBehaviour
                     e.transform.localPosition = new Vector3(x, -y);
                     break;
                 case 3:
-                    GameObject s = Instantiate(spikesHell, this.transform, false);
+                    GameObject s = Instantiate(spikesHellRev, this.transform, false);
                     s.transform.localPosition = new Vector3(x, -y);
                     break;
                 case 4:
+                    GameObject sr = Instantiate(spikesHell, this.transform, false);
+                    sr.transform.localPosition = new Vector3(x, -y);
+                    break;
+                case 5:
                     GameObject p = Instantiate(pickup, this.transform, false);
                     p.transform.localPosition = new Vector3(x, -y);
                     break;

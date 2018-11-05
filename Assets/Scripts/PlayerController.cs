@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton6))
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
 
 

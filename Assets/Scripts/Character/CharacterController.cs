@@ -11,6 +11,8 @@ public class CharacterController : PhysicsObject
     public SpriteRenderer spriteRenderer;
     private Animator animator;
 
+    AudioSource audioSource;
+
     public int health = 1;
 
     // Use this for initialization
@@ -18,6 +20,7 @@ public class CharacterController : PhysicsObject
     {
         //spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     protected override void ComputeVelocity()
@@ -29,6 +32,7 @@ public class CharacterController : PhysicsObject
         if (Input.GetButtonDown("Jump") && grounded)
         {
             velocity.y = jumpTakeOffSpeed;
+            audioSource.Play();
         }
         //позволяет прыгать ниже
         else if (Input.GetButtonUp("Jump"))

@@ -61,7 +61,6 @@ namespace MapEditor
         /// </summary>
         void GenerateChunk()
         {
-
             for (int i = 0; i < ChunkTemplates.emptyTemplate.Length; i++)
             {
                 mapGenBlocks[i] = new Block[32];
