@@ -12,6 +12,8 @@ public class CharacterController : PhysicsObject
     private Animator animator;
 
     AudioSource audioSource;
+    public TextMesh debugText;
+    bool lookLeft;
 
     public int health = 1;
 
@@ -43,11 +45,11 @@ public class CharacterController : PhysicsObject
             }
         }
 
-        bool flipSprite = (spriteRenderer.flipX ? (move.x > 0.01f) : (move.x < 0.01f));
-        if (flipSprite)
-        {
-            spriteRenderer.flipX = !spriteRenderer.flipX;
-        }
+        if ((lookLeft && (move.x > 0.01f)) || !lookLeft && (move.x < -0.01f))
+            SwitchDirection();
+
+        string flipDebugText = "lookLeft: " + lookLeft.ToString() + System.Environment.NewLine + "spriteRenderer.flipX: "+ spriteRenderer.flipX.ToString();
+        DebugText(flipDebugText);
 
         animator.SetBool("grounded", grounded);
         animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
@@ -63,6 +65,17 @@ public class CharacterController : PhysicsObject
             Debug.Log("You Died");
             PlayerController.instance.SwitchPlayers();
         }
+    }
+
+    void DebugText(string text)
+    {
+        debugText.text = text;
+    }
+
+    void SwitchDirection()
+    {
+        lookLeft = !lookLeft;
+        spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 
 }

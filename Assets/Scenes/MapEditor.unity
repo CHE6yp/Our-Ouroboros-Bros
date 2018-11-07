@@ -842,7 +842,9 @@ MonoBehaviour:
 
     3 - Spike
 
-    4 - Pickup'
+    4 - Spike Reversed
+
+    5 - Pickup'
 --- !u!222 &1485998980
 CanvasRenderer:
   m_ObjectHideFlags: 0
