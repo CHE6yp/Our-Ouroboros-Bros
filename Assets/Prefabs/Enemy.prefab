@@ -191,6 +191,21 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 7559088830559260145, guid: 50a597c555d156e48812fd99b9e5fd7d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525835525118469247, guid: 50a597c555d156e48812fd99b9e5fd7d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665171539263832466, guid: 50a597c555d156e48812fd99b9e5fd7d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 866614960170886736, guid: 50a597c555d156e48812fd99b9e5fd7d, type: 3}
     - {fileID: 1988045777422570612, guid: 50a597c555d156e48812fd99b9e5fd7d, type: 3}

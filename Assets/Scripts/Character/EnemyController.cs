@@ -82,8 +82,14 @@ public class EnemyController : PhysicsObject
         //Debug.Log(obstacleInfo.collider);
 
         //какой же говнокод
-        if (!groundInfo.collider || groundInfo.collider.tag == "Spike" || groundInfo.collider.isTrigger || (obstacleInfo.collider != null && obstacleInfo.collider.tag != "Player"))
+        //if (!groundInfo.collider || groundInfo.collider.tag == "Spike" || groundInfo.collider.isTrigger || (obstacleInfo.collider != null && obstacleInfo.collider.tag != "Player"))
+
+        if (obstacleInfo.collider != null )
+            Debug.Log(obstacleInfo.collider.tag);
+
+        if (!groundInfo.collider || groundInfo.collider.tag == "Spike"  || (obstacleInfo.collider != null && (obstacleInfo.collider.tag != "Player" && obstacleInfo.collider.tag != "MeleeRange")))
         {
+            Debug.Log("Turn");
             goRight = !goRight; 
             time = 0;
             groundDetectionCurrent = (groundDetectionCurrent == groundDetection1) ? groundDetection2 : groundDetection1;

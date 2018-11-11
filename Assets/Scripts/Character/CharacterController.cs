@@ -13,6 +13,8 @@ public class CharacterController : PhysicsObject
 
     AudioSource audioSource;
     public TextMesh debugText;
+    public GameObject meleeHit;
+    public MeleeTrigger meleeTrigger;
     bool lookLeft;
 
     public int health = 1;
@@ -45,6 +47,12 @@ public class CharacterController : PhysicsObject
             }
         }
 
+        if (Input.GetButtonDown("Fire3"))
+            Strike();
+
+        if (Input.GetKeyDown(KeyCode.X))
+            Time.timeScale = (Time.timeScale == 1) ? 0.02f : 1;
+
         if ((lookLeft && (move.x > 0.01f)) || !lookLeft && (move.x < -0.01f))
             SwitchDirection();
 
@@ -76,6 +84,13 @@ public class CharacterController : PhysicsObject
     {
         lookLeft = !lookLeft;
         spriteRenderer.flipX = !spriteRenderer.flipX;
+        meleeHit.transform.localScale = new Vector3(meleeHit.transform.localScale.x * -1, meleeHit.transform.localScale.y, meleeHit.transform.localScale.z);
+        //meleeHit.transform.position = meleeHit.transform.position * -1;
     }
 
+
+    public void Strike()
+    {
+        StartCoroutine(meleeTrigger.Strike());
+    }
 }
