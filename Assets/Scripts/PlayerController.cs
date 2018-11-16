@@ -33,15 +33,16 @@ public class PlayerController : MonoBehaviour
 
 
         // проверка геймпада
-        for (int i = 0; i < 20; i++)
-        {
-            if (Input.GetKeyDown("joystick 1 button " + i))
-            {
-                Debug.Log("joystick 1 button " + i);
-            }
-        }
+        //for (int i = 0; i < 20; i++)
+        //{
+          //  if (Input.GetKeyDown("joystick 1 button " + i))
+            //{
+              //  Debug.Log("joystick 1 button " + i);
+            //}
+        //}
     }
 
+    //MAKE IT STATIC
     public void SwitchPlayers()
     {
         red = !red;
@@ -54,5 +55,6 @@ public class PlayerController : MonoBehaviour
         cam.PlayerPosition();
     }
 
+    
 
 }

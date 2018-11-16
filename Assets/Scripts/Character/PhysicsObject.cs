@@ -30,6 +30,7 @@ public class PhysicsObject : MonoBehaviour
     {
         contactFilter.useTriggers = false;
         contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer));
+        Debug.Log(gameObject.layer);
         contactFilter.useLayerMask = true;
     }
 
@@ -74,7 +75,12 @@ public class PhysicsObject : MonoBehaviour
             hitBufferList.Clear();
             for (int i = 0; i < count; i++)
             {
-                hitBufferList.Add(hitBuffer[i]);
+                // TODO блядь какое же это сранное говно, это условие, нахуй понять как правильно и сделать правильно
+                // а вообще это дерьмо тут чтобы враг мог нормально проходить через игрока. Без условия он останавливался, хотя в слоях я прописал им чтобы они не сталкивались
+                // разобраться со слоями короче надо
+                if (hitBuffer[i].collider.tag != "Player")
+                    hitBufferList.Add(hitBuffer[i]);
+                //Debug.Log(hitBuffer[i].collider.name);
             }
 
             for (int i = 0; i < hitBufferList.Count; i++)

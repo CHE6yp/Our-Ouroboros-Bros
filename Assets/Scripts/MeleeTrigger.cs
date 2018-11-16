@@ -6,6 +6,9 @@ public class MeleeTrigger : MonoBehaviour
 {
     public bool active;
     public float duration = 0.1f;
+    public GameObject attackSprite;
+    public bool down;
+    public CharacterController characterController;
 
     public AudioSource audioSource;
 
@@ -30,16 +33,24 @@ public class MeleeTrigger : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (active && collision.tag == "Enemy")
+        {
+            if (down)
+                characterController.Jump();
+
+            //collision.GetComponent<EnemyController>().RecieveDamage(1);
             Destroy(collision.gameObject);
+        }
     }
 
     public IEnumerator Strike()
     {
         active = true;
         spriteRenderer.color = activeColor;
+        attackSprite.SetActive(true);
         audioSource.Play();
         yield return new WaitForSeconds(duration);
         active = false;
+        attackSprite.SetActive(false);
         spriteRenderer.color = passiveColor;
     }
 }
