@@ -8,4 +8,9 @@ public static class ExtensionMethods
     {
         return new Vector2(vec3.x, vec3.y);
     }
+
+    public static void TiltPitchFromOne(this AudioSource audioSource, float tilt)
+    {
+        audioSource.pitch = 1 + (Random.Range(-tilt, tilt));
+    }
 }

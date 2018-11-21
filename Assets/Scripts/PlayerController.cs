@@ -6,8 +6,13 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
+    public delegate void PlayerDelegate(Walking player);
+    public event PlayerDelegate switchPlayers;
+
     public GameObject playerGreen;
     public GameObject playerRed;
+
+    public Creature currentPlayer;
     public FollowCam cam;
 
     public bool red = false;
@@ -16,11 +21,28 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         instance = this;
+
+        //надо привязать чуть получше. Ккто тупо.
+        //currentPlayer.health.died += SwitchPlayers;
+        currentPlayer.GetComponent<Health>().died += SwitchPlayers;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        currentPlayer.walking.GetMoveX(Input.GetAxis("Horizontal"));
+
+        if (Input.GetButtonDown("Jump"))
+            currentPlayer.walking.Jump();
+
+        if (Input.GetButtonUp("Jump"))
+            currentPlayer.walking.BreakJump();
+
+        if (Input.GetButtonDown("Fire3"))
+            currentPlayer.weapon.Strike( Input.GetAxis("Vertical"));
+
+
         if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.JoystickButton4))
         {
             SwitchPlayers();
@@ -32,27 +54,26 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        // проверка геймпада
-        //for (int i = 0; i < 20; i++)
-        //{
-          //  if (Input.GetKeyDown("joystick 1 button " + i))
-            //{
-              //  Debug.Log("joystick 1 button " + i);
-            //}
-        //}
     }
 
     //MAKE IT STATIC
+    //может и не статик, но тут еще есть говнокод который надо разобрать
     public void SwitchPlayers()
     {
         red = !red;
         playerGreen.SetActive(!red);
         playerRed.SetActive(red);
-        cam.player = (red) ? playerRed.transform : playerGreen.transform;
-        cam.camBound = (red) ? playerRed.GetComponent<CamBound>() : playerGreen.GetComponent<CamBound>();
+
+        currentPlayer = red ? playerRed.GetComponent<Creature>() : playerGreen.GetComponent<Creature>();
+
+        cam.AssignCreature((red) ? playerRed : playerGreen);
         cam.yValue = (red) ? 10.5f : -10.5f;
         //cam.GetComponent<Camera>().backgroundColor = (red) ? new Color(41, 25, 0) : new Color(41, 25, 0);
         cam.PlayerPosition();
+
+
+        UIManager.instance.AttachToPlayer(currentPlayer.gameObject);
+        //switchPlayers?.Invoke(currentPlayer);
     }
 
     

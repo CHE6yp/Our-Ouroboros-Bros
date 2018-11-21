@@ -5,7 +5,7 @@ using UnityEngine;
 public class FollowCam : MonoBehaviour
 {
     public Transform cam;
-    public Transform player;
+    public GameObject playerCreature;
     public CamBound camBound;
     public float yValue = 0;
     public float shakeMin = 0.5f;
@@ -18,13 +18,13 @@ public class FollowCam : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        AssignCreature(playerCreature);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (camBound.bound)
+        if (camBound && camBound.bound)
             return;
 
         PlayerPosition();
@@ -32,10 +32,15 @@ public class FollowCam : MonoBehaviour
 
     public void PlayerPosition()
     {
-        this.transform.position = new Vector3(player.position.x+shakeX, yValue+shakeY, -10);
+        this.transform.position = new Vector3(playerCreature.transform.position.x+shakeX, yValue+shakeY, -10);
     }
 
-    public IEnumerator ScreenShake()
+    public void ScreenShake()
+    {
+        StartCoroutine(ScreenShakeIEnum());
+    }
+
+    public IEnumerator ScreenShakeIEnum()
     {
         for (int i = 0; i < 6; i++)
         {
@@ -49,6 +54,19 @@ public class FollowCam : MonoBehaviour
         }
         shakeX = 0;
         shakeY = 0;
+
+    }
+
+    public void AssignCreature(GameObject creature)
+    {
+        playerCreature = creature;
+
+        //events
+        Health health = creature.GetComponent<Health>();
+        if (health)
+        {
+            health.damaged += ScreenShake;
+        }
 
     }
 }

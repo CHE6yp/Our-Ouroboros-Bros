@@ -8,11 +8,11 @@ public class EnemyController : PhysicsObject
     public float jumpTakeOffSpeed = 15;
     public SpriteRenderer spriteRenderer;
     private Animator animator;
-    public int health = 10;
+
     public bool goRight = false;
-    AudioSource audioSource;
+
     public ParticleSystem particleHit;
-    public AudioClip hitAudio;
+
 
 
 
@@ -36,7 +36,6 @@ public class EnemyController : PhysicsObject
         //spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         groundDetectionCurrent = groundDetection1;
-        audioSource = GetComponent<AudioSource>();
     }
 
     protected override void ComputeVelocity()
@@ -59,22 +58,7 @@ public class EnemyController : PhysicsObject
         targetVelocity = move * maxSpeed / 2;
     }
 
-    public void RecieveDamage(int damage)
-    {
-        health = health - damage;
-        if (health == 0)
-        {
-            StartCoroutine(Die());
-            return;
-        }
-        audioSource.PlayOneShot(hitAudio);
-        particleHit.Play();
-        
-        UIManager.instance.DrawHealth(health);
 
-
-        Debug.Log(gameObject.name + "Damage " + damage + "  Health " + health);
-    }
 
     public float DirectionTimed()
     {
@@ -119,14 +103,5 @@ public class EnemyController : PhysicsObject
 
     }
 
-    IEnumerator Die()
-    {
-        audioSource.PlayOneShot(hitAudio);
-        particleHit.Play();
-        spriteRenderer.enabled = false;
-        this.GetComponent<BoxCollider2D>().enabled = false;
-        yield return new WaitForSeconds(1);
-        Destroy(this.gameObject);
 
-    }
 }

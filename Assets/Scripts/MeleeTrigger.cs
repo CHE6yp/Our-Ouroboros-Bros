@@ -3,54 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MeleeTrigger : MonoBehaviour
-{
-    public bool active;
-    public float duration = 0.1f;
-    public GameObject attackSprite;
+{   
+
+    public BoxCollider2D boxCollider;
+    public SpriteRenderer spriteRenderer;
     public bool down;
     public CharacterController characterController;
+    
 
-    public AudioSource audioSource;
 
-    //эти штуки со спрайтами для дебага
-    public SpriteRenderer spriteRenderer;
-    public Color passiveColor;
-    public Color activeColor;
-
-    // Start is called before the first frame update
     void Awake()
     {
-        passiveColor = new Color(1, 1, 1, 0.5f);
-        activeColor = new Color(0.5f, 0, 0.5f, 0.5f);
+        boxCollider = GetComponent<BoxCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator Strike(float cooldown, float duration)
     {
         
-    }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (active && collision.tag == "Enemy")
-        {
-            if (down)
-                characterController.Jump();
-
-            //collision.GetComponent<EnemyController>().RecieveDamage(1);
-            Destroy(collision.gameObject);
-        }
-    }
-
-    public IEnumerator Strike()
-    {
-        active = true;
-        spriteRenderer.color = activeColor;
-        attackSprite.SetActive(true);
-        audioSource.Play();
+        boxCollider.enabled = true;
+        spriteRenderer.enabled = true;
         yield return new WaitForSeconds(duration);
-        active = false;
-        attackSprite.SetActive(false);
-        spriteRenderer.color = passiveColor;
+
+        boxCollider.enabled = false;
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(cooldown - duration);
+
+        
     }
 }
