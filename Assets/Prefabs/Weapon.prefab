@@ -52,7 +52,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.72, y: 2.11}
+    oldSize: {x: 1.1780822, y: 1.4452055}
     newSize: {x: 1.72, y: 2.11}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -110,9 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f17c592b65ca245b248215ea885f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
   hitTags:
   - Enemy
+  - Projectile
 --- !u!212 &5754695457257011519
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canAttack: 1
   duration: 0.05
-  cooldown: 0.6
+  cooldown: 0.3
   meleeTrigger: {fileID: 8748635982062110827}
   meleeTriggerDown: {fileID: 5594461851696937997}
   meleeTriggerUp: {fileID: 1161469064246683618}
@@ -224,7 +224,8 @@ AudioSource:
   m_GameObject: {fileID: 2353546761145101065}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243472876251578164, guid: 8886c9e131fe687479d5bc3c3e0ae895,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 72abd81f74ad76246b2e6dd51cc4ea24, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -377,7 +378,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.72, y: 2.11}
+    oldSize: {x: 1.1780822, y: 1.4452055}
     newSize: {x: 1.72, y: 2.11}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -435,9 +436,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f17c592b65ca245b248215ea885f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
   hitTags:
   - Enemy
+  - Projectile
 --- !u!212 &792964552279086863
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -550,7 +551,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.72, y: 2.11}
+    oldSize: {x: 1.1780822, y: 1.4452055}
     newSize: {x: 1.72, y: 2.11}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -608,9 +609,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f17c592b65ca245b248215ea885f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
   hitTags:
   - Enemy
+  - Projectile
 --- !u!212 &2209409572468799786
 SpriteRenderer:
   m_ObjectHideFlags: 0

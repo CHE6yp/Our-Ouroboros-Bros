@@ -55,6 +55,7 @@ MonoBehaviour:
   health: {fileID: 0}
   walking: {fileID: 0}
   appearance: {fileID: 0}
+  weapon: {fileID: 0}
 --- !u!114 &6801983019302791400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,6 +85,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGroundNormalY: 0
   gravityModifier: 5
+  grounded: 0
   maxSpeed: 15
   jumpTakeOffSpeed: 22
   move: {x: 0, y: 0}
@@ -204,7 +206,8 @@ AudioSource:
   m_GameObject: {fileID: 6567582879340394765}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243472876251578164, guid: 8886c9e131fe687479d5bc3c3e0ae895,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 0cf27a717cae2644d8647243bd5085aa, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

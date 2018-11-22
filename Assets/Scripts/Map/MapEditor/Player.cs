@@ -48,6 +48,14 @@ namespace MapEditor
                 Chunk.ChangeBlockType(4);
             if (Input.GetKeyDown(KeyCode.Alpha5))
                 Chunk.ChangeBlockType(5);
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+                Chunk.ChangeBlockType(6);
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+                Chunk.ChangeBlockType(7);
+            if (Input.GetKeyDown(KeyCode.Alpha8))
+                Chunk.ChangeBlockType(8);
+            if (Input.GetKeyDown(KeyCode.Alpha9))
+                Chunk.ChangeBlockType(9);
 
             if (Input.GetKeyDown(KeyCode.H))
                 UIManager.instance.ToggleHelp();

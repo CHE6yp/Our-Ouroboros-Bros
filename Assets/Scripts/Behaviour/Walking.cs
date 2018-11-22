@@ -22,7 +22,7 @@ public class Walking : PhysicsObject
         Health health = GetComponent<Health>();
         if (health)
         {
-            health.damaged += KnockBack;
+            health.damagedSource += KnockBack;
         }
     }
 
@@ -52,8 +52,10 @@ public class Walking : PhysicsObject
         }
     }
 
-    //пока что не нашел решения лучше, чем сделать второй метод
-    //для прыжков в воздухе. Будет идея лучше - перепишу.
+    /// <summary>
+    /// Пока что не нашел решения лучше, чем сделать второй метод.
+    /// Для прыжков в воздухе. Будет идея лучше - перепишу.
+    /// </summary>
     public void AirJump()
     { 
         velocity.y = jumpTakeOffSpeed;
@@ -67,12 +69,10 @@ public class Walking : PhysicsObject
             velocity.y = velocity.y * 0.5f;
     }
 
-
-    public void KnockBack()
+    public void KnockBack(int damage, Transform source)
     {
         velocity.y = jumpTakeOffSpeed * 0.5f;
-        velocity.x = (lookLeft) ? 200 : -200;
-
+        //GetMoveX( (lookLeft) ? 10 : -10);
     }
 
     void SwitchDirection()

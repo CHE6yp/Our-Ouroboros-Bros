@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject currentPlayer;
     public Health currentHealth;
 
+
     public void Awake()
     {
         instance = this;

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    public delegate void HealthDelegateSource(int damage, Transform source);
     public delegate void HealthDelegate();
     public event HealthDelegate damaged;
     public event HealthDelegate died;
+    public event HealthDelegateSource damagedSource;
     public int health = 5;
     public bool invincible;
     public float invincibleTime = 0.1f; //1 for player
@@ -32,7 +34,7 @@ public class Health : MonoBehaviour
     }
     */
 
-    public void RecieveDamage(int damage)
+    public void RecieveDamage(int damage, Transform source)
     {
         
 
@@ -48,6 +50,7 @@ public class Health : MonoBehaviour
         
         StartCoroutine(Invincibility());
         damaged?.Invoke();
+        damagedSource?.Invoke(damage, source);
         if (health == 0)
             StartCoroutine(Die());
     }
@@ -74,16 +77,20 @@ public class Health : MonoBehaviour
 
     }
 
-    IEnumerator Die()
+    public IEnumerator Die()
     {
-        Debug.Log("DED");
-        this.GetComponent<BoxCollider2D>().enabled = false;
+        //Debug.Log("DED");
+        GetComponent<BoxCollider2D>().enabled = false;
         //audioSource.PlayOneShot(hitAudio);
         //particleHit.Play();
         //spriteRenderer.enabled = false;
-        this.GetComponent<BoxCollider2D>().enabled = false;
-        yield return new WaitForSeconds(1);
+        GetComponent<SpriteRenderer>().enabled = false;
+
+        //GetComponent<Walking>().enabled = false;
+
         died?.Invoke();
+        yield return new WaitForSeconds(0.3f);
+        
         Destroy(this.gameObject);
 
     }

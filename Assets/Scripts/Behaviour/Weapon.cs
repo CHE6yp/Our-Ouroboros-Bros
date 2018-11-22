@@ -40,20 +40,17 @@ public class Weapon : MonoBehaviour
             yield break;
         canAttack = false;
 
-
-        ///неправильно вправо влево удары переписать
-        ///
-
-        if (verticalAxes > 0.55f)
-            StartCoroutine(meleeTriggerUp.Strike(cooldown,duration));
-        //else if (!grounded && Input.GetAxis("Vertical") < -0.55f) 
-        else if (verticalAxes < -0.55f)
-            StartCoroutine(meleeTriggerDown.Strike(cooldown, duration));
-        else 
-            StartCoroutine(meleeTrigger.Strike(cooldown, duration));
-
-
         strike?.Invoke();
+        if (verticalAxes > 0.55f)
+            yield return StartCoroutine(meleeTriggerUp.Strike(cooldown,duration));
+        //else if (!grounded && Input.GetAxis("Vertical") < -0.55f) 
+        else if (verticalAxes < -0.55f && !walking.grounded)
+            yield return StartCoroutine(meleeTriggerDown.Strike(cooldown, duration));
+        else
+            yield return StartCoroutine(meleeTrigger.Strike(cooldown, duration));
+
+
+        
 
         canAttack = true;
     }
