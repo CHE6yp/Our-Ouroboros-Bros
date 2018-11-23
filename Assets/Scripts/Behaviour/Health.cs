@@ -89,7 +89,7 @@ public class Health : MonoBehaviour
         //GetComponent<Walking>().enabled = false;
 
         died?.Invoke();
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1);
         
         Destroy(this.gameObject);
 

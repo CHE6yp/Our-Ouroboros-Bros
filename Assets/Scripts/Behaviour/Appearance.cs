@@ -7,6 +7,7 @@ public class Appearance : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
     public ParticleSystem hitParticle;
+    public ParticleSystem dedParticle;
 
 
     void Awake()
@@ -20,7 +21,10 @@ public class Appearance : MonoBehaviour
 
         Health health = GetComponent<Health>();
         if (health)
+        {
             health.damaged += Damaged;
+            health.died += Dead;
+        }
     }
 
     void SwitchDirection()
@@ -31,5 +35,11 @@ public class Appearance : MonoBehaviour
     void Damaged()
     {
         hitParticle.Play();
+
+    }
+
+    void Dead()
+    {
+        dedParticle.Play();
     }
 }

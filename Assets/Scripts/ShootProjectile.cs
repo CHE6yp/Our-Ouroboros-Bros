@@ -17,7 +17,7 @@ public class ShootProjectile : MonoBehaviour
     void LaunchProjectile()
     {
         GameObject instance = Instantiate(projectile, gunpoint.position, Quaternion.identity);
-        instance.GetComponent<Projectile>().direction = direction;
+        instance.GetComponent<Projectile>().GetDirection(direction);
 
 
         //instance.velocity = Random.insideUnitSphere * 5;

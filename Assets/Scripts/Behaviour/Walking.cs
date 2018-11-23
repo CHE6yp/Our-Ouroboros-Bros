@@ -12,6 +12,8 @@ public class Walking : PhysicsObject
 
     public float maxSpeed = 15;
     public float jumpTakeOffSpeed = 15;
+    public bool stopWhenDead = true;
+    bool stop;
 
     bool lookLeft;
     public Vector2 move;
@@ -23,11 +25,14 @@ public class Walking : PhysicsObject
         if (health)
         {
             health.damagedSource += KnockBack;
+            health.died += Stop;
         }
     }
 
     protected override void ComputeVelocity()
     {
+        if (stop)
+            return;
         //Эта строчка тут была когда писал Виталя. Когда я переписывал она стала мешать, 
         //но я не уверен до конца что она не нужна совсем.
         //move = Vector2.zero;
@@ -81,5 +86,11 @@ public class Walking : PhysicsObject
         switchDirection?.Invoke();
 
         //meleeHit.transform.localScale = new Vector3(meleeHit.transform.localScale.x * -1, meleeHit.transform.localScale.y, meleeHit.transform.localScale.z);
+    }
+
+    void Stop()
+    {
+        targetVelocity = Vector2.zero;
+        stop = true;
     }
 }

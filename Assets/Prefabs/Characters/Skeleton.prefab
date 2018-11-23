@@ -320,5 +320,10 @@ PrefabInstance:
       propertyPath: maxSpeed
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8159286196426227484, guid: 84b454d60870a0347b940ab4ce975b90,
+        type: 3}
+      propertyPath: hitAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: f14e2d432b9a844428ac60da83e71b57, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84b454d60870a0347b940ab4ce975b90, type: 3}

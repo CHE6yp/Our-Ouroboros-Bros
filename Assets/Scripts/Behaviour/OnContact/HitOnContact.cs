@@ -5,11 +5,22 @@ using UnityEngine;
 public class HitOnContact : MonoBehaviour
 {
     public delegate void HitOnContactDelegate();
+    public bool active = true;
     public event HitOnContactDelegate hit;
     public List<string> hitTags = new List<string> { "Enemy" };
 
+    private void Awake()
+    {
+        Health health = GetComponentInParent<Health>();
+        if (health)
+            health.died += MakeInactive;
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (!active)
+            return;
+
         foreach (string tag in hitTags)
         {
             if (collision.tag == tag)
@@ -19,5 +30,10 @@ public class HitOnContact : MonoBehaviour
                 break;
             }
         }
+    }
+
+    void MakeInactive()
+    {
+        active = false;
     }
 }
