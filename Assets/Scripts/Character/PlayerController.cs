@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
     public delegate void PlayerDelegate(Walking player);
-    public event PlayerDelegate switchPlayers;
+    //public event PlayerDelegate switchPlayers;
 
     public GameObject playerGreen;
     public GameObject playerRed;
@@ -21,10 +21,11 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         instance = this;
+        
 
         //надо привязать чуть получше. Ккто тупо.
         //currentPlayer.health.died += SwitchPlayers;
-        currentPlayer.GetComponent<Health>().died += SwitchPlayers;
+        //currentPlayer.GetComponent<Health>().died += SwitchPlayers;
     }
 
     // Update is called once per frame
@@ -50,7 +51,11 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton6))
         {
-            SceneManager.LoadScene(2);
+            //SceneManager.LoadScene(2);
+            if (PauseMenu.instance.shown)
+                PauseMenu.instance.HidePauseMenu();
+            else
+                PauseMenu.instance.ShowPauseMenu();
         }
 
 
@@ -60,6 +65,9 @@ public class PlayerController : MonoBehaviour
     //может и не статик, но тут еще есть говнокод который надо разобрать
     public void SwitchPlayers()
     {
+        return;// отказ от фичи
+
+
         red = !red;
         playerGreen.SetActive(!red);
         playerRed.SetActive(red);
@@ -72,7 +80,7 @@ public class PlayerController : MonoBehaviour
         cam.PlayerPosition();
 
 
-        UIManager.instance.AttachToPlayer(currentPlayer.gameObject);
+        
         //switchPlayers?.Invoke(currentPlayer);
     }
 

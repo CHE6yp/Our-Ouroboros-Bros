@@ -55,7 +55,12 @@ public class AI : MonoBehaviour
 
 
 
-        if (creature.walking.grounded && !groundInfo.collider || groundInfo.collider.tag == "Spike" || (obstacleInfo.collider != null && (obstacleInfo.collider.tag != "Player" && obstacleInfo.collider.tag != "MeleeRange")))
+        if ((!groundInfo.collider || 
+            groundInfo.collider.tag == "Spike" || 
+            (obstacleInfo.collider != null && 
+            (obstacleInfo.collider.tag != "Player" && 
+            obstacleInfo.collider.tag != "MeleeRange"))) &&
+            creature.walking.grounded )
         {
             goRight = !goRight;
             time = 0;

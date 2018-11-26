@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public void Awake()
     {
         instance = this;
+        AttachToPlayer(currentPlayer.gameObject);
     }
 
 
@@ -22,7 +23,7 @@ public class UIManager : MonoBehaviour
         string hString = "";
         for (int i = 0; i < currentHealth.health; i++)
         {
-            hString += "0 ";
+            hString += '0';
         }
         healthText.text = hString;
     }

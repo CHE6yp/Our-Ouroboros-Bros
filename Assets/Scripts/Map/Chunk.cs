@@ -27,7 +27,7 @@ public class Chunk : MonoBehaviour
             for (int k = 0; k < template[i].Length; k++)
             {
                 SpawnBlock(k, i+1, template[i][k]);
-                SpawnBlock(k, -(i+1), template[i][k], true);
+                //SpawnBlock(k, -(i+1), template[i][k], true);
             }
         }
     }
@@ -39,56 +39,61 @@ public class Chunk : MonoBehaviour
             for (int k = 0; k < template[i].Length; k++)
             {
                 SpawnBlock(k, i + 1, template[i][k]);
-                SpawnBlock(k, -(i + 1), template[i][k], true);
+                //SpawnBlock(k, -(i + 1), template[i][k], true);
             }
         }
     }
 
     void SpawnBlock(float x, float y, int type, bool hell = false)
     {
+        switch (type)
+        {
+            default:
+                break;
+            case 1:
+                GameObject b = Instantiate(solidBox, this.transform, false);
+                b.transform.localPosition = new Vector3(x, -y);
+                break;
+            case 2:
+                GameObject e = Instantiate(enemyPref, this.transform, false);
+                e.transform.localPosition = new Vector3(x, -y);
+                break;
+            case 3:
+                GameObject s = Instantiate(spikes, this.transform, false);
+                s.transform.localPosition = new Vector3(x, -y);
+                break;
+            case 4:
+                GameObject sr = Instantiate(spikesRev, this.transform, false);
+                sr.transform.localPosition = new Vector3(x, -y);
+                break;
+            case 5:
+                GameObject p = Instantiate(pickup, this.transform, false);
+                p.transform.localPosition = new Vector3(x, -y);
+                break;
+            case 6:
+                GameObject sh = Instantiate(shooter, this.transform, false);
+                sh.transform.localPosition = new Vector3(x, -y);
+                break;
+            case 7:
+                GameObject shd = Instantiate(shooterDown, this.transform, false);
+                shd.transform.localPosition = new Vector3(x, -y);
+                break;
+            case 8:
+                GameObject shl = Instantiate(shooterLeft, this.transform, false);
+                shl.transform.localPosition = new Vector3(x, -y);
+                break;
+            case 9:
+                GameObject shr = Instantiate(shooterRight, this.transform, false);
+                shr.transform.localPosition = new Vector3(x, -y);
+                break;
+        }
+
+        //stop
         if (!hell)
-            switch (type)
-            {
-                default:
-                    break;
-                case 1:
-                    GameObject b = Instantiate(solidBox, this.transform, false);
-                    b.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 2:
-                    GameObject e = Instantiate(enemyPref, this.transform, false);
-                    e.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 3:
-                    GameObject s = Instantiate(spikes, this.transform, false);
-                    s.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 4:
-                    GameObject sr = Instantiate(spikesRev, this.transform, false);
-                    sr.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 5:
-                    GameObject p = Instantiate(pickup, this.transform, false);
-                    p.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 6:
-                    GameObject sh = Instantiate(shooter, this.transform, false);
-                    sh.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 7:
-                    GameObject shd = Instantiate(shooterDown, this.transform, false);
-                    shd.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 8:
-                    GameObject shl = Instantiate(shooterLeft, this.transform, false);
-                    shl.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 9:
-                    GameObject shr = Instantiate(shooterRight, this.transform, false);
-                    shr.transform.localPosition = new Vector3(x, -y);
-                    break;
-            }
+            return;
         else
+        {
+            return;
             switch (type)
             {
                 default:
@@ -130,6 +135,7 @@ public class Chunk : MonoBehaviour
                     shr.transform.localPosition = new Vector3(x, -y);
                     break;
             }
+        }
 
 
     }
