@@ -11,7 +11,7 @@ public class ShootProjectile : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating("LaunchProjectile", 2, interval);
+        InvokeRepeating("LaunchProjectile", 0, interval);
     }
 
     void LaunchProjectile()

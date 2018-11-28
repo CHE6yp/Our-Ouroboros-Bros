@@ -32,6 +32,7 @@ public class Pickup : MonoBehaviour
             boxCollider2D.enabled = false;
             spriteRenderer.enabled = false;
             audioSource.Play();
+            PlayerController.AddCoin();
             picked = true;
         }
             

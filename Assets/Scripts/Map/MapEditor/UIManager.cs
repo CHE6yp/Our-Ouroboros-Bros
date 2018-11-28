@@ -62,6 +62,18 @@ namespace MapEditor
                 case 5:
                     blockText += "Pickup";
                     break;
+                case 6:
+                    blockText += "Proj up";
+                    break;
+                case 7:
+                    blockText += "Proj down";
+                    break;
+                case 8:
+                    blockText += "Proj left";
+                    break;
+                case 9:
+                    blockText += "Proj right";
+                    break;
 
             }
 

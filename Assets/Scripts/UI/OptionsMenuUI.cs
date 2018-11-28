@@ -21,7 +21,9 @@ public class OptionsMenuUI : MonoBehaviour
 
     void AudioSlidersSetup()
     {
+        Debug.Log(PlayerPrefs.GetFloat("musicVolume"));
         musicVolumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        Debug.Log(musicVolumeSlider.value);
         effectsVolumeSlider.value = PlayerPrefs.GetFloat("effectsVolume");
     }
 

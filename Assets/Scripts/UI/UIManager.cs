@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
     public Text healthText;
+    public Text coinsText;
     public GameObject currentPlayer;
     public Health currentHealth;
 
@@ -15,6 +16,8 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
         AttachToPlayer(currentPlayer.gameObject);
+        
+        PlayerController.addCoin += DrawCoins;
     }
 
 
@@ -26,6 +29,12 @@ public class UIManager : MonoBehaviour
             hString += '0';
         }
         healthText.text = hString;
+    }
+
+    public void DrawCoins()
+    {
+        Debug.Log("drawcoin");
+        coinsText.text = "Coins x" + PlayerController.coins;
     }
 
     void SwitchPlayers(Walking player)
@@ -40,6 +49,11 @@ public class UIManager : MonoBehaviour
         DrawHealth();
         currentHealth.damaged += DrawHealth;
 
+    }
+
+    private void OnDestroy()
+    {
+        PlayerController.addCoin -= DrawCoins;
     }
 
 }

@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
-    public delegate void PlayerDelegate(Walking player);
-    //public event PlayerDelegate switchPlayers;
+    public delegate void PlayerDelegate();
+    public static event PlayerDelegate addCoin;
+    public bool controllingCharacter = true;
+    public static int coins = 0;
 
     public GameObject playerGreen;
     public GameObject playerRed;
@@ -15,13 +17,16 @@ public class PlayerController : MonoBehaviour
     public Creature currentPlayer;
     public FollowCam cam;
 
-    public bool red = false;
+    
 
     // Start is called before the first frame update
     void Awake()
     {
         instance = this;
-        
+        controllingCharacter = true;
+        coins = 0;
+        Time.timeScale = 1;
+
 
         //надо привязать чуть получше. Ккто тупо.
         //currentPlayer.health.died += SwitchPlayers;
@@ -32,58 +37,51 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        currentPlayer.walking.GetMoveX(Input.GetAxis("Horizontal"));
-
-        if (Input.GetButtonDown("Jump"))
-            currentPlayer.walking.Jump();
-
-        if (Input.GetButtonUp("Jump"))
-            currentPlayer.walking.BreakJump();
-
-        if (Input.GetButtonDown("Fire3"))
-            currentPlayer.weapon.Strike( Input.GetAxis("Vertical"));
-
-
-        if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.JoystickButton4))
+        if (controllingCharacter)
         {
-            SwitchPlayers();
-        }
+            currentPlayer.walking.GetMoveX(Input.GetAxis("Horizontal"));
 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton6))
+            if (Input.GetButtonDown("Jump"))
+                currentPlayer.walking.Jump();
+
+            if (Input.GetButtonUp("Jump"))
+                currentPlayer.walking.BreakJump();
+
+            if (Input.GetButtonDown("Fire3"))
+                currentPlayer.weapon.Strike(Input.GetAxis("Vertical"));
+
+
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton6))
+            {
+                //SceneManager.LoadScene(2);
+                if (!PauseMenu.instance.shown)
+                {
+                    controllingCharacter = false;
+                    PauseMenu.instance.ShowPauseMenu();
+                }
+            }
+
+        }
+        else
         {
-            //SceneManager.LoadScene(2);
-            if (PauseMenu.instance.shown)
-                PauseMenu.instance.HidePauseMenu();
-            else
-                PauseMenu.instance.ShowPauseMenu();
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton6))
+            {
+                //SceneManager.LoadScene(2);
+                if (PauseMenu.instance.shown)
+                {
+                    PauseMenu.instance.HidePauseMenu();
+                    controllingCharacter = true;
+                }
+            }
         }
-
-
     }
 
-    //MAKE IT STATIC
-    //может и не статик, но тут еще есть говнокод который надо разобрать
-    public void SwitchPlayers()
+
+    public static void AddCoin()
     {
-        return;// отказ от фичи
-
-
-        red = !red;
-        playerGreen.SetActive(!red);
-        playerRed.SetActive(red);
-
-        currentPlayer = red ? playerRed.GetComponent<Creature>() : playerGreen.GetComponent<Creature>();
-
-        cam.AssignCreature((red) ? playerRed : playerGreen);
-        cam.yValue = (red) ? 10.5f : -10.5f;
-        //cam.GetComponent<Camera>().backgroundColor = (red) ? new Color(41, 25, 0) : new Color(41, 25, 0);
-        cam.PlayerPosition();
-
-
-        
-        //switchPlayers?.Invoke(currentPlayer);
+        coins++;
+        addCoin?.Invoke();
     }
-
     
 
 }

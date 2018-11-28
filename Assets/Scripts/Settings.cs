@@ -41,6 +41,7 @@ public class Settings : MonoBehaviour
     public void SetupAudio()
     {
         float musVol = PlayerPrefs.GetFloat("musicVolume");
+        Debug.Log(PlayerPrefs.GetFloat("musicVolume"));
         float effVol = PlayerPrefs.GetFloat("effectsVolume");
         audioMixer.SetFloat("musicVolume", Mathf.Log10(musVol) * 20);
         audioMixer.SetFloat("effectsVolume", Mathf.Log10(effVol) * 20);
