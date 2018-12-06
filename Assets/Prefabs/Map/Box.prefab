@@ -125,4 +125,5 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a090607f84fd3aa4d9849e9461dc040e, type: 3}
   - {fileID: 21300000, guid: d8955972f58ee4b409ecea84de41d23c, type: 3}
   deepSprites:
-  - {fileID: 21300000, guid: 87025dfd6e6498945b57a9b8ab8b03c0, type: 3}
+  - {fileID: 21300000, guid: b569c9cf25ee57b4ab0be886b5f7b4a3, type: 3}
+  chunkCoordinates: {x: 0, y: 0}

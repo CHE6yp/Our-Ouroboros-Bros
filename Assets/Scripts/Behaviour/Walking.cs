@@ -76,8 +76,29 @@ public class Walking : PhysicsObject
 
     public void KnockBack(int damage, Transform source)
     {
-        velocity.y = jumpTakeOffSpeed * 0.5f;
+        //velocity.y = jumpTakeOffSpeed * 0.5f;
         //GetMoveX( (lookLeft) ? 10 : -10);
+        Vector2 dir = transform.position - source.position;
+        dir.Normalize();
+        Debug.Log(dir*3);
+        //rb2d.MovePosition(dir);
+        StartCoroutine(KnockBackIEnum(source));
+    }
+
+    //хуйня, но пока что должно работать
+    public IEnumerator KnockBackIEnum(Transform source)
+    {
+        Vector2 dir = transform.position - source.position;
+        dir.Normalize();
+        velocity.y = jumpTakeOffSpeed * 0.5f;
+        for (int i = 0; i < 5; i++)
+        {
+            //Debug.Log(rb2d.position + dir * Time.deltaTime);
+            GetMoveX(dir.x*4);
+            //velocity.y = 0.1f + dir.y*jumpTakeOffSpeed;
+            yield return new WaitForSeconds(0.01f);
+        }
+        //Debug.Break();
     }
 
     void SwitchDirection()

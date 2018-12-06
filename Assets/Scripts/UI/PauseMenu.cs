@@ -21,6 +21,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ShowPauseMenu()
     {
+        PlayerController.instance.controllingCharacter = false;
         Time.timeScale = 0;
         pauseMenuPanel.SetActive(true);
         shown = true;
@@ -28,8 +29,10 @@ public class PauseMenu : MonoBehaviour
 
     public void HidePauseMenu()
     {
+        
         pauseMenuPanel.SetActive(false);
         Time.timeScale = 1;
         shown = false;
+        PlayerController.instance.controllingCharacter = true;
     }
 }

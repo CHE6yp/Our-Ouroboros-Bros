@@ -18,22 +18,17 @@ public class Chunk : MonoBehaviour
     public GameObject shooterLeft;
     public GameObject shooterRight;
 
+    public int[][] chunkTemplate;
+
     public void Generate(int tempId)
     {
-
         int[][] template = ChunkTemplates.templates[tempId];
-        for (int i = 0; i < template.Length; i++)
-        {
-            for (int k = 0; k < template[i].Length; k++)
-            {
-                SpawnBlock(k, i+1, template[i][k]);
-                //SpawnBlock(k, -(i+1), template[i][k], true);
-            }
-        }
+        Generate(template);
     }
 
     public void Generate(int[][] template)
     {
+        chunkTemplate = template;
         for (int i = 0; i < template.Length; i++)
         {
             for (int k = 0; k < template[i].Length; k++)
@@ -44,7 +39,7 @@ public class Chunk : MonoBehaviour
         }
     }
 
-    void SpawnBlock(float x, float y, int type, bool hell = false)
+    void SpawnBlock(int x, int y, int type, bool hell = false)
     {
         switch (type)
         {
@@ -53,6 +48,7 @@ public class Chunk : MonoBehaviour
             case 1:
                 GameObject b = Instantiate(solidBox, this.transform, false);
                 b.transform.localPosition = new Vector3(x, -y);
+                b.GetComponent<Box>().AssignSprite(x,y,this);
                 break;
             case 2:
                 GameObject e = Instantiate(enemyPref, this.transform, false);

@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
 
     public void DrawCoins()
     {
-        Debug.Log("drawcoin");
+        //Debug.Log("drawcoin");
         coinsText.text = "Coins x" + PlayerController.coins;
     }
 

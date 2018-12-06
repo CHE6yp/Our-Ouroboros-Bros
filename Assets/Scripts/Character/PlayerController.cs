@@ -56,7 +56,6 @@ public class PlayerController : MonoBehaviour
                 //SceneManager.LoadScene(2);
                 if (!PauseMenu.instance.shown)
                 {
-                    controllingCharacter = false;
                     PauseMenu.instance.ShowPauseMenu();
                 }
             }
@@ -70,7 +69,6 @@ public class PlayerController : MonoBehaviour
                 if (PauseMenu.instance.shown)
                 {
                     PauseMenu.instance.HidePauseMenu();
-                    controllingCharacter = true;
                 }
             }
         }

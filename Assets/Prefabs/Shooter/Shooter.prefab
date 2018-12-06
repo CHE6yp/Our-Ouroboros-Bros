@@ -1191,7 +1191,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   RotationModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -1301,7 +1301,7 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.7853982
+      scalar: -4.363323
       minScalar: 0.7853982
       maxCurve:
         serializedVersion: 2
@@ -1418,8 +1418,8 @@ ParticleSystem:
         m_NumColorKeys: 3
         m_NumAlphaKeys: 3
   UVModule:
-    enabled: 0
-    mode: 0
+    enabled: 1
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -1537,7 +1537,7 @@ ParticleSystem:
     uvChannelMask: -1
     randomRow: 1
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: 21300000, guid: 07ca4be36f7ced7499dd3f84153de693, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -4827,7 +4827,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c32378372a32c6b4bb31a441755a2fe1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aaf6a390a2386fe4fbf37dc34f54cd71, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

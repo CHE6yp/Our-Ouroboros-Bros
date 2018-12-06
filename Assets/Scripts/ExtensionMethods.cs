@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public static class ExtensionMethods
 {
@@ -13,4 +14,10 @@ public static class ExtensionMethods
     {
         audioSource.pitch = 1 + (Random.Range(-tilt, tilt));
     }
+
+    public static bool In<T>(this T obj, params T[] args)
+    {
+        return args.Contains(obj);
+    }
+
 }
