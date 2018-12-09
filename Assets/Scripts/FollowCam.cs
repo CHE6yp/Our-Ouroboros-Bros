@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class FollowCam : MonoBehaviour
 {
+
+    public delegate void CamDelegate();
+    public CamDelegate camPosition;
     public Transform cam;
     public GameObject playerCreature;
     public CamBound camBound;
     public float yValue = 0;
+
+    public float smoothSpeed = 0.2f;
     public float shakeMin = 0.5f;
     public float shakeMax = 1;
     public float shakeInterval = 0.02f;
@@ -15,24 +20,52 @@ public class FollowCam : MonoBehaviour
     float shakeY=0;
 
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        //Есть баг! если начинать с PlayerPosition2 пропадают партиклы на существах
+        camPosition = PlayerPosition;
+
+    }
+
     void Start()
     {
         AssignCreature(playerCreature);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (camBound && camBound.bound)
             return;
 
-        PlayerPosition();
+        camPosition();
     }
 
     public void PlayerPosition()
     {
         this.transform.position = new Vector3(playerCreature.transform.position.x+shakeX, yValue+shakeY, -10);
+    }
+
+    public void PlayerPosition2()
+    {
+        Vector3 desiredPosition = new Vector3(playerCreature.transform.position.x , playerCreature.transform.position.y , -10);
+        Vector3 lerpedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        
+        transform.position = new Vector3(lerpedPosition.x + shakeX, lerpedPosition.y + shakeY, -10);
+    }
+
+    public void ChangeCamPosition()
+    {
+        if (camPosition == PlayerPosition)
+            camPosition = PlayerPosition2;
+        else if (camPosition == PlayerPosition2 && cam.GetComponent<Camera>().orthographicSize == 10)
+            cam.GetComponent<Camera>().orthographicSize = 7;
+        else
+        {
+            cam.GetComponent<Camera>().orthographicSize = 10;
+            camPosition = PlayerPosition;
+        }
+            
     }
 
     public void ScreenShake()

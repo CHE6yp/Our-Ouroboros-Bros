@@ -15,9 +15,11 @@ GameObject:
   - component: {fileID: 6567582879340394764}
   - component: {fileID: 6567582879340394761}
   - component: {fileID: 6567582879340394763}
+  - component: {fileID: 6325695415741492412}
   - component: {fileID: 6567582879340394760}
   - component: {fileID: 4346805434910941464}
   - component: {fileID: 8159286196426227484}
+  - component: {fileID: 1047352429790366486}
   m_Layer: 9
   m_Name: BaseCreature
   m_TagString: Player
@@ -105,10 +107,10 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.08219178, y: 0, z: 0.020547945, w: 0}
-    pivot: {x: 0.589, y: 0.5}
-    oldSize: {x: 0.4520548, y: 0.98630136}
-    newSize: {x: 0.76744187, y: 1.6744186}
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -174,17 +176,32 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c2e71b1e552959540b75e907250a9178, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5395540e4bb931043b5f9a55ac4556ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.76744187, y: 1.6744186}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6325695415741492412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6567582879340394765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4f3dd6f24463f4bbf49ee09ad16a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idle:
+  - {fileID: 21300000, guid: 5395540e4bb931043b5f9a55ac4556ab, type: 3}
+  - {fileID: 21300002, guid: 5395540e4bb931043b5f9a55ac4556ab, type: 3}
 --- !u!114 &6567582879340394760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,6 +326,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitAudio: {fileID: 8300000, guid: afafecb324247f043b492a537080740f, type: 3}
+--- !u!95 &1047352429790366486
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6567582879340394765}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 53e3d86d8134d6649914e0784bd47a54, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8274521605760634357
 GameObject:
   m_ObjectHideFlags: 0

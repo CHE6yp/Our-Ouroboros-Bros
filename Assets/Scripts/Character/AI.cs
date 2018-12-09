@@ -29,7 +29,8 @@ public class AI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        creature.walking.GetMoveX(DetectGround());
+        if (creature.walking.grounded)
+            creature.walking.GetMoveX(DetectGround());
     }
 
     public float DirectionTimed()

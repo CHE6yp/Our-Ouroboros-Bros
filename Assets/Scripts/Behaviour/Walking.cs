@@ -17,9 +17,11 @@ public class Walking : PhysicsObject
 
     bool lookLeft;
     public Vector2 move;
+    Animator animator;
 
     void Awake()
     {
+        animator = GetComponent<Animator>();
         //
         Health health = GetComponent<Health>();
         if (health)
@@ -41,6 +43,14 @@ public class Walking : PhysicsObject
             SwitchDirection();
 
         targetVelocity = move * maxSpeed / 2;
+
+        animator.SetFloat("velocityY", velocity.y);
+        animator.SetBool("grounded", grounded);
+
+        if (move.x != 0 && grounded)
+            animator.SetBool("running", true);
+        else
+            animator.SetBool("running", false);
     }
 
     public void GetMoveX(float x)
@@ -54,6 +64,7 @@ public class Walking : PhysicsObject
         {
             velocity.y = jumpTakeOffSpeed;
             jump?.Invoke();
+            
         }
     }
 
@@ -90,8 +101,8 @@ public class Walking : PhysicsObject
     {
         Vector2 dir = transform.position - source.position;
         dir.Normalize();
-        velocity.y = jumpTakeOffSpeed * 0.5f;
-        for (int i = 0; i < 5; i++)
+        velocity.y = jumpTakeOffSpeed * 0.2f;
+        for (int i = 0; i < 3; i++)
         {
             //Debug.Log(rb2d.position + dir * Time.deltaTime);
             GetMoveX(dir.x*4);

@@ -68,6 +68,7 @@ MonoBehaviour:
   hitTags:
   - Enemy
   - Projectile
+  fromCreature: 1
 --- !u!114 &1434263755533135598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,6 +412,7 @@ MonoBehaviour:
   hitTags:
   - Enemy
   - Projectile
+  fromCreature: 1
 --- !u!114 &7542671869203175293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -601,6 +603,7 @@ MonoBehaviour:
   hitTags:
   - Enemy
   - Projectile
+  fromCreature: 1
 --- !u!114 &5147389189830949919
 MonoBehaviour:
   m_ObjectHideFlags: 0

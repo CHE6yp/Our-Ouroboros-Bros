@@ -50,6 +50,9 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Fire3"))
                 currentPlayer.weapon.Strike(Input.GetAxis("Vertical"));
 
+            if (Input.GetButtonDown("Fire2"))
+                cam.ChangeCamPosition();
+
 
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton6))
             {

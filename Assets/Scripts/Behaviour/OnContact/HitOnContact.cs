@@ -8,6 +8,7 @@ public class HitOnContact : MonoBehaviour
     public bool active = true;
     public event HitOnContactDelegate hit;
     public List<string> hitTags = new List<string> { "Enemy" };
+    public bool fromCreature;
 
     private void Awake()
     {
@@ -25,7 +26,10 @@ public class HitOnContact : MonoBehaviour
         {
             if (collision.tag == tag)
             {
-                collision.GetComponent<Health>().RecieveDamage(1, transform);
+                if (fromCreature)
+                    collision.GetComponent<Health>().RecieveDamage(1, GetComponentInParent<Creature>().transform);
+                else
+                    collision.GetComponent<Health>().RecieveDamage(1, transform);
                 hit?.Invoke();
                 break;
             }
