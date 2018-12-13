@@ -39,7 +39,14 @@ public class PlayerController : MonoBehaviour
 
         if (controllingCharacter)
         {
-            currentPlayer.walking.GetMoveX(Input.GetAxis("Horizontal"));
+            float x = Input.GetAxis("Horizontal");
+            if (x > 0.5f)
+                x = 1;
+            else if (x < -0.5f)
+                x = -1;
+            else
+                x = 0;
+            currentPlayer.walking.GetMoveX(x);
 
             if (Input.GetButtonDown("Jump"))
                 currentPlayer.walking.Jump();

@@ -21,10 +21,10 @@ public class OptionsMenuUI : MonoBehaviour
 
     void AudioSlidersSetup()
     {
-        Debug.Log(PlayerPrefs.GetFloat("musicVolume"));
-        musicVolumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
-        Debug.Log(musicVolumeSlider.value);
-        effectsVolumeSlider.value = PlayerPrefs.GetFloat("effectsVolume");
+
+        musicVolumeSlider.value = PlayerPrefs.GetFloat("musicVolume", 1);
+
+        effectsVolumeSlider.value = PlayerPrefs.GetFloat("effectsVolume", 1);
     }
 
     void ResolutionsDropdownSetup()
@@ -51,7 +51,7 @@ public class OptionsMenuUI : MonoBehaviour
 
     void FullscreenToggleSetup()
     {
-        fullscreenToggle.isOn = (PlayerPrefs.GetInt("fullScreen") == 1) ? true : false;
+        fullscreenToggle.isOn = (PlayerPrefs.GetInt("fullScreen", 1) == 1) ? true : false;
     }
 
 }

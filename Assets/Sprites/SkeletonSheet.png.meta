@@ -4,6 +4,8 @@ TextureImporter:
   fileIDToRecycleName:
     21300000: SkeletonSheet_0
     21300002: SkeletonSheet_1
+    21300004: SkeletonSheet_2
+    21300006: SkeletonSheet_3
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -100,7 +102,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e0d5e3de07e8f44d9c9d6ed3676021f
+      spriteID: df427cb5203a14048b40d312b69529d8
       vertices: []
       indices: 
       edges: []
@@ -120,7 +122,47 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 642a7bf430932ca4d9003f0680f17566
+      spriteID: f6ccd3d8c76972844a06e321b5ecbc34
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkeletonSheet_2
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 900
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 399003ba5b4b70643917508c91d47d91
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkeletonSheet_3
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 900
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72e1e5f6d79ccf44b8990f3bb4f648e8
       vertices: []
       indices: 
       edges: []
@@ -128,7 +170,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 2534bb59fb668b445a9a04f115102686
+    spriteID: 42cb0ee3a5b37744290bbceb0216a3e5
     vertices: []
     indices: 
     edges: []

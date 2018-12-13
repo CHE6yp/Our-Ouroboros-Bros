@@ -34,15 +34,15 @@ public class Settings : MonoBehaviour
 
     public void SetupGraphics()
     {
-        bool fulScr = PlayerPrefs.GetInt("fullScreen") == 1 ? true : false;
-        Screen.SetResolution(PlayerPrefs.GetInt("resW"), PlayerPrefs.GetInt("resH"), fulScr);
+        bool fulScr = PlayerPrefs.GetInt("fullScreen", 1) == 1 ? true : false;
+        Screen.SetResolution(PlayerPrefs.GetInt("resW", 640), PlayerPrefs.GetInt("resH", 480), fulScr);
     }
 
     public void SetupAudio()
     {
-        float musVol = PlayerPrefs.GetFloat("musicVolume");
-        Debug.Log(PlayerPrefs.GetFloat("musicVolume"));
-        float effVol = PlayerPrefs.GetFloat("effectsVolume");
+        float musVol = PlayerPrefs.GetFloat("musicVolume", 1);
+        Debug.Log(PlayerPrefs.GetFloat("musicVolume", 1));
+        float effVol = PlayerPrefs.GetFloat("effectsVolume", 1);
         audioMixer.SetFloat("musicVolume", Mathf.Log10(musVol) * 20);
         audioMixer.SetFloat("effectsVolume", Mathf.Log10(effVol) * 20);
     }

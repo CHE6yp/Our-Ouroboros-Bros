@@ -9,6 +9,8 @@ public class FollowCam : MonoBehaviour
     public CamDelegate camPosition;
     public Transform cam;
     public GameObject playerCreature;
+    public PlayerController playerController;
+    public Walking walkingPlayer;
     public CamBound camBound;
     public float yValue = 0;
 
@@ -48,7 +50,16 @@ public class FollowCam : MonoBehaviour
 
     public void PlayerPosition2()
     {
+        Vector3 horSpace;
+        if (walkingPlayer.move.x > 0)
+            horSpace = new Vector3(10, 0, 0);
+        else if (walkingPlayer.move.x < 0)
+            horSpace = new Vector3(-10, 0, 0);
+        else
+            horSpace = Vector3.zero;
+
         Vector3 desiredPosition = new Vector3(playerCreature.transform.position.x , playerCreature.transform.position.y , -10);
+        desiredPosition += horSpace;
         Vector3 lerpedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         
         transform.position = new Vector3(lerpedPosition.x + shakeX, lerpedPosition.y + shakeY, -10);
@@ -93,6 +104,7 @@ public class FollowCam : MonoBehaviour
     public void AssignCreature(GameObject creature)
     {
         playerCreature = creature;
+        walkingPlayer = creature.GetComponent<Walking>();
 
         //events
         Health health = creature.GetComponent<Health>();
