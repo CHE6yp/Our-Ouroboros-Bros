@@ -211,3 +211,5 @@ MonoBehaviour:
     type: 3}
   shooterRight: {fileID: 6975416370697534655, guid: 1095f49a7946f02489348cc21c58a4ff,
     type: 3}
+  backgroundBox: {fileID: 7446734572464401689, guid: 2a7585aebd8619646b6a50f695c6d4d5,
+    type: 3}

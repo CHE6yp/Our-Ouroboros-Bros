@@ -21,7 +21,7 @@ public class Box : MonoBehaviour
         
     }
 
-    void AssignSprite()
+    public void AssignSprite()
     {
         spriteRenderer.sprite = surfaceSprites[Random.Range(0, surfaceSprites.Length)];
     }

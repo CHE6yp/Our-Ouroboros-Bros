@@ -20,6 +20,8 @@ public class Chunk : MonoBehaviour
 
     public int[][] chunkTemplate;
 
+    public GameObject backgroundBox;
+
     public void Generate(int tempId)
     {
         int[][] template = ChunkTemplates.templates[tempId];
@@ -83,6 +85,12 @@ public class Chunk : MonoBehaviour
                 shr.transform.localPosition = new Vector3(x, -y);
                 break;
         }
+
+
+        //GameObject backgroundB = Instantiate(backgroundBox, this.transform, false);
+        //backgroundB.transform.localPosition = new Vector3(x, -y, 5);
+        //backgroundB.GetComponent<Box>().AssignSprite();
+
 
         //stop
         if (!hell)

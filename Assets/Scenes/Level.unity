@@ -1179,6 +1179,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 1253616041}
   playerCreature: {fileID: 1997281331}
+  playerController: {fileID: 0}
+  walkingPlayer: {fileID: 0}
   camBound: {fileID: 0}
   yValue: -10.5
   smoothSpeed: 0.02
@@ -1469,7 +1471,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1601419937
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1481,7 +1483,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243352892461865572, guid: 8886c9e131fe687479d5bc3c3e0ae895,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 3e1fecac8f52565419c5c41f122256ca, type: 3}
+  m_audioClip: {fileID: 8300000, guid: dfb80f6fc05aaa546b44de928bc42d1c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1878,6 +1880,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6409655638805284652, guid: 0c33ce18b4144c145ae8696250340ec6,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 6409655638805284655, guid: 0c33ce18b4144c145ae8696250340ec6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1933,11 +1940,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6409655638805284652, guid: 0c33ce18b4144c145ae8696250340ec6,
-        type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 1418214239394262083, guid: 0c33ce18b4144c145ae8696250340ec6,
         type: 3}
       propertyPath: m_Enabled
@@ -1958,6 +1960,11 @@ PrefabInstance:
       propertyPath: health
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6409655638805284654, guid: 0c33ce18b4144c145ae8696250340ec6,
+        type: 3}
+      propertyPath: maxVelocityY
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c33ce18b4144c145ae8696250340ec6, type: 3}
 --- !u!1001 &1936244313
@@ -1967,6 +1974,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 440272935}
     m_Modifications:
+    - target: {fileID: 8010134242180221444, guid: 3457818ff27c46a488db29abcafc2ce0,
+        type: 3}
+      propertyPath: m_Name
+      value: Options
+      objectReference: {fileID: 0}
     - target: {fileID: 8010134242180221447, guid: 3457818ff27c46a488db29abcafc2ce0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2071,11 +2083,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8010134242180221444, guid: 3457818ff27c46a488db29abcafc2ce0,
-        type: 3}
-      propertyPath: m_Name
-      value: Options
       objectReference: {fileID: 0}
     - target: {fileID: 8010134242103963953, guid: 3457818ff27c46a488db29abcafc2ce0,
         type: 3}
@@ -3218,6 +3225,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8807785395818249345, guid: 05fbe4545217b1a48b38b8f9b78b7467,
+        type: 3}
+      propertyPath: m_Name
+      value: Map
+      objectReference: {fileID: 0}
     - target: {fileID: 8807785395818249351, guid: 05fbe4545217b1a48b38b8f9b78b7467,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3272,11 +3284,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807785395818249345, guid: 05fbe4545217b1a48b38b8f9b78b7467,
-        type: 3}
-      propertyPath: m_Name
-      value: Map
       objectReference: {fileID: 0}
     - target: {fileID: 8807785395818249344, guid: 05fbe4545217b1a48b38b8f9b78b7467,
         type: 3}

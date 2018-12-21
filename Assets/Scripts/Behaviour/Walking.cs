@@ -55,9 +55,6 @@ public class Walking : PhysicsObject
 
     public void GetMoveX(float x)
     {
-
-
-
         move.x = x;
     }
 

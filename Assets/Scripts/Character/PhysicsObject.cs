@@ -10,9 +10,11 @@ public class PhysicsObject : MonoBehaviour
 
     protected Vector2 targetVelocity;
     public bool grounded;
-    protected Vector2 groundNormal;
+
+    public Vector2 groundNormal;
     protected Rigidbody2D rb2d;
-    protected Vector2 velocity;
+    public float maxVelocityY = 3;
+    public Vector2 velocity;
     protected ContactFilter2D contactFilter;
     protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
     protected List<RaycastHit2D> hitBufferList = new List<RaycastHit2D>(16);
@@ -48,7 +50,9 @@ public class PhysicsObject : MonoBehaviour
     void FixedUpdate()
     {
         velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
+        
         velocity.x = targetVelocity.x;
+        //if (Mathf.Abs(velocity.y) > maxVelocityY )
 
         grounded = false;
 
@@ -78,7 +82,7 @@ public class PhysicsObject : MonoBehaviour
                 // TODO блядь какое же это сранное говно, это условие, нахуй понять как правильно и сделать правильно
                 // а вообще это дерьмо тут чтобы враг мог нормально проходить через игрока. Без условия он останавливался, хотя в слоях я прописал им чтобы они не сталкивались
                 // разобраться со слоями короче надо
-                if (hitBuffer[i].collider.tag != "Player")
+                //if (hitBuffer[i].collider.tag != "Player")
                     hitBufferList.Add(hitBuffer[i]);
                 //Debug.Log(hitBuffer[i].collider.name);
             }
@@ -108,6 +112,12 @@ public class PhysicsObject : MonoBehaviour
 
 
         }
+        //if (gameObject.tag == "Player")
+            //Debug.Log(velocity);
+        //if (Mathf.Abs(velocity.y) > maxVelocityY)
+            //velocity = new Vector2(velocity.x, maxVelocityY * velocity.normalized.y);
+        //if (gameObject.tag == "Player")
+            //Debug.Log("After "+velocity);
 
         rb2d.position = rb2d.position + move.normalized * distance;
     }
