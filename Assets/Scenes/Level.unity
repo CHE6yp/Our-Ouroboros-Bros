@@ -1135,7 +1135,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1183,7 +1183,7 @@ MonoBehaviour:
   walkingPlayer: {fileID: 0}
   camBound: {fileID: 0}
   yValue: -10.5
-  smoothSpeed: 0.02
+  smoothSpeed: 0.39
   shakeMin: 0.2
   shakeMax: 0.5
   shakeInterval: 0.02

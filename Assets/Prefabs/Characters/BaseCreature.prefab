@@ -86,9 +86,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGroundNormalY: 0
   gravityModifier: 5
+  speedY: 500
   grounded: 0
+  groundNormal: {x: 0, y: 0}
+  maxVelocityY: 3
+  velocity: {x: 0, y: 0}
+  jumping: 0
   maxSpeed: 15
-  jumpTakeOffSpeed: 22
+  jumpTakeOffSpeed: 2
   stopWhenDead: 1
   move: {x: 0, y: 0}
 --- !u!61 &6567582879340394764
@@ -4031,7 +4036,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 0
     subEmitters:
-    - serializedVersion: 2
+    - serializedVersion: 3
       emitter: {fileID: 0}
       type: 0
       properties: 0

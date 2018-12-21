@@ -129,4 +129,11 @@ public class ChunkTemplates
         return newTemplate;
     }
 
+
+    class Template
+    {
+        public string templateType;
+        public int[][] emptyTemplate;
+
+    }
 }

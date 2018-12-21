@@ -4,7 +4,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class Walking : PhysicsObject
+//public class Walking : PhysicsObject
+public class Walking : CreaturePhysics
 {
     public delegate void WalkingEvent();
     public event WalkingEvent switchDirection;
@@ -62,10 +63,33 @@ public class Walking : PhysicsObject
     {
         if (grounded)
         {
-            velocity.y = jumpTakeOffSpeed;
+            jumping = true;
+            velocity.y =  speedY*Time.fixedDeltaTime;
+            StartCoroutine(JumpTime());
             jump?.Invoke();
             
         }
+    }
+
+    public IEnumerator JumpTime()
+    {
+        for (int x = 0; x < 15; x++)
+        {
+            yield return new WaitForFixedUpdate();
+        }
+        jumping = false;
+    }
+
+
+    //позволяет прыгать ниже
+    public void BreakJump()
+    {
+        //if (velocity.y > 0)
+        //{
+        //    velocity.y = velocity.y * 0.5f;
+        //    jumping = false;
+        //}
+        jumping = false;
     }
 
     /// <summary>
@@ -73,17 +97,14 @@ public class Walking : PhysicsObject
     /// Для прыжков в воздухе. Будет идея лучше - перепишу.
     /// </summary>
     public void AirJump()
-    { 
-        velocity.y = jumpTakeOffSpeed;
+    {
+        jumping = true;
+        velocity.y = speedY * Time.fixedDeltaTime;
+        StartCoroutine(JumpTime());
         jump?.Invoke();
     }
 
-    //позволяет прыгать ниже
-    public void BreakJump()
-    {
-        if (velocity.y > 0)
-            velocity.y = velocity.y * 0.5f;
-    }
+
 
     public void KnockBack(int damage, Transform source)
     {
@@ -102,6 +123,7 @@ public class Walking : PhysicsObject
         Vector2 dir = transform.position - source.position;
         dir.Normalize();
         velocity.y = jumpTakeOffSpeed * 0.2f;
+        jumping = true;
         for (int i = 0; i < 3; i++)
         {
             //Debug.Log(rb2d.position + dir * Time.deltaTime);
@@ -109,6 +131,7 @@ public class Walking : PhysicsObject
             //velocity.y = 0.1f + dir.y*jumpTakeOffSpeed;
             yield return new WaitForSeconds(0.01f);
         }
+        jumping = false;
         //Debug.Break();
     }
 

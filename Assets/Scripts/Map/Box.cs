@@ -15,12 +15,6 @@ public class Box : MonoBehaviour
         //AssignSprite();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void AssignSprite()
     {
         spriteRenderer.sprite = surfaceSprites[Random.Range(0, surfaceSprites.Length)];

@@ -25,7 +25,7 @@ public class FollowCam : MonoBehaviour
     private void Awake()
     {
         //Есть баг! если начинать с PlayerPosition2 пропадают партиклы на существах
-        camPosition = PlayerPosition;
+        camPosition = PlayerPosition2;
 
     }
 
@@ -50,16 +50,16 @@ public class FollowCam : MonoBehaviour
 
     public void PlayerPosition2()
     {
-        Vector3 horSpace;
-        if (walkingPlayer.move.x > 0)
-            horSpace = new Vector3(10, 0, 0);
-        else if (walkingPlayer.move.x < 0)
-            horSpace = new Vector3(-10, 0, 0);
-        else
-            horSpace = Vector3.zero;
+        //Vector3 horSpace;
+        //if (walkingPlayer.move.x > 0)
+        //    horSpace = new Vector3(10, 0, 0);
+        //else if (walkingPlayer.move.x < 0)
+        //    horSpace = new Vector3(-10, 0, 0);
+        //else
+        //    horSpace = Vector3.zero;
 
         Vector3 desiredPosition = new Vector3(playerCreature.transform.position.x , playerCreature.transform.position.y , -10);
-        desiredPosition += horSpace;
+        //desiredPosition += horSpace;
         Vector3 lerpedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         
         transform.position = new Vector3(lerpedPosition.x + shakeX, lerpedPosition.y + shakeY, -10);
@@ -70,7 +70,7 @@ public class FollowCam : MonoBehaviour
         if (camPosition == PlayerPosition)
             camPosition = PlayerPosition2;
         else if (camPosition == PlayerPosition2 && cam.GetComponent<Camera>().orthographicSize == 10)
-            cam.GetComponent<Camera>().orthographicSize = 7;
+            cam.GetComponent<Camera>().orthographicSize = 5;
         else
         {
             cam.GetComponent<Camera>().orthographicSize = 10;
