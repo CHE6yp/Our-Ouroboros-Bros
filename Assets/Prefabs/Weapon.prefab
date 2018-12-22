@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canAttack: 1
   duration: 0.05
-  cooldown: 0.3
+  cooldown: 0.2
   meleeTrigger: {fileID: 8748635982062110827}
   meleeTriggerDown: {fileID: 5594461851696937997}
   meleeTriggerUp: {fileID: 1161469064246683618}

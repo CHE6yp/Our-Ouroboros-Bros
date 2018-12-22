@@ -112,7 +112,7 @@ public class Walking : CreaturePhysics
         //GetMoveX( (lookLeft) ? 10 : -10);
         Vector2 dir = transform.position - source.position;
         dir.Normalize();
-        Debug.Log(dir*3);
+        //Debug.Log(dir*3);
         //rb2d.MovePosition(dir);
         StartCoroutine(KnockBackIEnum(source));
     }

@@ -92,7 +92,7 @@ MonoBehaviour:
   maxVelocityY: 3
   velocity: {x: 0, y: 0}
   jumping: 0
-  maxSpeed: 15
+  maxSpeed: 15.15
   jumpTakeOffSpeed: 2
   stopWhenDead: 1
   move: {x: 0, y: 0}

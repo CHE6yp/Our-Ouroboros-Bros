@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
         if (controllingCharacter)
         {
             float x = Input.GetAxis("Horizontal");
+
+            
             if (x > 0.5f)
                 x = 1;
             else if (x < -0.5f)

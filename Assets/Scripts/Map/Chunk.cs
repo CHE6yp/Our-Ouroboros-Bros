@@ -71,18 +71,22 @@ public class Chunk : MonoBehaviour
             case 6:
                 GameObject sh = Instantiate(shooter, this.transform, false);
                 sh.transform.localPosition = new Vector3(x, -y);
+                sh.GetComponent<Box>().AssignSprite(x, y, this);
                 break;
             case 7:
                 GameObject shd = Instantiate(shooterDown, this.transform, false);
                 shd.transform.localPosition = new Vector3(x, -y);
+                shd.GetComponent<Box>().AssignSprite(x, y, this);
                 break;
             case 8:
                 GameObject shl = Instantiate(shooterLeft, this.transform, false);
                 shl.transform.localPosition = new Vector3(x, -y);
+                shl.GetComponent<Box>().AssignSprite(x, y, this);
                 break;
             case 9:
                 GameObject shr = Instantiate(shooterRight, this.transform, false);
                 shr.transform.localPosition = new Vector3(x, -y);
+                shr.GetComponent<Box>().AssignSprite(x, y, this);
                 break;
         }
 

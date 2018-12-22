@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1687471295433817985
 Transform:
@@ -1191,7 +1191,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   RotationModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -1418,7 +1418,7 @@ ParticleSystem:
         m_NumColorKeys: 3
         m_NumAlphaKeys: 3
   UVModule:
-    enabled: 1
+    enabled: 0
     mode: 1
     timeMode: 0
     fps: 30
@@ -3760,7 +3760,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 0
     subEmitters:
-    - serializedVersion: 2
+    - serializedVersion: 3
       emitter: {fileID: 0}
       type: 0
       properties: 0
@@ -4766,6 +4766,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1687471295507166392}
   - component: {fileID: 1687471295507166393}
+  - component: {fileID: 3792041866773713669}
   - component: {fileID: 1687471295507166394}
   - component: {fileID: 1687471295507166375}
   m_Layer: 0
@@ -4773,7 +4774,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1687471295507166392
 Transform:
@@ -4838,6 +4839,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3792041866773713669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687471295507166395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc756d0fdf2d55e418e27319525f25d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1687471295507166393}
+  surfaceSprites:
+  - {fileID: 21300000, guid: aaf6a390a2386fe4fbf37dc34f54cd71, type: 3}
+  deepSprites:
+  - {fileID: 21300000, guid: da99d9e17fa80c64a93ed7bd9d4bd330, type: 3}
+  chunkCoordinates: {x: 0, y: 0}
 --- !u!114 &1687471295507166394
 MonoBehaviour:
   m_ObjectHideFlags: 0

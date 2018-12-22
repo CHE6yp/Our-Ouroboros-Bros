@@ -50,15 +50,12 @@ public class FollowCam : MonoBehaviour
 
     public void PlayerPosition2()
     {
-        //Vector3 horSpace;
-        //if (walkingPlayer.move.x > 0)
-        //    horSpace = new Vector3(10, 0, 0);
-        //else if (walkingPlayer.move.x < 0)
-        //    horSpace = new Vector3(-10, 0, 0);
-        //else
-        //    horSpace = Vector3.zero;
+        float rx = Input.GetAxis("HorizontalRight");
+        float ry = Input.GetAxis("VerticalRight");
+        float multiplier = 2;
 
-        Vector3 desiredPosition = new Vector3(playerCreature.transform.position.x , playerCreature.transform.position.y , -10);
+
+        Vector3 desiredPosition = new Vector3(playerCreature.transform.position.x+rx* multiplier, playerCreature.transform.position.y+ry* multiplier, -10);
         //desiredPosition += horSpace;
         Vector3 lerpedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         

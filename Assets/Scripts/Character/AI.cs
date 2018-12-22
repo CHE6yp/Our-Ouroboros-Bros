@@ -55,9 +55,11 @@ public class AI : MonoBehaviour
         Debug.DrawRay(detectionPointCurrent.position, obstacleCheckDirection, Color.blue);
 
 
-
+        //Хммм, не могу понять, говнокод ли это?
+        //Выглядит как говнокод...
         if ((!groundInfo.collider || 
             groundInfo.collider.tag == "Spike" || 
+            //groundInfo.collider.tag == "Player" ||
             (obstacleInfo.collider != null && 
             (obstacleInfo.collider.tag != "Player" && 
             obstacleInfo.collider.tag != "MeleeRange"))) &&
