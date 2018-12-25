@@ -9,6 +9,8 @@ using Paths = System.Collections.Generic.List<System.Collections.Generic.List<Cl
 
 public class Map : MonoBehaviour
 {
+
+    public static Map instance;
     [Min(2)]
     public int mapLength = 5;
     public GameObject chunkPrefab;
@@ -17,8 +19,15 @@ public class Map : MonoBehaviour
 
     public bool generateAtStart = true;
 
+    //списки координат для генерации больших коллайдеров
+    public List<List<Vector2>> colliderCoordinates = new List<List<Vector2>>();
+    int chunkDone = 0;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         if (MapEditor.Chunk.playTesting)
@@ -147,12 +156,13 @@ public class Map : MonoBehaviour
     //create the collider in unity from the list of polygons
     public void CreateLevelCollider(List<List<Vector2>> polygons)
     {
-        GameObject colliderObj = new GameObject("LevelCollision");
+        //GameObject colliderObj = new GameObject("LevelCollision");
         //colliderObj.layer = GR.inst.GetLayerID(Layer.PLATFORM);
         //colliderObj.transform.SetParent(level.levelObj.transform);
 
-        PolygonCollider2D collider = colliderObj.AddComponent<PolygonCollider2D>();
+        //PolygonCollider2D collider = colliderObj.AddComponent<PolygonCollider2D>();
 
+        PolygonCollider2D collider = GetComponent<PolygonCollider2D>();
         collider.pathCount = polygons.Count;
 
         for (int i = 0; i < polygons.Count; i++)
@@ -165,7 +175,7 @@ public class Map : MonoBehaviour
 
     public List<List<Vector2>> RemoveClosePointsInPolygons(List<List<Vector2>> polygons)
     {
-        float proximityLimit = 0.1f;
+        float proximityLimit = 0.001f;
 
         List<List<Vector2>> resultPolygons = new List<List<Vector2>>();
 
@@ -201,6 +211,17 @@ public class Map : MonoBehaviour
         return resultPolygons;
     }
 
+
+    public void ChunkDone()
+    {
+        chunkDone++;
+        if (chunkDone == mapLength)
+        {
+            CreateLevelCollider(UniteCollisionPolygons(colliderCoordinates));
+
+        }
+           
+    }
 
 
 }

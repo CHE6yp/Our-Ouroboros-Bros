@@ -22,7 +22,7 @@ public class Chunk : MonoBehaviour
 
     public GameObject backgroundBox;
 
-    public void Generate(int tempId)
+    public void Generate(int tempId )
     {
         int[][] template = ChunkTemplates.templates[tempId];
         Generate(template);
@@ -39,6 +39,7 @@ public class Chunk : MonoBehaviour
                 //SpawnBlock(k, -(i + 1), template[i][k], true);
             }
         }
+        Map.instance.ChunkDone();
     }
 
     void SpawnBlock(int x, int y, int type, bool hell = false)
@@ -51,6 +52,7 @@ public class Chunk : MonoBehaviour
                 GameObject b = Instantiate(solidBox, this.transform, false);
                 b.transform.localPosition = new Vector3(x, -y);
                 b.GetComponent<Box>().AssignSprite(x,y,this);
+                SendBoxColliderCoordinates(x, y);
                 break;
             case 2:
                 GameObject e = Instantiate(enemyPref, this.transform, false);
@@ -72,21 +74,25 @@ public class Chunk : MonoBehaviour
                 GameObject sh = Instantiate(shooter, this.transform, false);
                 sh.transform.localPosition = new Vector3(x, -y);
                 sh.GetComponent<Box>().AssignSprite(x, y, this);
+                SendBoxColliderCoordinates(x, y);
                 break;
             case 7:
                 GameObject shd = Instantiate(shooterDown, this.transform, false);
                 shd.transform.localPosition = new Vector3(x, -y);
                 shd.GetComponent<Box>().AssignSprite(x, y, this);
+                SendBoxColliderCoordinates(x, y);
                 break;
             case 8:
                 GameObject shl = Instantiate(shooterLeft, this.transform, false);
                 shl.transform.localPosition = new Vector3(x, -y);
                 shl.GetComponent<Box>().AssignSprite(x, y, this);
+                SendBoxColliderCoordinates(x, y);
                 break;
             case 9:
                 GameObject shr = Instantiate(shooterRight, this.transform, false);
                 shr.transform.localPosition = new Vector3(x, -y);
                 shr.GetComponent<Box>().AssignSprite(x, y, this);
+                SendBoxColliderCoordinates(x, y);
                 break;
         }
 
@@ -154,5 +160,15 @@ public class Chunk : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+    }
+
+    void SendBoxColliderCoordinates(int x, int y)
+    {
+        List<Vector2> coords = new List<Vector2>() {    new Vector2(transform.localPosition.x + x - 0.5f, -y + 0.5f),
+                                                        new Vector2(transform.localPosition.x + x + 0.5f, -y + 0.5f),
+                                                        new Vector2(transform.localPosition.x + x + 0.5f, -y - 0.5f),
+                                                        new Vector2(transform.localPosition.x + x - 0.5f, -y - 0.5f) };
+        Debug.Log(coords);
+        Map.instance.colliderCoordinates.Add(coords);   
     }
 }

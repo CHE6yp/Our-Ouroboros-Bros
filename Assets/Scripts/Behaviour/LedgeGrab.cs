@@ -17,9 +17,9 @@ public class LedgeGrab : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
             //GetComponent<Walking>().Jump();
-            Debug.Log("HIT");
+            //Debug.Log("HIT");
         }
         Debug.DrawRay(transform.position, -Vector2.up, Color.red);
     }
