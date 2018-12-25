@@ -11,26 +11,6 @@ namespace MapEditor
 
         public Sprite[] sprites;
 
-        public Block relatedBlock;
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        public void SetBothBlocksType(int type)
-        {
-            SetBlockType(type);
-            relatedBlock.SetBlockType(type);
-        }
-
         public void SetBlockType(int type)
         {
             blockType = type;
@@ -43,10 +23,10 @@ namespace MapEditor
         void OnMouseOver()
         {
             if (Input.GetMouseButton(0))
-                SetBothBlocksType(Chunk.placedBlockType);
+                SetBlockType(Chunk.placedBlockType);
             else
                 if (Input.GetMouseButton(1))
-                SetBothBlocksType(0);
+                SetBlockType(0);
         }
     }
 }

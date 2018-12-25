@@ -6,7 +6,9 @@ using System.Text.RegularExpressions;
 
 public class ChunkTemplates
 {
-    public static Templates templates;
+    public static Templates templatesContainer;
+    public static int chunkHeight = 8;
+    public static int chunkWidth = 10;
     public static int[][] emptyTemplate = new int[20][]
     {
         new int[32] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1  },
@@ -33,16 +35,17 @@ public class ChunkTemplates
     //public static Templates templates;
 
 
+
     public static void GetFromJson()
     {
-        templates = new Templates();
+        templatesContainer = new Templates();
         string filePath = Application.streamingAssetsPath + "/chunksJson.txt";
         Debug.Log(filePath);
 
         if (File.Exists(filePath))
         {
             string dataAsJson = File.ReadAllText(filePath);
-            templates = JsonUtility.FromJson<Templates>(dataAsJson);
+            templatesContainer = JsonUtility.FromJson<Templates>(dataAsJson);
         }
         else
         {
@@ -50,23 +53,9 @@ public class ChunkTemplates
         }
     }
 
-
-    static int[][] NewChunk()
-    {
-        int[][] chunk = new int[20][];
-        for (int i = 0; i < 20; i++)
-        {
-            chunk[i] = new int[32];
-        }
-        return chunk;
-    }
-
     public static void SaveToTxt()
     {
         string filePathJson = Application.streamingAssetsPath + "/chunksJson.txt";
-
-
-
 
         if (File.Exists(filePathJson))
         {
@@ -78,7 +67,7 @@ public class ChunkTemplates
     {
         string newTemplate = "";
         
-        newTemplate = JsonUtility.ToJson(templates);
+        newTemplate = JsonUtility.ToJson(templatesContainer);
         return newTemplate;
     }
 

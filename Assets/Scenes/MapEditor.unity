@@ -455,6 +455,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6424096682369810487, guid: 0019d284123a9be41943950d5bdfec4e,
+        type: 3}
+      propertyPath: m_Name
+      value: Chunk
+      objectReference: {fileID: 0}
     - target: {fileID: 6424096682369810485, guid: 0019d284123a9be41943950d5bdfec4e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -509,11 +514,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6424096682369810487, guid: 0019d284123a9be41943950d5bdfec4e,
-        type: 3}
-      propertyPath: m_Name
-      value: Chunk
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0019d284123a9be41943950d5bdfec4e, type: 3}
@@ -699,10 +699,10 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1024, y: 768}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1018,15 +1018,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8270095710714248195, guid: ef4b9e92087cfce4daf65e3ad458389f,
+        type: 3}
+      propertyPath: m_Name
+      value: MapEditorChunk
+      objectReference: {fileID: 0}
     - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.75
+      value: -2.25
       objectReference: {fileID: 0}
     - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.25
+      value: 2.25
       objectReference: {fileID: 0}
     - target: {fileID: 8270095710714248193, guid: ef4b9e92087cfce4daf65e3ad458389f,
         type: 3}
@@ -1072,11 +1077,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8270095710714248195, guid: ef4b9e92087cfce4daf65e3ad458389f,
-        type: 3}
-      propertyPath: m_Name
-      value: MapEditorChunk
       objectReference: {fileID: 0}
     - target: {fileID: 8270095710714248192, guid: ef4b9e92087cfce4daf65e3ad458389f,
         type: 3}

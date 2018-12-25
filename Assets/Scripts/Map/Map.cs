@@ -41,30 +41,29 @@ public class Map : MonoBehaviour
     {
         ChunkTemplates.GetFromJson();
 
-        Debug.Log(ChunkTemplates.templates.templates[0].ttype);
+        Debug.Log(ChunkTemplates.templatesContainer.templates[0].ttype);
 
         GameObject start_ch = Instantiate(chunkPrefab, transform, false);
         start_ch.transform.localPosition = new Vector3(0, 0);
-        start_ch.GetComponent<Chunk>().Generate(ChunkTemplates.templates.templates[0]);
-        Instantiate(camBoundary, new Vector3(7f, 0), Quaternion.identity);
+        start_ch.GetComponent<Chunk>().Generate(ChunkTemplates.templatesContainer.templates[0]);
+        //Instantiate(camBoundary, new Vector3(7f, 0), Quaternion.identity);
 
         for (int i = 1; i < mapLength - 1; i++)
         {
             GameObject ch = Instantiate(chunkPrefab, transform, false);
             ch.transform.localPosition = new Vector3(i * chunkDistance, 0);
-            ch.GetComponent<Chunk>().Generate(ChunkTemplates.templates.templates[Random.Range(2, ChunkTemplates.templates.templates.Count)]);
+            ch.GetComponent<Chunk>().Generate(ChunkTemplates.templatesContainer.templates[Random.Range(2, ChunkTemplates.templatesContainer.templates.Count)]);
         }
 
         GameObject finish_ch = Instantiate(chunkPrefab, transform, false);
         finish_ch.transform.localPosition = new Vector3((mapLength - 1) * chunkDistance, 0);
-        finish_ch.GetComponent<Chunk>().Generate(ChunkTemplates.templates.templates[1]);
-        Instantiate(camBoundary, new Vector3(finish_ch.transform.position.x + 24.5f, 0), Quaternion.identity);
+        finish_ch.GetComponent<Chunk>().Generate(ChunkTemplates.templatesContainer.templates[1]);
+        //Instantiate(camBoundary, new Vector3(finish_ch.transform.position.x + 24.5f, 0), Quaternion.identity);
     }
 
     void PlayTestTemplate(ChunkTemplates.Template template)
     {
-        Clear();
-
+        //Clear();
 
         GameObject start_ch = Instantiate(chunkPrefab, transform, false);
         start_ch.transform.localPosition = new Vector3(0, 0);

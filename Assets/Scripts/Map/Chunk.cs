@@ -25,8 +25,8 @@ public class Chunk : MonoBehaviour
 
     public void Generate(int tempId )
     {
-        //int[][] template = ChunkTemplates.templates[tempId];
-        //Generate(template);
+        ChunkTemplates.Template template = ChunkTemplates.templatesContainer.templates[tempId];
+        Generate(template);
     }
 
     public void Generate(ChunkTemplates.Template template)

@@ -23,11 +23,6 @@ namespace MapEditor
 
         }
 
-        void Update()
-        {
-
-        }
-
         public void ToggleHelp()
         {
             helpPanel.SetActive(!helpPanel.activeSelf);
