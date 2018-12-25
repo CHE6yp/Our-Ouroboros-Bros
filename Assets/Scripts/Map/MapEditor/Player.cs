@@ -24,8 +24,6 @@ namespace MapEditor
 
             if (Input.GetKeyDown(KeyCode.S))
                 Chunk.instance.SaveTemplate();
-            if (Input.GetKeyDown(KeyCode.R))
-                Chunk.instance.ReverseMap();
             if (Input.GetKeyDown(KeyCode.N))
                 Chunk.instance.NewTemplate();
             if (Input.GetKeyDown(KeyCode.P))
@@ -64,7 +62,7 @@ namespace MapEditor
         public void PlayTest()
         {
             Chunk.playTesting = true;
-            Chunk.playTestTemplate = Chunk.instance.GetTemplateMatrix();
+            Chunk.playTestTemplate = Chunk.instance.GetTemplate();
             SceneManager.LoadScene(1);
         }
     }

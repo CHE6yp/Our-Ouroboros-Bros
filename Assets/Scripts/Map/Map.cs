@@ -34,34 +34,34 @@ public class Map : MonoBehaviour
             PlayTestTemplate(MapEditor.Chunk.playTestTemplate);
         else
             if (generateAtStart)
-                GenerateMap();
+                GenerateMapJson();
     }
 
-    void GenerateMap()
+    void GenerateMapJson()
     {
-        ChunkTemplates.GetFromTxt();
+        ChunkTemplates.GetFromJson();
 
-        Debug.Log(ChunkTemplates.templates[0][0][0]);
+        Debug.Log(ChunkTemplates.templates.templates[0].ttype);
 
         GameObject start_ch = Instantiate(chunkPrefab, transform, false);
         start_ch.transform.localPosition = new Vector3(0, 0);
-        start_ch.GetComponent<Chunk>().Generate(0);
-        Instantiate(camBoundary, new Vector3(7f, 0),Quaternion.identity);
+        start_ch.GetComponent<Chunk>().Generate(ChunkTemplates.templates.templates[0]);
+        Instantiate(camBoundary, new Vector3(7f, 0), Quaternion.identity);
 
-        for (int i = 1; i < mapLength-1; i++)
+        for (int i = 1; i < mapLength - 1; i++)
         {
-            GameObject ch = Instantiate(chunkPrefab,  transform, false);
+            GameObject ch = Instantiate(chunkPrefab, transform, false);
             ch.transform.localPosition = new Vector3(i * chunkDistance, 0);
-            ch.GetComponent<Chunk>().Generate(Random.Range( 2, ChunkTemplates.templates.Count));
+            ch.GetComponent<Chunk>().Generate(ChunkTemplates.templates.templates[Random.Range(2, ChunkTemplates.templates.templates.Count)]);
         }
 
         GameObject finish_ch = Instantiate(chunkPrefab, transform, false);
-        finish_ch.transform.localPosition = new Vector3((mapLength-1)*chunkDistance, 0);
-        finish_ch.GetComponent<Chunk>().Generate(1);
+        finish_ch.transform.localPosition = new Vector3((mapLength - 1) * chunkDistance, 0);
+        finish_ch.GetComponent<Chunk>().Generate(ChunkTemplates.templates.templates[1]);
         Instantiate(camBoundary, new Vector3(finish_ch.transform.position.x + 24.5f, 0), Quaternion.identity);
     }
 
-    void PlayTestTemplate(int[][] template)
+    void PlayTestTemplate(ChunkTemplates.Template template)
     {
         Clear();
 
@@ -217,6 +217,36 @@ public class Map : MonoBehaviour
         chunkDone++;
         if (chunkDone == mapLength)
         {
+
+           
+            //new Vector2(-0.5f, 0.5f),  верх лево 
+            //new Vector2(32 * mapLength + 0.5f, +0.5f), верх право
+            //new Vector2(32 * mapLength + 0.5f, -19 - 0.5f), низ право
+            //new Vector2(-0.5f, -19 - 0.5f) }; низ лево
+
+
+            List<Vector2> coords = new List<Vector2>() {    new Vector2(- 3f, 0.5f),
+                                                        new Vector2(32*mapLength + 3f,  + 0.5f),
+                                                        new Vector2(32*mapLength + 3f, 3f),
+                                                        new Vector2(- 3f, 3f) };
+            List<Vector2> coords2 = new List<Vector2>() {    new Vector2(- 0.5f, 0.5f),
+                                                        new Vector2(-3f,  + 0.5f),
+                                                        new Vector2(-3f, -19 - 0.5f),
+                                                        new Vector2(- 0.5f, -19- 0.5f) };
+            List<Vector2> coords3 = new List<Vector2>() {    new Vector2(- 3f, -22f),
+                                                        new Vector2(32*mapLength + 3f,  -22f),
+                                                        new Vector2(32*mapLength + 3f, -19 - 0.5f),
+                                                        new Vector2(- 3f, -19- 0.5f) };
+            List<Vector2> coords4 = new List<Vector2>() {    new Vector2(32*mapLength+3, 0.5f),
+                                                        new Vector2(32*mapLength + 0.5f,  + 0.5f),
+                                                        new Vector2(32*mapLength + 0.5f, -19 - 0.5f),
+                                                        new Vector2(32*mapLength+3, -19- 0.5f) };
+
+            colliderCoordinates.Add(coords);
+            colliderCoordinates.Add(coords2);
+            colliderCoordinates.Add(coords3);
+            colliderCoordinates.Add(coords4);
+
             CreateLevelCollider(UniteCollisionPolygons(colliderCoordinates));
 
         }

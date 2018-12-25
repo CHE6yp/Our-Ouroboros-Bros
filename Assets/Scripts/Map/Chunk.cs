@@ -19,30 +19,31 @@ public class Chunk : MonoBehaviour
     public GameObject shooterRight;
 
     public int[][] chunkTemplate;
+    public ChunkTemplates.Template chunkTemplateJson;
 
     public GameObject backgroundBox;
 
     public void Generate(int tempId )
     {
-        int[][] template = ChunkTemplates.templates[tempId];
-        Generate(template);
+        //int[][] template = ChunkTemplates.templates[tempId];
+        //Generate(template);
     }
 
-    public void Generate(int[][] template)
+    public void Generate(ChunkTemplates.Template template)
     {
-        chunkTemplate = template;
-        for (int i = 0; i < template.Length; i++)
+        chunkTemplateJson = template;
+
+        foreach (ChunkTemplates.Block block in chunkTemplateJson.elements)
         {
-            for (int k = 0; k < template[i].Length; k++)
-            {
-                SpawnBlock(k, i + 1, template[i][k]);
-                //SpawnBlock(k, -(i + 1), template[i][k], true);
-            }
+
+            SpawnBlock((int)block.coordinates.x, (int)block.coordinates.y, block.ttype);
+            //Debug.Log(block.coordinates.y);
         }
+
         Map.instance.ChunkDone();
     }
 
-    void SpawnBlock(int x, int y, int type, bool hell = false)
+    void SpawnBlock(int x, int y, int type)
     {
         switch (type)
         {
@@ -100,58 +101,6 @@ public class Chunk : MonoBehaviour
         //GameObject backgroundB = Instantiate(backgroundBox, this.transform, false);
         //backgroundB.transform.localPosition = new Vector3(x, -y, 5);
         //backgroundB.GetComponent<Box>().AssignSprite();
-
-
-        //stop
-        if (!hell)
-            return;
-        else
-        {
-            return;
-            switch (type)
-            {
-                default:
-                    break;
-                case 1:
-                    GameObject b = Instantiate(solidBoxHell, this.transform, false);
-                    b.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 2:
-                    GameObject e = Instantiate(enemyPref, this.transform, false);
-                    e.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 3:
-                    GameObject s = Instantiate(spikesHellRev, this.transform, false);
-                    s.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 4:
-                    GameObject sr = Instantiate(spikesHell, this.transform, false);
-                    sr.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 5:
-                    GameObject p = Instantiate(pickup, this.transform, false);
-                    p.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 6:
-                    GameObject sh = Instantiate(shooterDown, this.transform, false);
-                    sh.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 7:
-                    GameObject shd = Instantiate(shooter, this.transform, false);
-                    shd.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 8:
-                    GameObject shl = Instantiate(shooterLeft, this.transform, false);
-                    shl.transform.localPosition = new Vector3(x, -y);
-                    break;
-                case 9:
-                    GameObject shr = Instantiate(shooterRight, this.transform, false);
-                    shr.transform.localPosition = new Vector3(x, -y);
-                    break;
-            }
-        }
-
-
     }
 
     public void Clear()
@@ -168,7 +117,7 @@ public class Chunk : MonoBehaviour
                                                         new Vector2(transform.localPosition.x + x + 0.5f, -y + 0.5f),
                                                         new Vector2(transform.localPosition.x + x + 0.5f, -y - 0.5f),
                                                         new Vector2(transform.localPosition.x + x - 0.5f, -y - 0.5f) };
-        Debug.Log(coords);
+        //Debug.Log(coords);
         Map.instance.colliderCoordinates.Add(coords);   
     }
 }

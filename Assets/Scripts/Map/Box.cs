@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Box : MonoBehaviour
@@ -8,7 +9,7 @@ public class Box : MonoBehaviour
     public Sprite[] surfaceSprites;
     public Sprite[] deepSprites;
     public Vector2 chunkCoordinates;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -22,14 +23,24 @@ public class Box : MonoBehaviour
 
     public void AssignSprite(int x, int y, Chunk chunk)
     {
-        //Debug.Log(chunk.chunkTemplate[y - 1][x]);
         chunkCoordinates = new Vector2(x, y);
-        if (y!=1 && !chunk.chunkTemplate[y-2][x].In(1,6,7,8,9))
+
+
+        if (y != 0)
         {
-            //Debug.Log(chunk.chunkTemplate[y - 1][x]);
-            spriteRenderer.sprite = surfaceSprites[Random.Range(0, surfaceSprites.Length)];
+            ChunkTemplates.Block upperBlock = chunk.chunkTemplateJson.elements.First(item => item.coordinates == new Vector2(x, y -1));
+            if (!upperBlock.ttype.In(1, 6, 7, 8, 9))
+            {
+                //Debug.Log(chunk.chunkTemplate[y - 1][x]);
+                spriteRenderer.sprite = surfaceSprites[Random.Range(0, surfaceSprites.Length)];
+            }
+            else
+                spriteRenderer.sprite = deepSprites[Random.Range(0, deepSprites.Length)];
         }
         else
             spriteRenderer.sprite = deepSprites[Random.Range(0, deepSprites.Length)];
+
+
+
     }
 }

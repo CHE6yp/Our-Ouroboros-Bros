@@ -16,13 +16,14 @@ namespace MapEditor
         public static bool newChunk = true;
         public static int currentTemplateId = 0;
         public static int placedBlockType = 1;
-        static bool reversed = false;
 
         public GameObject mapGenBlock;
         public Block[][] mapGenBlocks = new Block[20][];
 
         public static bool playTesting;
-        public static int[][] playTestTemplate;
+        public static ChunkTemplates.Template playTestTemplate;
+        public static ChunkTemplates.Template currentTemplate;
+       
          
 
         public void Start()
@@ -32,7 +33,7 @@ namespace MapEditor
             if (playTesting)
                 SetChunk(playTestTemplate);
             else
-                ChunkTemplates.GetFromTxt();
+                ChunkTemplates.GetFromJson();
             
         }
 
@@ -50,11 +51,6 @@ namespace MapEditor
 
         }
 
-        public void ReverseMap()
-        {
-            reversed = !reversed;
-            Camera.main.transform.position = (reversed) ? new Vector3(0, 10.5f, -10) : new Vector3(0, 0, -10);
-        }
 
         /// <summary>
         /// Подготовка чанка, расстановка блоков итд
@@ -79,14 +75,14 @@ namespace MapEditor
         /// Применение темплейта на чанк
         /// </summary>
         /// <param name="template"></param>
-        void SetChunk(int[][] template)
+        void SetChunk(ChunkTemplates.Template template)
         {
             for (int i = 0; i < ChunkTemplates.emptyTemplate.Length; i++)
             {
 
                 for (int k = 0; k < ChunkTemplates.emptyTemplate[i].Length; k++)
                 {
-                    mapGenBlocks[i][k].SetBothBlocksType(template[i][k]);
+                    mapGenBlocks[i][k].SetBothBlocksType(template.elements[i*32+k].ttype);
                 }
             }
         }
@@ -101,14 +97,14 @@ namespace MapEditor
             else
             {
                 Debug.Log("Save existing template");
-                ChunkTemplates.templates[currentTemplateId] = GetTemplateMatrix();
+                ChunkTemplates.templates.templates[currentTemplateId] = GetTemplateMatrix();
                 ChunkTemplates.SaveToTxt();
             }
         }
 
         void SaveTemplateAsNew()
         {
-            ChunkTemplates.templates.Add(GetTemplateMatrix());
+            ChunkTemplates.templates.templates.Add(GetTemplateMatrix());
             ChunkTemplates.SaveToTxt();
         }
 
@@ -118,18 +114,18 @@ namespace MapEditor
         public void NewTemplate()
         {
             newChunk = true;
-            SetChunk(ChunkTemplates.emptyTemplate);
+            SetChunk(new ChunkTemplates.Template());
             switchTemplate();
         }
 
         public void NextTemplate()
         {
             newChunk = false;
-            if (currentTemplateId == ChunkTemplates.templates.Count - 1)
+            if (currentTemplateId == ChunkTemplates.templates.templates.Count - 1)
                 currentTemplateId = 0;
             else
                 currentTemplateId++;
-            SetChunk(ChunkTemplates.templates[currentTemplateId]);
+            SetChunk(ChunkTemplates.templates.templates[currentTemplateId]);
             switchTemplate();
         }
 
@@ -137,10 +133,10 @@ namespace MapEditor
         {
             newChunk = false;
             if (currentTemplateId == 0)
-                currentTemplateId = ChunkTemplates.templates.Count - 1;
+                currentTemplateId = ChunkTemplates.templates.templates.Count - 1;
             else
                 currentTemplateId--;
-            SetChunk(ChunkTemplates.templates[currentTemplateId]);
+            SetChunk(ChunkTemplates.templates.templates[currentTemplateId]);
             switchTemplate();
         }
 
@@ -169,7 +165,7 @@ namespace MapEditor
         /// Возвращает матрицу текущего шаблона
         /// </summary>
         /// <returns></returns>
-        public int[][] GetTemplateMatrix()
+        public ChunkTemplates.Template GetTemplateMatrix()
         {
             int[][] newTemplate = new int[20][];
 
@@ -182,10 +178,42 @@ namespace MapEditor
                 }
             }
 
+            ChunkTemplates.Template template = new ChunkTemplates.Template();
+            for (int i = 0; i < mapGenBlocks.Length; i++)
+            {
+                for (int k = 0; k < mapGenBlocks[i].Length; k++)
+                {
+                    ChunkTemplates.Block block = new ChunkTemplates.Block();
+                    block.ttype = mapGenBlocks[i][k].blockType;
+                    block.coordinates = new Vector2(k, i);
+
+                    template.elements[i * 32 + k] = block;
+                }
+            }
+
+
+            return template;
+        }
+
+        public ChunkTemplates.Template GetTemplate()
+        {
+            ChunkTemplates.Template newTemplate = new ChunkTemplates.Template();
+
+            for (int i = 0; i < mapGenBlocks.Length; i++)
+            {
+                for (int k = 0; k < mapGenBlocks[i].Length; k++)
+                {
+
+                    newTemplate.elements[i*32+k].ttype = mapGenBlocks[i][k].blockType;
+                    newTemplate.elements[i * 32 + k].coordinates = new Vector2(k, i);
+
+                }
+            }
+
             return newTemplate;
         }
 
-        
+
 
 
     }
