@@ -10,7 +10,7 @@ using Paths = System.Collections.Generic.List<System.Collections.Generic.List<Cl
 public class Map : MonoBehaviour
 {
 
-    public static Map instance;
+    public static Map instance; 
     [Min(2)]
     public int mapLength = 5;
     public GameObject chunkPrefab;
@@ -18,6 +18,8 @@ public class Map : MonoBehaviour
     public GameObject camBoundary;
 
     public bool generateAtStart = true;
+
+    public int[][] mapLayout = new int[3][];
 
     //списки координат для генерации больших коллайдеров
     public List<List<Vector2>> colliderCoordinates = new List<List<Vector2>>();
@@ -37,8 +39,101 @@ public class Map : MonoBehaviour
                 GenerateMapJson();
     }
 
+    void GenerateMapLayout()
+    {
+        //создаем массив с нулями
+        for (int y = 0; y < mapLayout.Length; y++)
+        {
+            mapLayout[y] = new int[mapLength];
+            for (int x = 0; x < mapLength; x++)
+            {
+                mapLayout[y][x] = 0;
+            }
+        }
+
+        int startY = Random.Range(0, 4);
+        AssignLayout(startY, 0);
+    }
+
+    void AssignLayout(int y, int x)
+    {
+        int layoutType = Random.Range(1, 4);
+        //1 up, 2 down, 3 right
+        if (x != mapLength - 1)
+        {
+            if (layoutType == 1)
+            {
+                //минус потому что 0 сверху а 2 снизу
+                if (y == 0 || mapLayout[y - 1][x] != 0)
+                    AssignLayout(y, x);
+                else
+                {
+                    mapLayout[y][x] = layoutType;
+                    AssignLayout(y - 1, x);
+                }
+            }
+            if (layoutType == 2)
+            {
+                if (y == 2 || mapLayout[y + 1][x] != 0)
+                    AssignLayout(y, x);
+                else
+                {
+                    mapLayout[y][x] = layoutType;
+                    AssignLayout(y + 1, x);
+                }
+            }
+            if (layoutType == 3)
+            {
+                mapLayout[y][x] = layoutType;
+                AssignLayout(y , x+1);
+            }
+        }
+        else
+        {
+            if (layoutType == 1)
+            {
+                if (y == 0 || mapLayout[y - 1][x] != 0)
+                    return; //end map here
+                else
+                {
+                    mapLayout[y][x] = layoutType;
+                    AssignLayout(y - 1, x);
+                }
+            }
+            if (layoutType == 2)
+            {
+                if (y == 2 || mapLayout[y + 1][x] != 0)
+                    return; //end map here
+                else
+                {
+                    mapLayout[y][x] = layoutType;
+                    AssignLayout(y + 1, x);
+                }
+            }
+            if (layoutType == 3)
+            {
+                mapLayout[y][x] = layoutType;
+                return; //end map here
+            }
+        }
+
+    }
+
     void GenerateMapJson()
     {
+        GenerateMapLayout();
+        string layoutString = "";
+        for (int y = 0; y < mapLayout.Length; y++)
+        { 
+            for (int x = 0; x < mapLength; x++)
+            {
+                layoutString += mapLayout[y][x].ToString();
+            }
+            layoutString += "\n";
+        }
+        Debug.Log(layoutString);
+
+
         ChunkTemplates.GetFromJson();
 
         Debug.Log(ChunkTemplates.templatesContainer.templates[0].ttype);
@@ -90,7 +185,6 @@ public class Map : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
-
 
     ///
     ///Далее код отсуда
@@ -209,7 +303,6 @@ public class Map : MonoBehaviour
 
         return resultPolygons;
     }
-
 
     public void ChunkDone()
     {
