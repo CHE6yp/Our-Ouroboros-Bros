@@ -51,7 +51,7 @@ public class Map : MonoBehaviour
             }
         }
 
-        int startY = Random.Range(0, 4);
+        int startY = Random.Range(0, 3);
         AssignLayout(startY, 0);
     }
 
@@ -59,6 +59,7 @@ public class Map : MonoBehaviour
     {
         int layoutType = Random.Range(1, 4);
         //1 up, 2 down, 3 right
+        
         if (x != mapLength - 1)
         {
             if (layoutType == 1)
@@ -136,24 +137,16 @@ public class Map : MonoBehaviour
 
         ChunkTemplates.GetFromJson();
 
-        Debug.Log(ChunkTemplates.templatesContainer.templates[0].ttype);
 
-        GameObject start_ch = Instantiate(chunkPrefab, transform, false);
-        start_ch.transform.localPosition = new Vector3(0, 0);
-        start_ch.GetComponent<Chunk>().Generate(ChunkTemplates.templatesContainer.templates[0]);
-        //Instantiate(camBoundary, new Vector3(7f, 0), Quaternion.identity);
-
-        for (int i = 1; i < mapLength - 1; i++)
+        for (int y = 0; y < mapLayout.Length; y++)
         {
-            GameObject ch = Instantiate(chunkPrefab, transform, false);
-            ch.transform.localPosition = new Vector3(i * chunkDistance, 0);
-            ch.GetComponent<Chunk>().Generate(ChunkTemplates.templatesContainer.templates[Random.Range(2, ChunkTemplates.templatesContainer.templates.Count)]);
+            for (int x = 0; x < mapLength; x++)
+            {
+                GameObject ch = Instantiate(chunkPrefab, transform, false);
+                ch.transform.localPosition = new Vector3(x * chunkDistance, -y*8);
+                ch.GetComponent<Chunk>().Generate(ChunkTemplates.templatesContainer.templates[Random.Range(0, ChunkTemplates.templatesContainer.templates.Count)]);
+            }
         }
-
-        GameObject finish_ch = Instantiate(chunkPrefab, transform, false);
-        finish_ch.transform.localPosition = new Vector3((mapLength - 1) * chunkDistance, 0);
-        finish_ch.GetComponent<Chunk>().Generate(ChunkTemplates.templatesContainer.templates[1]);
-        //Instantiate(camBoundary, new Vector3(finish_ch.transform.position.x + 24.5f, 0), Quaternion.identity);
     }
 
     void PlayTestTemplate(ChunkTemplates.Template template)
