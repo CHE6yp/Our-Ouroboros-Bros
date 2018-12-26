@@ -113,10 +113,10 @@ public class Chunk : MonoBehaviour
 
     void SendBoxColliderCoordinates(int x, int y)
     {
-        List<Vector2> coords = new List<Vector2>() {    new Vector2(transform.localPosition.x + x - 0.5f, -y + 0.5f),
-                                                        new Vector2(transform.localPosition.x + x + 0.5f, -y + 0.5f),
-                                                        new Vector2(transform.localPosition.x + x + 0.5f, -y - 0.5f),
-                                                        new Vector2(transform.localPosition.x + x - 0.5f, -y - 0.5f) };
+        List<Vector2> coords = new List<Vector2>() {    new Vector2(transform.localPosition.x + x - 0.5f, transform.localPosition.y -y + 0.5f),
+                                                        new Vector2(transform.localPosition.x + x + 0.5f, transform.localPosition.y -y + 0.5f),
+                                                        new Vector2(transform.localPosition.x + x + 0.5f, transform.localPosition.y -y - 0.5f),
+                                                        new Vector2(transform.localPosition.x + x - 0.5f, transform.localPosition.y -y - 0.5f) };
         //Debug.Log(coords);
         Map.instance.colliderCoordinates.Add(coords);   
     }

@@ -100,12 +100,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f0ef327eea6a0444f98eee61de3fea6b, type: 3}
   - {fileID: 21300000, guid: 855d1fdc061f8944791a5beeb2a9acbf, type: 3}
   - {fileID: 21300000, guid: ac8b7c44170dc0a41b5f545de1cf744b, type: 3}
-  - {fileID: 21300000, guid: 5e84b3fbe579fc64d91316806611ad38, type: 3}
-  - {fileID: 21300000, guid: d6c0e8bd96be72a439d603aa11cdbc8a, type: 3}
-  - {fileID: 21300000, guid: d6c0e8bd96be72a439d603aa11cdbc8a, type: 3}
-  - {fileID: 21300000, guid: d6c0e8bd96be72a439d603aa11cdbc8a, type: 3}
-  - {fileID: 21300000, guid: d6c0e8bd96be72a439d603aa11cdbc8a, type: 3}
-  relatedBlock: {fileID: 0}
+  - {fileID: 21300000, guid: c0e927f045b93954e9bf40b433900eea, type: 3}
+  - {fileID: 21300000, guid: da99d9e17fa80c64a93ed7bd9d4bd330, type: 3}
+  - {fileID: 21300002, guid: da99d9e17fa80c64a93ed7bd9d4bd330, type: 3}
+  - {fileID: 21300004, guid: da99d9e17fa80c64a93ed7bd9d4bd330, type: 3}
+  - {fileID: 21300006, guid: da99d9e17fa80c64a93ed7bd9d4bd330, type: 3}
 --- !u!61 &7231937034509511261
 BoxCollider2D:
   m_ObjectHideFlags: 0

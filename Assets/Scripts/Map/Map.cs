@@ -300,7 +300,7 @@ public class Map : MonoBehaviour
     public void ChunkDone()
     {
         chunkDone++;
-        if (chunkDone == mapLength)
+        if (chunkDone == mapLength*3)
         {
 
            
@@ -310,22 +310,25 @@ public class Map : MonoBehaviour
             //new Vector2(-0.5f, -19 - 0.5f) }; низ лево
 
 
-            List<Vector2> coords = new List<Vector2>() {    new Vector2(- 3f, 0.5f),
-                                                        new Vector2(32*mapLength + 3f,  + 0.5f),
-                                                        new Vector2(32*mapLength + 3f, 3f),
-                                                        new Vector2(- 3f, 3f) };
-            List<Vector2> coords2 = new List<Vector2>() {    new Vector2(- 0.5f, 0.5f),
-                                                        new Vector2(-3f,  + 0.5f),
-                                                        new Vector2(-3f, -19 - 0.5f),
-                                                        new Vector2(- 0.5f, -19- 0.5f) };
-            List<Vector2> coords3 = new List<Vector2>() {    new Vector2(- 3f, -22f),
-                                                        new Vector2(32*mapLength + 3f,  -22f),
-                                                        new Vector2(32*mapLength + 3f, -19 - 0.5f),
-                                                        new Vector2(- 3f, -19- 0.5f) };
-            List<Vector2> coords4 = new List<Vector2>() {    new Vector2(32*mapLength+3, 0.5f),
-                                                        new Vector2(32*mapLength + 0.5f,  + 0.5f),
-                                                        new Vector2(32*mapLength + 0.5f, -19 - 0.5f),
-                                                        new Vector2(32*mapLength+3, -19- 0.5f) };
+            List<Vector2> coords = new List<Vector2>() {        new Vector2(- 3f, 0.5f),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3f, 0.5f),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3f, 3f),
+                                                                new Vector2(- 3f, 3f) };
+
+            List<Vector2> coords2 = new List<Vector2>() {       new Vector2(- 0.5f, 0.5f),
+                                                                new Vector2(-3f,    0.5f),
+                                                                new Vector2(-3f,    -ChunkTemplates.chunkHeight*3 + 0.5f),
+                                                                new Vector2(- 0.5f, -ChunkTemplates.chunkHeight*3 + 0.5f) };
+
+            List<Vector2> coords3 = new List<Vector2>() {       new Vector2(- 3f,                                     -ChunkTemplates.chunkHeight*3 - 3),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3f, -ChunkTemplates.chunkHeight*3 - 3),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3f, -ChunkTemplates.chunkHeight*3 + 0.5f),
+                                                                new Vector2(- 3f,                                     -ChunkTemplates.chunkHeight*3 + 0.5f) };
+
+            List<Vector2> coords4 = new List<Vector2>() {       new Vector2(ChunkTemplates.chunkWidth*mapLength + 3,     0.5f),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength - 0.5f,  0.5f),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength - 0.5f,  -ChunkTemplates.chunkHeight*3 - 3),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3,     -ChunkTemplates.chunkHeight*3 - 3) };
 
             colliderCoordinates.Add(coords);
             colliderCoordinates.Add(coords2);
