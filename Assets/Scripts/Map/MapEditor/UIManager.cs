@@ -14,6 +14,8 @@ namespace MapEditor
         public Text blockNameText;
         public GameObject helpPanel;
 
+        public Dropdown chunkType;
+
         
         void Awake()
         {
@@ -34,6 +36,11 @@ namespace MapEditor
                 templateNameText.text = "New Template";
             else
                 templateNameText.text = "Template #" + Chunk.currentTemplateId;
+
+        }
+
+        public void GetChunkType()
+        {
 
         }
 
