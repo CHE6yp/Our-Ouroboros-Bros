@@ -81,7 +81,7 @@ public class ChunkTemplates
     public class Template
     {
         public int id;
-        public string ttype;
+        public int ttype = 1;
         public Block[] elements = new Block[640];
     }
 

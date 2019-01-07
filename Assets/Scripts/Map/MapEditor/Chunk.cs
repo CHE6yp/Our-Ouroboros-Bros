@@ -61,9 +61,9 @@ namespace MapEditor
         /// <param name="template"></param>
         void SetChunk(ChunkTemplates.Template template)
         {
+            currentTemplate = template;
             for (int i = 0; i < ChunkTemplates.chunkHeight; i++)
             {
-
                 for (int k = 0; k < ChunkTemplates.chunkWidth; k++)
                 {
                     mapGenBlocks[i][k].SetBlockType(template.elements[i*ChunkTemplates.chunkWidth+k].ttype);
@@ -164,7 +164,7 @@ namespace MapEditor
                     template.elements[i * ChunkTemplates.chunkWidth + k] = block;
                 }
             }
-
+            template.ttype = currentTemplate.ttype;
 
             return template;
         }

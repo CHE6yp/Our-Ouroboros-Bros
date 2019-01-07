@@ -36,12 +36,25 @@ namespace MapEditor
                 templateNameText.text = "New Template";
             else
                 templateNameText.text = "Template #" + Chunk.currentTemplateId;
+            GetChunkType();
 
         }
 
         public void GetChunkType()
         {
+            Debug.Log("Template ttype - "+Chunk.currentTemplate.ttype);
+            if (Chunk.currentTemplate.ttype == 1)
+                chunkType.value = 0;
+            if (Chunk.currentTemplate.ttype == 2)
+                chunkType.value = 1;
+            if (Chunk.currentTemplate.ttype == 3)
+                chunkType.value = 2;
+        }
 
+        public void ChangeChunkType(int ttype)
+        {
+            Debug.Log("Template ttype changed to " + ttype);
+            Chunk.currentTemplate.ttype = ttype + 1;
         }
 
         public void ChangeBlock()
