@@ -20,6 +20,8 @@ namespace MapEditor
                 Chunk.instance.SaveTemplate();
             if (Input.GetKeyDown(KeyCode.N))
                 Chunk.instance.NewTemplate();
+            if (Input.GetKeyDown(KeyCode.D))
+                Chunk.instance.DeleteTemplate();
             if (Input.GetKeyDown(KeyCode.P))
                 PlayTest();
 

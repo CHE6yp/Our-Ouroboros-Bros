@@ -42,7 +42,7 @@ namespace MapEditor
 
         public void GetChunkType()
         {
-            Debug.Log("Template ttype - "+Chunk.currentTemplate.ttype);
+            //Debug.Log("Template ttype - "+Chunk.currentTemplate.ttype);
             if (Chunk.currentTemplate.ttype == 1)
                 chunkType.value = 0;
             if (Chunk.currentTemplate.ttype == 2)

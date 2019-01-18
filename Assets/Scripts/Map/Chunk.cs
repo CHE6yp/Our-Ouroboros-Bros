@@ -23,6 +23,24 @@ public class Chunk : MonoBehaviour
 
     public GameObject backgroundBox;
 
+    //debugging
+    public GameObject debuggingGameobjects;
+    public TextMesh chunkTypeText;
+
+
+    public void GenerateRandomByType(int ttype)
+    {
+        //ChunkTemplates.templatesContainer.templates[Random.Range(0, ChunkTemplates.templatesContainer.templates.Count)]
+        int randomTemplateId = Random.Range(0, ChunkTemplates.templatesContainer.templates.Count);
+        if (ttype == 0 || ChunkTemplates.templatesContainer.templates[randomTemplateId].ttype == ttype)
+        {
+            Generate(randomTemplateId);
+        }
+        else
+            GenerateRandomByType(ttype);
+
+    }
+
     public void Generate(int tempId )
     {
         ChunkTemplates.Template template = ChunkTemplates.templatesContainer.templates[tempId];
@@ -40,8 +58,10 @@ public class Chunk : MonoBehaviour
             //Debug.Log(block.coordinates.y);
         }
 
+        chunkTypeText.text = "ttype "+template.ttype.ToString(); //debugging
         Map.instance.ChunkDone();
     }
+
 
     void SpawnBlock(int x, int y, int type)
     {
@@ -119,5 +139,10 @@ public class Chunk : MonoBehaviour
                                                         new Vector2(transform.localPosition.x + x - 0.5f, transform.localPosition.y -y - 0.5f) };
         //Debug.Log(coords);
         Map.instance.colliderCoordinates.Add(coords);   
+    }
+
+    public void DebugMode(bool flag)
+    {
+        debuggingGameobjects.SetActive(flag);
     }
 }

@@ -83,13 +83,21 @@ public class ChunkTemplates
         public int id;
         public int ttype = 1;
         public Block[] elements = new Block[640];
+
+        public Template()
+        {
+            for (int i = 0; i < 640; i++)
+            {
+                elements[i] = new Block();
+            }
+        }
     }
 
     [System.Serializable]
     public class Block
     {
         public Vector2 coordinates;
-        public int ttype;
+        public int ttype = 0;
         
     }
 }

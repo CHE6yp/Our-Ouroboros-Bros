@@ -50,9 +50,11 @@ namespace MapEditor
                 mapGenBlocks[i] = new Block[ChunkTemplates.chunkWidth];
                 for (int k = 0; k < ChunkTemplates.chunkWidth; k++)
                 {
-                    Block block = SpawnBlock(k, i + 1, ChunkTemplates.emptyTemplate[i][k], true);
+                    Block block = SpawnBlock(k, i + 1, true);
                 }
             }
+
+            NewTemplate();
         }
 
         /// <summary>
@@ -69,6 +71,8 @@ namespace MapEditor
                     mapGenBlocks[i][k].SetBlockType(template.elements[i*ChunkTemplates.chunkWidth+k].ttype);
                 }
             }
+
+            
         }
 
         /// <summary>
@@ -102,6 +106,22 @@ namespace MapEditor
             switchTemplate();
         }
 
+        /// <summary>
+        /// Удалить существующий темплейт
+        /// </summary>
+        public void DeleteTemplate()
+        {
+            if (newChunk)
+            {
+                Debug.LogWarning("Can't delete new template");
+                return;
+            }
+
+            ChunkTemplates.templatesContainer.templates.RemoveAt(currentTemplateId);
+            Debug.Log("DELETED CHUNK TEMPLATE!!!!");
+            PreviousTemplate();
+        }
+
         public void NextTemplate()
         {
             newChunk = false;
@@ -131,12 +151,12 @@ namespace MapEditor
         }
 
 
-        Block SpawnBlock(int x, int y, int type, bool toMatrix)
+        Block SpawnBlock(int x, int y, bool toMatrix)
         {
 
             GameObject b = Instantiate(mapGenBlock, this.transform, false);
             b.transform.localPosition = new Vector3((float)x / 2, (float)-y / 2);
-            b.GetComponent<Block>().SetBlockType(type);
+            //b.GetComponent<Block>().SetBlockType(type);
 
             //Debug.Log(x + " " + y);
             if (toMatrix)

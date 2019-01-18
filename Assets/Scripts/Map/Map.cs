@@ -10,7 +10,7 @@ using Paths = System.Collections.Generic.List<System.Collections.Generic.List<Cl
 public class Map : MonoBehaviour
 {
 
-    public static Map instance; 
+    public static Map instance;
     [Min(2)]
     public int mapLength = 5;
     public GameObject chunkPrefab;
@@ -18,8 +18,9 @@ public class Map : MonoBehaviour
     public GameObject camBoundary;
 
     public bool generateAtStart = true;
+    public bool chunkDebugMode = false;
 
-    public int[][] mapLayout = new int[3][];
+    public int[][] mapLayout = new int[4][];
 
     //списки координат для генерации больших коллайдеров
     public List<List<Vector2>> colliderCoordinates = new List<List<Vector2>>();
@@ -36,7 +37,7 @@ public class Map : MonoBehaviour
             PlayTestTemplate(MapEditor.Chunk.playTestTemplate);
         else
             if (generateAtStart)
-                GenerateMapJson();
+            GenerateMapJson();
     }
 
     void GenerateMapLayout()
@@ -51,15 +52,102 @@ public class Map : MonoBehaviour
             }
         }
 
-        int startY = Random.Range(0, 3);
-        AssignLayout(startY, 0);
+        int startY = Random.Range(0, 4);
+        int startX = Random.Range(0, 4);
+        AssignLayout(0, startX);
     }
 
+    /// <summary>
+    /// Переделанный вариант, ближе к Спеланки. Сверху вниз.
+    /// </summary>
+    /// <param name="y"></param>
+    /// <param name="x"></param>
     void AssignLayout(int y, int x)
+    {
+
+        int layoutType = Random.Range(1, 6);
+        //1 up, 2 down, 3 right
+        if (layoutType == 1 || layoutType == 2)
+            layoutType = 1;
+        else if (layoutType == 3 || layoutType == 4)
+            layoutType = 2;
+        else
+            layoutType = 3;
+
+        //если не нижний уровень
+        if (y != mapLayout.Length - 1)
+        {
+            //left
+            if (layoutType == 1)
+            {
+                //минус потому что 0 сверху а 2 снизу
+                if (x == 0 || mapLayout[y][x-1] != 0)
+                    AssignLayout(y, x);
+                else
+                {
+                    mapLayout[y][x] = layoutType;
+                    AssignLayout(y, x-1);
+                }
+            }
+            //right
+            if (layoutType == 2)
+            {
+                if (x == mapLayout.Length-1 || mapLayout[y][x+1] != 0)
+                    AssignLayout(y, x);
+                else
+                {
+                    mapLayout[y][x] = layoutType;
+                    AssignLayout(y, x+1);
+                }
+            }
+            //down
+            if (layoutType == 3)
+            {
+                mapLayout[y][x] = layoutType;
+                AssignLayout(y+1 , x);
+            }
+        }
+        else
+        {
+            if (layoutType == 1)
+            {
+                if (x == 0 || mapLayout[y][x - 1] != 0)
+                    return; //end map here
+                else
+                {
+                    mapLayout[y][x] = layoutType;
+                    AssignLayout(y, x-1);
+                }
+            }
+            if (layoutType == 2)
+            {
+                if (x == mapLayout.Length - 1 || mapLayout[y][x + 1] != 0)
+                    return; //end map here
+                else
+                {
+                    mapLayout[y][x] = layoutType;
+                    AssignLayout(y, x+1);
+                }
+            }
+            if (layoutType == 3)
+            {
+                mapLayout[y][x] = layoutType;
+                return; //end map here
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// Изначальный вариант. Слева направо.  
+    /// </summary>
+    /// <param name="y"></param>
+    /// <param name="x"></param>
+    void AssignLayoutHorizontal(int y, int x)
     {
         int layoutType = Random.Range(1, 4);
         //1 up, 2 down, 3 right
-        
+
         if (x != mapLength - 1)
         {
             if (layoutType == 1)
@@ -86,7 +174,7 @@ public class Map : MonoBehaviour
             if (layoutType == 3)
             {
                 mapLayout[y][x] = layoutType;
-                AssignLayout(y , x+1);
+                AssignLayout(y, x + 1);
             }
         }
         else
@@ -144,10 +232,12 @@ public class Map : MonoBehaviour
             {
                 GameObject ch = Instantiate(chunkPrefab, transform, false);
                 ch.transform.localPosition = new Vector3(x * chunkDistance, -y*8);
-                ch.GetComponent<Chunk>().Generate(ChunkTemplates.templatesContainer.templates[Random.Range(0, ChunkTemplates.templatesContainer.templates.Count)]);
+                ch.GetComponent<Chunk>().DebugMode(chunkDebugMode);
+                ch.GetComponent<Chunk>().GenerateRandomByType(mapLayout[y][x]);
             }
         }
     }
+
 
     void PlayTestTemplate(ChunkTemplates.Template template)
     {
@@ -179,6 +269,7 @@ public class Map : MonoBehaviour
         }
     }
 
+    #region clipper
     ///
     ///Далее код отсуда
     ///https://gamedev.stackexchange.com/questions/125927/how-do-i-merge-colliders-in-a-tile-based-game
@@ -192,7 +283,7 @@ public class Map : MonoBehaviour
 
         //clipper only works with ints, so if we're working with floats, we need to multiply all our floats by
         //a scaling factor, and when we're done, divide by the same scaling factor again
-        int scalingFactor = 10000;
+        int scalingFactor = 1000;
 
         //this loop will convert our List<List<Vector2>> to what Clipper works with, which is "Path" and "IntPoint"
         //and then add all the Paths to the clipper object so we can process them
@@ -297,10 +388,12 @@ public class Map : MonoBehaviour
         return resultPolygons;
     }
 
+    #endregion
+
     public void ChunkDone()
     {
         chunkDone++;
-        if (chunkDone == mapLength*3)
+        if (chunkDone == mapLength*mapLayout.Length)
         {
 
            
@@ -310,25 +403,26 @@ public class Map : MonoBehaviour
             //new Vector2(-0.5f, -19 - 0.5f) }; низ лево
 
 
+            //up
             List<Vector2> coords = new List<Vector2>() {        new Vector2(- 3f, 0.5f),
                                                                 new Vector2(ChunkTemplates.chunkWidth*mapLength + 3f, 0.5f),
                                                                 new Vector2(ChunkTemplates.chunkWidth*mapLength + 3f, 3f),
                                                                 new Vector2(- 3f, 3f) };
-
+            //left
             List<Vector2> coords2 = new List<Vector2>() {       new Vector2(- 0.5f, 0.5f),
                                                                 new Vector2(-3f,    0.5f),
-                                                                new Vector2(-3f,    -ChunkTemplates.chunkHeight*3 + 0.5f),
-                                                                new Vector2(- 0.5f, -ChunkTemplates.chunkHeight*3 + 0.5f) };
-
-            List<Vector2> coords3 = new List<Vector2>() {       new Vector2(- 3f,                                     -ChunkTemplates.chunkHeight*3 - 3),
-                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3f, -ChunkTemplates.chunkHeight*3 - 3),
-                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3f, -ChunkTemplates.chunkHeight*3 + 0.5f),
-                                                                new Vector2(- 3f,                                     -ChunkTemplates.chunkHeight*3 + 0.5f) };
-
+                                                                new Vector2(-3f,    -ChunkTemplates.chunkHeight*mapLayout.Length + 0.5f),
+                                                                new Vector2(- 0.5f, -ChunkTemplates.chunkHeight*mapLayout.Length + 0.5f) };
+            //down
+            List<Vector2> coords3 = new List<Vector2>() {       new Vector2(- 3f,                                     -ChunkTemplates.chunkHeight*mapLayout.Length - 3),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3f, -ChunkTemplates.chunkHeight*mapLayout.Length - 3),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3f, -ChunkTemplates.chunkHeight*mapLayout.Length + 0.5f),
+                                                                new Vector2(- 3f,                                     -ChunkTemplates.chunkHeight*mapLayout.Length + 0.5f) };
+            //right
             List<Vector2> coords4 = new List<Vector2>() {       new Vector2(ChunkTemplates.chunkWidth*mapLength + 3,     0.5f),
                                                                 new Vector2(ChunkTemplates.chunkWidth*mapLength - 0.5f,  0.5f),
-                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength - 0.5f,  -ChunkTemplates.chunkHeight*3 - 3),
-                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3,     -ChunkTemplates.chunkHeight*3 - 3) };
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength - 0.5f,  -ChunkTemplates.chunkHeight*mapLayout.Length - 3),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3,     -ChunkTemplates.chunkHeight*mapLayout.Length - 3) };
 
             colliderCoordinates.Add(coords);
             colliderCoordinates.Add(coords2);
