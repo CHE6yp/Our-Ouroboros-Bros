@@ -14,7 +14,7 @@ public class DeathMenu : MonoBehaviour
     public void Start()
     {
         instance = this;
-        PlayerController.instance.currentPlayer.health.died += ShowDeathMenu;
+        PlayerController.instance.playerCharacter.health.died += ShowDeathMenu;
     }
 
 

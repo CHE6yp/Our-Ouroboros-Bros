@@ -20,13 +20,33 @@ namespace MapEditor
                 spriteRenderer.sprite = sprites[type - 1];
         }
 
+        //Надо переделать метод, чтобы в него передавался не инт а BlockType
+        public void SetBlockType(BlockType bType)
+        {
+            blockType = bType.id;
+            if (blockType == 0)
+                spriteRenderer.sprite = null;
+            else
+                spriteRenderer.sprite = bType.sprite;
+        }
+
+
         void OnMouseOver()
         {
             if (Input.GetMouseButton(0))
-                SetBlockType(Chunk.placedBlockType);
+                //SetBlockType(Chunk.placedBlockType);
+                SetBlockType(Chunk.instance.blockTypes[Chunk.placedBlockType]);
             else
                 if (Input.GetMouseButton(1))
                 SetBlockType(0);
+        }
+
+        [System.Serializable]
+        public struct BlockType
+        {
+            public int id;
+            public string name;
+            public Sprite sprite;
         }
     }
 }

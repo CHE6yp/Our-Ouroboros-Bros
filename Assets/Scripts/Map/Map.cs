@@ -21,6 +21,7 @@ public class Map : MonoBehaviour
     public bool chunkDebugMode = false;
 
     public int[][] mapLayout = new int[4][];
+    public PlayerSpawn playerSpawn;
 
     //списки координат для генерации больших коллайдеров
     public List<List<Vector2>> colliderCoordinates = new List<List<Vector2>>();
@@ -38,6 +39,8 @@ public class Map : MonoBehaviour
         else
             if (generateAtStart)
             GenerateMapJson();
+
+        PlayerController.instance.playerCharacter.transform.position = playerSpawn.transform.position;
     }
 
     void GenerateMapLayout()
@@ -54,7 +57,22 @@ public class Map : MonoBehaviour
 
         int startY = Random.Range(0, 4);
         int startX = Random.Range(0, 4);
-        AssignLayout(0, startX);
+        AssignLayoutFirst(startX);
+    }
+
+    /// <summary>
+    /// Первый блок. Сверху вниз.
+    /// </summary>
+    /// <param name="x"></param>
+    void AssignLayoutFirst(int x)
+    {
+        int layoutType = Random.Range(1, 3);
+
+        mapLayout[0][x] = 4;
+        x = (x == mapLayout.Length - 1 || (layoutType == 1 && x != 0) ) ? x - 1 : x + 1;
+
+        AssignLayout(0, x);
+
     }
 
     /// <summary>
@@ -66,13 +84,14 @@ public class Map : MonoBehaviour
     {
 
         int layoutType = Random.Range(1, 6);
-        //1 up, 2 down, 3 right
+        
         if (layoutType == 1 || layoutType == 2)
             layoutType = 1;
         else if (layoutType == 3 || layoutType == 4)
             layoutType = 2;
         else
             layoutType = 3;
+        //1 left, 2 right, 3 down
 
         //если не нижний уровень
         if (y != mapLayout.Length - 1)
@@ -237,7 +256,6 @@ public class Map : MonoBehaviour
             }
         }
     }
-
 
     void PlayTestTemplate(ChunkTemplates.Template template)
     {

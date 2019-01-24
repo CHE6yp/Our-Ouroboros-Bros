@@ -11,10 +11,8 @@ public class PlayerController : MonoBehaviour
     public bool controllingCharacter = true;
     public static int coins = 0;
 
-    public GameObject playerGreen;
-    public GameObject playerRed;
 
-    public Creature currentPlayer;
+    public Creature playerCharacter;
     public FollowCam cam;
 
     
@@ -48,16 +46,16 @@ public class PlayerController : MonoBehaviour
                 x = -1;
             else
                 x = 0;
-            currentPlayer.walking.GetMoveX(x);
+            playerCharacter.walking.GetMoveX(x);
 
             if (Input.GetButtonDown("Jump"))
-                currentPlayer.walking.Jump();
+                playerCharacter.walking.Jump();
 
             if (Input.GetButtonUp("Jump"))
-                currentPlayer.walking.BreakJump();
+                playerCharacter.walking.BreakJump();
 
             if (Input.GetButtonDown("Fire3"))
-                currentPlayer.weapon.Strike(Input.GetAxis("Vertical"));
+                playerCharacter.weapon.Strike(Input.GetAxis("Vertical"));
 
             //if (Input.GetButtonDown("Fire2"))
                 //cam.ChangeCamPosition();

@@ -7,6 +7,8 @@ namespace MapEditor
 {
     public class Player : MonoBehaviour
     {
+
+        int currentBlockType = 1;
         // Update is called once per frame
         void Update()
         {
@@ -27,29 +29,36 @@ namespace MapEditor
 
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0)
-                Chunk.instance.PreviousTemplate();
+                if (Input.GetKey(KeyCode.LeftShift))
+                    Chunk.instance.PreviousTemplate();
+                else
+                    Chunk.instance.PreviousBlockType();
+
             if (Input.GetAxis("Mouse ScrollWheel") < 0)
-                Chunk.instance.NextTemplate();
+                if (Input.GetKey(KeyCode.LeftShift))
+                    Chunk.instance.NextTemplate();
+                else
+                    Chunk.instance.NextBlockType(); 
 
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
-                Chunk.ChangeBlockType(1);
+                Chunk.instance.ChangeBlockType(1);
             if (Input.GetKeyDown(KeyCode.Alpha2))
-                Chunk.ChangeBlockType(2);
+                Chunk.instance.ChangeBlockType(2);
             if (Input.GetKeyDown(KeyCode.Alpha3))
-                Chunk.ChangeBlockType(3);
+                Chunk.instance.ChangeBlockType(3);
             if (Input.GetKeyDown(KeyCode.Alpha4))
-                Chunk.ChangeBlockType(4);
+                Chunk.instance.ChangeBlockType(4);
             if (Input.GetKeyDown(KeyCode.Alpha5))
-                Chunk.ChangeBlockType(5);
+                Chunk.instance.ChangeBlockType(5);
             if (Input.GetKeyDown(KeyCode.Alpha6))
-                Chunk.ChangeBlockType(6);
+                Chunk.instance.ChangeBlockType(6);
             if (Input.GetKeyDown(KeyCode.Alpha7))
-                Chunk.ChangeBlockType(7);
+                Chunk.instance.ChangeBlockType(7);
             if (Input.GetKeyDown(KeyCode.Alpha8))
-                Chunk.ChangeBlockType(8);
+                Chunk.instance.ChangeBlockType(8);
             if (Input.GetKeyDown(KeyCode.Alpha9))
-                Chunk.ChangeBlockType(9);
+                Chunk.instance.ChangeBlockType(9);
 
             if (Input.GetKeyDown(KeyCode.H))
                 UIManager.instance.ToggleHelp();

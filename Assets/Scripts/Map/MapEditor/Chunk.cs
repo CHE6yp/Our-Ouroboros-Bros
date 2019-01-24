@@ -23,6 +23,11 @@ namespace MapEditor
         public static bool playTesting;
         public static ChunkTemplates.Template playTestTemplate;
         public static ChunkTemplates.Template currentTemplate;
+
+
+        public static int currentBlockType = 0;
+        //all block types
+        public List<Block.BlockType> blockTypes = new List<Block.BlockType>();
        
          
 
@@ -34,7 +39,9 @@ namespace MapEditor
                 SetChunk(playTestTemplate);
             else
                 ChunkTemplates.GetFromJson();
-            
+
+
+            ChangeBlockType(0);
         }
 
 
@@ -122,6 +129,8 @@ namespace MapEditor
             PreviousTemplate();
         }
 
+
+
         public void NextTemplate()
         {
             newChunk = false;
@@ -144,7 +153,28 @@ namespace MapEditor
             switchTemplate();
         }
 
-        public static void ChangeBlockType(int id)
+
+
+        public void NextBlockType()
+        {
+            Debug.Log(currentBlockType + "   " + blockTypes.Count);
+            if (currentBlockType == blockTypes.Count - 1)
+                currentBlockType = 0;
+            else
+                currentBlockType++;
+            ChangeBlockType(currentBlockType);
+        }
+
+        public void PreviousBlockType()
+        {
+            if (currentBlockType == 0)
+                currentBlockType = blockTypes.Count - 1;
+            else
+                currentBlockType--;
+            ChangeBlockType(currentBlockType);
+        }
+
+        public void ChangeBlockType(int id)
         {
             placedBlockType = id;
             switchBlock();

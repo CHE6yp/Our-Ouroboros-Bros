@@ -697,7 +697,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &905022866
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1185,9 +1185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllingCharacter: 1
-  playerGreen: {fileID: 1997281331}
-  playerRed: {fileID: 0}
-  currentPlayer: {fileID: 1997281340}
+  playerCharacter: {fileID: 1997281340}
   cam: {fileID: 1253616042}
 --- !u!114 &1253616044
 MonoBehaviour:
@@ -3238,7 +3236,7 @@ PrefabInstance:
     - target: {fileID: 8807785395818249344, guid: 05fbe4545217b1a48b38b8f9b78b7467,
         type: 3}
       propertyPath: chunkDebugMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05fbe4545217b1a48b38b8f9b78b7467, type: 3}

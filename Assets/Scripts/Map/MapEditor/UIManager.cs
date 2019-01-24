@@ -12,6 +12,7 @@ namespace MapEditor
 
         public Text templateNameText;
         public Text blockNameText;
+        public Image blockSprite;
         public GameObject helpPanel;
 
         public Dropdown chunkType;
@@ -42,13 +43,7 @@ namespace MapEditor
 
         public void GetChunkType()
         {
-            //Debug.Log("Template ttype - "+Chunk.currentTemplate.ttype);
-            if (Chunk.currentTemplate.ttype == 1)
-                chunkType.value = 0;
-            if (Chunk.currentTemplate.ttype == 2)
-                chunkType.value = 1;
-            if (Chunk.currentTemplate.ttype == 3)
-                chunkType.value = 2;
+            chunkType.value = Chunk.currentTemplate.ttype - 1;
         }
 
         public void ChangeChunkType(int ttype)
@@ -59,7 +54,8 @@ namespace MapEditor
 
         public void ChangeBlock()
         {
-            string blockText = "Block: ";
+            string blockText = Chunk.instance.blockTypes[Chunk.placedBlockType].name;
+            /*
             switch (Chunk.placedBlockType)
             {
                 case 1:
@@ -91,8 +87,9 @@ namespace MapEditor
                     break;
 
             }
-
+            */
             blockNameText.text = blockText;
+            blockSprite.sprite = Chunk.instance.blockTypes[Chunk.placedBlockType].sprite;
         }
     }
 }

@@ -18,6 +18,8 @@ public class Chunk : MonoBehaviour
     public GameObject shooterLeft;
     public GameObject shooterRight;
 
+    public GameObject playerSpawn;
+
     public int[][] chunkTemplate;
     public ChunkTemplates.Template chunkTemplateJson;
 
@@ -32,7 +34,8 @@ public class Chunk : MonoBehaviour
     {
         //ChunkTemplates.templatesContainer.templates[Random.Range(0, ChunkTemplates.templatesContainer.templates.Count)]
         int randomTemplateId = Random.Range(0, ChunkTemplates.templatesContainer.templates.Count);
-        if (ttype == 0 || ChunkTemplates.templatesContainer.templates[randomTemplateId].ttype == ttype)
+        ChunkTemplates.Template randomTemplate = ChunkTemplates.templatesContainer.templates[randomTemplateId];
+        if ((ttype == 0 && randomTemplate.ttype != 4) || randomTemplate.ttype == ttype)
         {
             Generate(randomTemplateId);
         }
@@ -114,6 +117,10 @@ public class Chunk : MonoBehaviour
                 shr.transform.localPosition = new Vector3(x, -y);
                 shr.GetComponent<Box>().AssignSprite(x, y, this);
                 SendBoxColliderCoordinates(x, y);
+                break;
+            case 10:
+                GameObject ps = Instantiate(playerSpawn, this.transform, false);
+                ps.transform.localPosition = new Vector3(x, -y);
                 break;
         }
 

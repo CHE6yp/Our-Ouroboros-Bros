@@ -335,6 +335,8 @@ MonoBehaviour:
     type: 3}
   shooterRight: {fileID: 6975416370697534655, guid: 1095f49a7946f02489348cc21c58a4ff,
     type: 3}
+  playerSpawn: {fileID: 1927055553922694520, guid: f5e79f9de39255a4992118a3bebe2e21,
+    type: 3}
   chunkTemplateJson:
     id: 0
     ttype: 0
