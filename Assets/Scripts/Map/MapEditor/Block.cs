@@ -17,7 +17,8 @@ namespace MapEditor
             if (type == 0)
                 spriteRenderer.sprite = null;
             else
-                spriteRenderer.sprite = sprites[type - 1];
+                //spriteRenderer.sprite = sprites[type - 1];
+                spriteRenderer.sprite = Chunk.instance.blockTypes[type-1].sprite;
         }
 
         //Надо переделать метод, чтобы в него передавался не инт а BlockType

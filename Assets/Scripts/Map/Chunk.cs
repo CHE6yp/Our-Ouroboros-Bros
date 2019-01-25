@@ -35,7 +35,7 @@ public class Chunk : MonoBehaviour
         //ChunkTemplates.templatesContainer.templates[Random.Range(0, ChunkTemplates.templatesContainer.templates.Count)]
         int randomTemplateId = Random.Range(0, ChunkTemplates.templatesContainer.templates.Count);
         ChunkTemplates.Template randomTemplate = ChunkTemplates.templatesContainer.templates[randomTemplateId];
-        if ((ttype == 0 && randomTemplate.ttype != 4) || randomTemplate.ttype == ttype)
+        if ((ttype == 0 && randomTemplate.ttype != 4 && randomTemplate.ttype != 5) || randomTemplate.ttype == ttype)
         {
             Generate(randomTemplateId);
         }

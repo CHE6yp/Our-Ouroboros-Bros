@@ -128,31 +128,80 @@ public class Map : MonoBehaviour
         }
         else
         {
+
             if (layoutType == 1)
             {
                 if (x == 0 || mapLayout[y][x - 1] != 0)
-                    return; //end map here
+                    AssignLayout(y, x);
                 else
                 {
                     mapLayout[y][x] = layoutType;
-                    AssignLayout(y, x-1);
+                    AssignLayoutBottom(x-1);
                 }
             }
             if (layoutType == 2)
             {
                 if (x == mapLayout.Length - 1 || mapLayout[y][x + 1] != 0)
-                    return; //end map here
+                    AssignLayout(y, x);
                 else
                 {
                     mapLayout[y][x] = layoutType;
-                    AssignLayout(y, x+1);
+                    AssignLayoutBottom(x+1);
                 }
             }
             if (layoutType == 3)
             {
-                mapLayout[y][x] = layoutType;
+                //mapLayout[y][x] = layoutType;
+                AssignLayout(y, x);
+            }
+        }
+
+    }
+
+
+    void AssignLayoutBottom(int x)
+    {
+        int y = 3; //эту величину надо брать откудато а не хардкодить
+
+        int layoutType = Random.Range(1, 6);
+
+        if (layoutType == 1 || layoutType == 2)
+            layoutType = 1;
+        else if (layoutType == 3 || layoutType == 4)
+            layoutType = 2;
+        else
+            layoutType = 3;
+
+        if (layoutType == 1)
+        {
+            if (x == 0 || mapLayout[y][x - 1] != 0)
+            {
+                mapLayout[y][x] = 5; // комната с выходом
                 return; //end map here
             }
+            else
+            {
+                mapLayout[y][x] = layoutType;
+                AssignLayoutBottom(x - 1);
+            }
+        }
+        if (layoutType == 2)
+        {
+            if (x == mapLayout.Length - 1 || mapLayout[y][x + 1] != 0)
+            {
+                mapLayout[y][x] = 5; // комната с выходом
+                return; //end map here
+            }
+            else
+            {
+                mapLayout[y][x] = layoutType;
+                AssignLayoutBottom(x + 1);
+            }
+        }
+        if (layoutType == 3)
+        {
+            mapLayout[y][x] = 5; // комната с выходом
+            return; //end map here
         }
 
     }
