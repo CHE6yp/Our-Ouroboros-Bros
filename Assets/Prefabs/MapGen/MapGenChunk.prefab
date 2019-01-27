@@ -46,6 +46,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapGenBlock: {fileID: 3034270007233524217, guid: 49456208f1c139945b802aa173d13cc7,
     type: 3}
+  blockTypes:
+  - id: 1
+    name: Ground
+    sprite: {fileID: 21300000, guid: b569c9cf25ee57b4ab0be886b5f7b4a3, type: 3}
+    prefab: {fileID: 0}
+  - id: 2
+    name: Skeleton
+    sprite: {fileID: 21300000, guid: c46dcf3462b189a4ab56b13c61e391fd, type: 3}
+    prefab: {fileID: 0}
+  - id: 3
+    name: Spike
+    sprite: {fileID: 21300000, guid: 855d1fdc061f8944791a5beeb2a9acbf, type: 3}
+    prefab: {fileID: 0}
+  - id: 4
+    name: SpikeRev
+    sprite: {fileID: 21300000, guid: ac8b7c44170dc0a41b5f545de1cf744b, type: 3}
+    prefab: {fileID: 0}
+  - id: 5
+    name: Coin
+    sprite: {fileID: 21300000, guid: c0e927f045b93954e9bf40b433900eea, type: 3}
+    prefab: {fileID: 0}
+  - id: 6
+    name: Proj up
+    sprite: {fileID: 21300000, guid: da99d9e17fa80c64a93ed7bd9d4bd330, type: 3}
+    prefab: {fileID: 0}
+  - id: 7
+    name: Proj down
+    sprite: {fileID: 21300002, guid: da99d9e17fa80c64a93ed7bd9d4bd330, type: 3}
+    prefab: {fileID: 0}
+  - id: 8
+    name: Proj left
+    sprite: {fileID: 21300004, guid: da99d9e17fa80c64a93ed7bd9d4bd330, type: 3}
+    prefab: {fileID: 0}
+  - id: 9
+    name: Proj right
+    sprite: {fileID: 21300006, guid: da99d9e17fa80c64a93ed7bd9d4bd330, type: 3}
+    prefab: {fileID: 0}
+  - id: 10
+    name: Player Spawn
+    sprite: {fileID: 21300000, guid: 1e2562e2e3a53d34aa6bcc05619d4100, type: 3}
+    prefab: {fileID: 0}
+  - id: 11
+    name: Level Exit
+    sprite: {fileID: 21300000, guid: 2625c89036bc6b24182f815bd58fc2bd, type: 3}
+    prefab: {fileID: 0}
 --- !u!1 &8636965038630535176
 GameObject:
   m_ObjectHideFlags: 0

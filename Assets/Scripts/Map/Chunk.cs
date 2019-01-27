@@ -19,6 +19,7 @@ public class Chunk : MonoBehaviour
     public GameObject shooterRight;
 
     public GameObject playerSpawn;
+    public GameObject levelExit;
 
     public int[][] chunkTemplate;
     public ChunkTemplates.Template chunkTemplateJson;
@@ -68,6 +69,20 @@ public class Chunk : MonoBehaviour
 
     void SpawnBlock(int x, int y, int type)
     {
+
+        Debug.Log(x+"/"+y+";  blocktype " + type);
+        if (type == 0)
+            return;
+
+        GameObject block = Instantiate(BlockLibrary.instance.blocks[type-1].prefab, this.transform, false);
+        block.transform.localPosition = new Vector3(x, -y);
+        if (block.GetComponent<Box>())
+        {
+            block.GetComponent<Box>().AssignSprite(x, y, this);
+            SendBoxColliderCoordinates(x, y);
+        }
+        /*
+
         switch (type)
         {
             default:
@@ -79,7 +94,7 @@ public class Chunk : MonoBehaviour
                 SendBoxColliderCoordinates(x, y);
                 break;
             case 2:
-                GameObject e = Instantiate(enemyPref, this.transform, false);
+                GameObject e = Instantiate(BlockLibrary.instance.blocks[1].prefab, this.transform, false);
                 e.transform.localPosition = new Vector3(x, -y);
                 break;
             case 3:
@@ -122,9 +137,13 @@ public class Chunk : MonoBehaviour
                 GameObject ps = Instantiate(playerSpawn, this.transform, false);
                 ps.transform.localPosition = new Vector3(x, -y);
                 break;
+            case 11:
+                GameObject le = Instantiate(levelExit, this.transform, false);
+                le.transform.localPosition = new Vector3(x, -y);
+                break;
         }
 
-
+        */
         //GameObject backgroundB = Instantiate(backgroundBox, this.transform, false);
         //backgroundB.transform.localPosition = new Vector3(x, -y, 5);
         //backgroundB.GetComponent<Box>().AssignSprite();

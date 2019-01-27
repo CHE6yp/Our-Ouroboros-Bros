@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6967803901712426269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6967803901712426267}
+  - component: {fileID: 6967803901712426266}
+  m_Layer: 0
+  m_Name: BlockLibrary
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6967803901712426267
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6967803901712426269}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.12423, y: -2.5869064, z: 0.0603965}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6967803901712426266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6967803901712426269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d98cdafb428b7840b6006eeed60ee74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blocks:
+  - id: 1
+    name: Ground
+    sprite: {fileID: 21300000, guid: b569c9cf25ee57b4ab0be886b5f7b4a3, type: 3}
+    prefab: {fileID: 1927055553922694520, guid: da7958857a4cc1846a5fac4447bab6e3,
+      type: 3}
+  - id: 2
+    name: Skeleton
+    sprite: {fileID: 21300000, guid: c46dcf3462b189a4ab56b13c61e391fd, type: 3}
+    prefab: {fileID: 7406490095856616528, guid: 94914b99678032d4cabcf65834d4d1c5,
+      type: 3}
+  - id: 3
+    name: Spike
+    sprite: {fileID: 21300000, guid: 855d1fdc061f8944791a5beeb2a9acbf, type: 3}
+    prefab: {fileID: 5000351898554189269, guid: c689b0ee437f6454692ed54398a234c6,
+      type: 3}
+  - id: 4
+    name: SpikeRev
+    sprite: {fileID: 21300000, guid: ac8b7c44170dc0a41b5f545de1cf744b, type: 3}
+    prefab: {fileID: 3669650488484696389, guid: dc6a00d8403fa774e8d72f1b9d6b0a91,
+      type: 3}
+  - id: 5
+    name: Coin
+    sprite: {fileID: 21300000, guid: c0e927f045b93954e9bf40b433900eea, type: 3}
+    prefab: {fileID: 621477204940001548, guid: 9c8ce3e893603d145b14bea76ed676e8, type: 3}
+  - id: 6
+    name: Proj Up
+    sprite: {fileID: 21300000, guid: da99d9e17fa80c64a93ed7bd9d4bd330, type: 3}
+    prefab: {fileID: 1687471295507166395, guid: bc42e874c6a25324c91896dfa4493d5b,
+      type: 3}
+  - id: 7
+    name: Proj Down
+    sprite: {fileID: 21300002, guid: da99d9e17fa80c64a93ed7bd9d4bd330, type: 3}
+    prefab: {fileID: 1744597418837268467, guid: 1294d3b68d9bb0946892d6de49f9b67b,
+      type: 3}
+  - id: 8
+    name: Proj Left
+    sprite: {fileID: 21300004, guid: da99d9e17fa80c64a93ed7bd9d4bd330, type: 3}
+    prefab: {fileID: 7033740798869032441, guid: 6b979396e1b196442a788028ccab1afd,
+      type: 3}
+  - id: 9
+    name: Proj Right
+    sprite: {fileID: 21300006, guid: da99d9e17fa80c64a93ed7bd9d4bd330, type: 3}
+    prefab: {fileID: 6975416370697534655, guid: 1095f49a7946f02489348cc21c58a4ff,
+      type: 3}
+  - id: 10
+    name: Level Spawn
+    sprite: {fileID: 21300000, guid: 1e2562e2e3a53d34aa6bcc05619d4100, type: 3}
+    prefab: {fileID: 1927055553922694520, guid: f5e79f9de39255a4992118a3bebe2e21,
+      type: 3}
+  - id: 11
+    name: Level Exit
+    sprite: {fileID: 21300000, guid: 2625c89036bc6b24182f815bd58fc2bd, type: 3}
+    prefab: {fileID: 1927055553922694520, guid: 71a24375c14a5be4295d471f6f0911c1,
+      type: 3}

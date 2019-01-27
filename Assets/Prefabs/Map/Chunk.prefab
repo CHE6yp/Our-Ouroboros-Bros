@@ -337,6 +337,8 @@ MonoBehaviour:
     type: 3}
   playerSpawn: {fileID: 1927055553922694520, guid: f5e79f9de39255a4992118a3bebe2e21,
     type: 3}
+  levelExit: {fileID: 1927055553922694520, guid: 71a24375c14a5be4295d471f6f0911c1,
+    type: 3}
   chunkTemplateJson:
     id: 0
     ttype: 0

@@ -18,11 +18,11 @@ namespace MapEditor
                 spriteRenderer.sprite = null;
             else
                 //spriteRenderer.sprite = sprites[type - 1];
-                spriteRenderer.sprite = Chunk.instance.blockTypes[type-1].sprite;
+                spriteRenderer.sprite = BlockLibrary.instance.blocks[type-1].sprite;
         }
 
         //Надо переделать метод, чтобы в него передавался не инт а BlockType
-        public void SetBlockType(BlockType bType)
+        public void SetBlockType(BlockLibrary.BlockType bType)
         {
             blockType = bType.id;
             if (blockType == 0)
@@ -36,18 +36,12 @@ namespace MapEditor
         {
             if (Input.GetMouseButton(0))
                 //SetBlockType(Chunk.placedBlockType);
-                SetBlockType(Chunk.instance.blockTypes[Chunk.placedBlockType]);
+                SetBlockType(BlockLibrary.instance.blocks[Chunk.placedBlockType]);
             else
                 if (Input.GetMouseButton(1))
                 SetBlockType(0);
         }
 
-        [System.Serializable]
-        public struct BlockType
-        {
-            public int id;
-            public string name;
-            public Sprite sprite;
-        }
+        
     }
 }

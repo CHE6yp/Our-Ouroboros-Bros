@@ -26,10 +26,7 @@ namespace MapEditor
 
 
         public static int currentBlockType = 0;
-        //all block types
-        public List<Block.BlockType> blockTypes = new List<Block.BlockType>();
-       
-         
+
 
         public void Start()
         {
@@ -157,8 +154,8 @@ namespace MapEditor
 
         public void NextBlockType()
         {
-            Debug.Log(currentBlockType + "   " + blockTypes.Count);
-            if (currentBlockType == blockTypes.Count - 1)
+            Debug.Log(currentBlockType + "   " + BlockLibrary.instance.blocks.Count);
+            if (currentBlockType == BlockLibrary.instance.blocks.Count - 1)
                 currentBlockType = 0;
             else
                 currentBlockType++;
@@ -168,7 +165,7 @@ namespace MapEditor
         public void PreviousBlockType()
         {
             if (currentBlockType == 0)
-                currentBlockType = blockTypes.Count - 1;
+                currentBlockType = BlockLibrary.instance.blocks.Count - 1;
             else
                 currentBlockType--;
             ChangeBlockType(currentBlockType);

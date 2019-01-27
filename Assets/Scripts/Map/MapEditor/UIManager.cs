@@ -54,7 +54,7 @@ namespace MapEditor
 
         public void ChangeBlock()
         {
-            string blockText = Chunk.instance.blockTypes[Chunk.placedBlockType].name;
+            string blockText = BlockLibrary.instance.blocks[Chunk.placedBlockType].name;
             /*
             switch (Chunk.placedBlockType)
             {
@@ -89,7 +89,7 @@ namespace MapEditor
             }
             */
             blockNameText.text = blockText;
-            blockSprite.sprite = Chunk.instance.blockTypes[Chunk.placedBlockType].sprite;
+            blockSprite.sprite = BlockLibrary.instance.blocks[Chunk.placedBlockType].sprite;
         }
     }
 }
