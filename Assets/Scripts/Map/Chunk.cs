@@ -53,8 +53,6 @@ public class Chunk : MonoBehaviour
 
     void SpawnBlock(int x, int y, int type)
     {
-
-        Debug.Log(x+"/"+y+";  blocktype " + type);
         if (type == 0)
             return;
 
