@@ -4,22 +4,6 @@ using UnityEngine;
 
 public class Chunk : MonoBehaviour
 {
-    public GameObject solidBox;
-    public GameObject solidBoxHell;
-    public GameObject enemyPref;
-    public GameObject spikes;
-    public GameObject spikesHell;
-    public GameObject spikesRev;
-    public GameObject spikesHellRev;
-    public GameObject pickup;
-
-    public GameObject shooter;
-    public GameObject shooterDown;
-    public GameObject shooterLeft;
-    public GameObject shooterRight;
-
-    public GameObject playerSpawn;
-    public GameObject levelExit;
 
     public int[][] chunkTemplate;
     public ChunkTemplates.Template chunkTemplateJson;
