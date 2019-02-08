@@ -34,6 +34,7 @@ namespace MapEditor
 
         void OnMouseOver()
         {
+            Debug.Log("?");
             if (Input.GetMouseButton(0))
                 //SetBlockType(Chunk.placedBlockType);
                 SetBlockType(BlockLibrary.instance.blocks[Chunk.placedBlockType]);

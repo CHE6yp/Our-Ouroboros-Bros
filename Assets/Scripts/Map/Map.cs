@@ -45,19 +45,31 @@ public class Map : MonoBehaviour
 
     void GenerateMapLayout()
     {
-        //создаем массив с нулями
-        for (int y = 0; y < mapLayout.Length; y++)
-        {
-            mapLayout[y] = new int[mapLength];
-            for (int x = 0; x < mapLength; x++)
-            {
-                mapLayout[y][x] = 0;
-            }
-        }
+        mapLayout = EmptyLayout();
 
         int startY = Random.Range(0, 4);
         int startX = Random.Range(0, 4);
         AssignLayoutFirst(startX);
+    }
+
+    /// <summary>
+    /// Массив с нулями
+    /// </summary>
+    /// <returns></returns>
+    public int[][] EmptyLayout()
+    {
+        int[][] layout = new int[mapLayout.Length][];
+        //создаем массив с нулями
+        for (int y = 0; y < layout.Length; y++)
+        {
+            layout[y] = new int[mapLength];
+            for (int x = 0; x < mapLength; x++)
+            {
+                layout[y][x] = 0;
+            }
+        }
+
+        return layout;
     }
 
     /// <summary>
@@ -278,7 +290,10 @@ public class Map : MonoBehaviour
 
     void GenerateMapJson()
     {
+        //Рекурсивно задаем гарантированный путь уровня
         GenerateMapLayout();
+
+        //Выдаем лэйаут в консоль
         string layoutString = "";
         for (int y = 0; y < mapLayout.Length; y++)
         { 
@@ -290,10 +305,13 @@ public class Map : MonoBehaviour
         }
         Debug.Log(layoutString);
 
+        //Конвертируем лэйаут пути в улучшенный лэйаут, с учетом стен и прочего.
 
+
+
+
+        //Импортируем из джейсона 
         ChunkTemplates.GetFromJson();
-
-
         for (int y = 0; y < mapLayout.Length; y++)
         {
             for (int x = 0; x < mapLength; x++)
@@ -302,6 +320,68 @@ public class Map : MonoBehaviour
                 ch.transform.localPosition = new Vector3(x * chunkDistance, -y*8);
                 ch.GetComponent<Chunk>().DebugMode(chunkDebugMode);
                 ch.GetComponent<Chunk>().GenerateRandomByType(mapLayout[y][x]);
+            }
+        }
+    }
+
+    void ConvertLayout()
+    {
+        int[][] convertedLayout = EmptyLayout();
+
+        //1 up; 2 down; 4 left; 8 right;
+
+        for (int y = 0; y < mapLayout.Length; y++)
+        {
+            for (int x = 0; x < mapLength; x++)
+            {
+                 
+                if (mapLayout[y][x] == 1)
+                {
+                    //1 всегда имеет выход налево потому что ведет налево лэйаут
+                    convertedLayout[y][x] += 4;
+
+                    //если лэаут шел сверху, нужен обязательный выход сверху.
+                    if (y != 0 && mapLayout[y - 1][x] == 3)
+                        convertedLayout[y][x] += 1; // =5
+                    else
+                        //если лэйаут шел не сверху, значит он шел справа, нужен выход направо
+                        convertedLayout[y][x] += 8; // =12
+                }
+                if (mapLayout[y][x] == 2)
+                {
+                    //2 всегда имеет выход направо потому что ведет туда лэйаут
+                    convertedLayout[y][x] += 8;
+
+                    //если лэаут шел сверху, нужен обязательный выход сверху.
+                    if (y != 0 && mapLayout[y - 1][x] == 3)
+                        convertedLayout[y][x] += 1; //=9
+                    else
+                        //если лэйаут шел не сверху, значит он шел слева, нужен выход направо
+                        convertedLayout[y][x] += 4; //=12
+                }
+                if (mapLayout[y][x] == 3)
+                {
+                    //3 всегда имеет выход вниз
+                    convertedLayout[y][x] += 2;
+                    //если лэаут шел сверху, нужен обязательный выход сверху.
+
+                    if (y != 0 && mapLayout[y - 1][x] == 3)
+                        convertedLayout[y][x] += 1; //=3
+                    else
+                    {
+                        if (x != 0 && (mapLayout[y][x - 1] == 2 || mapLayout[y][x - 1] == 4))
+                            //слева
+                            convertedLayout[y][x] += 4; //=6
+                        else
+                            //справа
+                            convertedLayout[y][x] += 8; //=10
+                    }
+                }
+                if (mapLayout[y][x] == 4)
+                { }
+                if (mapLayout[y][x] == 5)
+                { }
+
             }
         }
     }

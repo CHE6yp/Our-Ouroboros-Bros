@@ -10,8 +10,8 @@ namespace MapEditor
         public static Chunk instance;
 
         public delegate void EditorChunkEvent();
-        public static event EditorChunkEvent switchTemplate;
-        public static event EditorChunkEvent switchBlock;
+        public event EditorChunkEvent switchTemplate;
+        public event EditorChunkEvent switchBlock;
 
         public static bool newChunk = true;
         public static int currentTemplateId = 0;
@@ -27,10 +27,14 @@ namespace MapEditor
 
         public static int currentBlockType = 0;
 
+        public void Awake()
+        {
+            instance = this;
+        }
 
         public void Start()
         {
-            instance = this;
+            Debug.Log("playtesting " + playTesting);
             GenerateChunk();
             if (playTesting)
                 SetChunk(playTestTemplate);
@@ -154,7 +158,7 @@ namespace MapEditor
 
         public void NextBlockType()
         {
-            Debug.Log(currentBlockType + "   " + BlockLibrary.instance.blocks.Count);
+            //Debug.Log(currentBlockType + "   " + BlockLibrary.instance.blocks.Count);
             if (currentBlockType == BlockLibrary.instance.blocks.Count - 1)
                 currentBlockType = 0;
             else
@@ -213,6 +217,12 @@ namespace MapEditor
             }
             template.ttype = currentTemplate.ttype;
 
+            template.topExit = currentTemplate.topExit;
+            template.bottomExit = currentTemplate.bottomExit;
+            template.leftExit = currentTemplate.leftExit;
+            template.rightExit = currentTemplate.rightExit;
+
+
             return template;
         }
 
@@ -237,6 +247,10 @@ namespace MapEditor
             return template;
         }
 
+        public void ClearEvents()
+        {
+            
+        }
 
 
 

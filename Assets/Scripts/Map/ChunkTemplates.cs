@@ -82,6 +82,10 @@ public class ChunkTemplates
     {
         public int id;
         public int ttype = 1;
+        public bool topExit = false;
+        public bool bottomExit = false;
+        public bool leftExit = false;
+        public bool rightExit = false;
         public Block[] elements = new Block[640];
 
         public Template()

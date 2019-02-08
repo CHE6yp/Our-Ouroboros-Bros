@@ -16,13 +16,17 @@ namespace MapEditor
         public GameObject helpPanel;
 
         public Dropdown chunkType;
+        public Toggle topExit;
+        public Toggle bottomExit;
+        public Toggle leftExit;
+        public Toggle rightExit;
 
-        
+
         void Awake()
         {
             instance = this;
-            Chunk.switchTemplate += ChangeTemplate;
-            Chunk.switchBlock += ChangeBlock;
+            Chunk.instance.switchTemplate += ChangeTemplate;
+            Chunk.instance.switchBlock += ChangeBlock;
 
         }
 
@@ -38,6 +42,7 @@ namespace MapEditor
             else
                 templateNameText.text = "Template #" + Chunk.currentTemplateId;
             GetChunkType();
+            GetChunkExits();
 
         }
 
@@ -52,42 +57,39 @@ namespace MapEditor
             Chunk.currentTemplate.ttype = ttype + 1;
         }
 
+        public void GetChunkExits()
+        {
+            topExit.isOn = Chunk.currentTemplate.topExit;
+            bottomExit.isOn = Chunk.currentTemplate.bottomExit;
+            leftExit.isOn = Chunk.currentTemplate.leftExit;
+            rightExit.isOn = Chunk.currentTemplate.rightExit;
+        }
+
+        public void ChangeChunkTopExit(bool on)
+        {
+            Chunk.currentTemplate.topExit = on;
+        }
+
+        public void ChangeChunkBottomExit(bool on)
+        {
+            Chunk.currentTemplate.bottomExit = on;
+        }
+
+        public void ChangeChunkLeftExit(bool on)
+        {
+            Chunk.currentTemplate.leftExit = on;
+        }
+
+        public void ChangeChunkRightExit(bool on)
+        { 
+            Chunk.currentTemplate.rightExit = on;
+        }
+
+
         public void ChangeBlock()
         {
             string blockText = BlockLibrary.instance.blocks[Chunk.placedBlockType].name;
-            /*
-            switch (Chunk.placedBlockType)
-            {
-                case 1:
-                    blockText += "Solid";
-                    break;
-                case 2:
-                    blockText += "Enemy";
-                    break;
-                case 3:
-                    blockText += "Spike";
-                    break;
-                case 4:
-                    blockText += "SpikeReverse";
-                    break;
-                case 5:
-                    blockText += "Pickup";
-                    break;
-                case 6:
-                    blockText += "Proj up";
-                    break;
-                case 7:
-                    blockText += "Proj down";
-                    break;
-                case 8:
-                    blockText += "Proj left";
-                    break;
-                case 9:
-                    blockText += "Proj right";
-                    break;
 
-            }
-            */
             blockNameText.text = blockText;
             blockSprite.sprite = BlockLibrary.instance.blocks[Chunk.placedBlockType].sprite;
         }
