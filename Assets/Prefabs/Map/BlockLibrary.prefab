@@ -98,3 +98,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 2625c89036bc6b24182f815bd58fc2bd, type: 3}
     prefab: {fileID: 1927055553922694520, guid: 71a24375c14a5be4295d471f6f0911c1,
       type: 3}
+  - id: 12
+    name: Ground Obstacle
+    sprite: {fileID: 21300000, guid: 3be4502526261dd4eb7cd3262e543927, type: 3}
+    prefab: {fileID: 1927055553922694520, guid: 71a24375c14a5be4295d471f6f0911c1,
+      type: 3}

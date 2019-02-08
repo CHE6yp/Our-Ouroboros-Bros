@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 public class ChunkTemplates
 {
     public static Templates templatesContainer;
+    public static ObstacleTemplates obstacleTemplatesContainer;
     public static int chunkHeight = 8;
     public static int chunkWidth = 10;
     public static int[][] emptyTemplate = new int[20][]
@@ -53,6 +54,25 @@ public class ChunkTemplates
         }
     }
 
+    public static void GetObstaclesFromJson()
+    {
+        obstacleTemplatesContainer = new ObstacleTemplates();
+        string filePath = Application.streamingAssetsPath + "/obstaclesJson.txt";
+        Debug.Log(filePath);
+
+        if (File.Exists(filePath))
+        {
+            string dataAsJson = File.ReadAllText(filePath);
+            obstacleTemplatesContainer = JsonUtility.FromJson<ObstacleTemplates>(dataAsJson);
+        }
+        else
+        {
+            Debug.LogError("Cannot load game data!");
+        }
+    }
+
+
+
     public static void SaveToTxt()
     {
         string filePathJson = Application.streamingAssetsPath + "/chunksJson.txt";
@@ -86,11 +106,32 @@ public class ChunkTemplates
         public bool bottomExit = false;
         public bool leftExit = false;
         public bool rightExit = false;
-        public Block[] elements = new Block[640];
+        public Block[] elements = new Block[80];
 
         public Template()
         {
-            for (int i = 0; i < 640; i++)
+            for (int i = 0; i < 80; i++)
+            {
+                elements[i] = new Block();
+            }
+        }
+    }
+
+    [System.Serializable]
+    public class ObstacleTemplates
+    {
+        public List<ObstacleTemplate> templates = new List<ObstacleTemplate>();
+    }
+
+    [System.Serializable]
+    public class ObstacleTemplate
+    {
+        public int id;
+        public Block[] elements = new Block[15];
+
+        public ObstacleTemplate()
+        {
+            for (int i = 0; i < 15; i++)
             {
                 elements[i] = new Block();
             }
@@ -100,7 +141,7 @@ public class ChunkTemplates
     [System.Serializable]
     public class Block
     {
-        public Vector2 coordinates;
+        public Vector2Int coordinates;
         public int ttype = 0;
         
     }

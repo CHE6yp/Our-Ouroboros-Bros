@@ -308,8 +308,23 @@ public class Map : MonoBehaviour
         //Конвертируем лэйаут пути в улучшенный лэйаут, с учетом стен и прочего.
         mapLayout = ConvertLayout(mapLayout);
 
+        //Выдаем лэйаут в консоль
+        layoutString = "";
+        for (int y = 0; y < mapLayout.Length; y++)
+        {
+            for (int x = 0; x < mapLength; x++)
+            {
+                layoutString += mapLayout[y][x].ToString();
+            }
+            layoutString += "\n";
+        }
+        Debug.Log(layoutString);
+
+
         //Импортируем из джейсона 
         ChunkTemplates.GetFromJson();
+        ChunkTemplates.GetObstaclesFromJson();
+
         for (int y = 0; y < mapLayout.Length; y++)
         {
             for (int x = 0; x < mapLength; x++)

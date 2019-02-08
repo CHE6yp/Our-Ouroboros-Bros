@@ -28,7 +28,7 @@ public class Box : MonoBehaviour
 
         if (y != 0)
         {
-            ChunkTemplates.Block upperBlock = chunk.chunkTemplateJson.elements.First(item => item.coordinates == new Vector2(x, y -1));
+            ChunkTemplates.Block upperBlock = chunk.chunkTemplateJson.elements.First(item => item.coordinates == new Vector2Int(x, y -1));
             if (!upperBlock.ttype.In(1, 6, 7, 8, 9))
             {
                 //Debug.Log(chunk.chunkTemplate[y - 1][x]);

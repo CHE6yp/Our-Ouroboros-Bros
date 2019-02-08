@@ -39,8 +39,10 @@ namespace MapEditor
             if (playTesting)
                 SetChunk(playTestTemplate);
             else
+            {
                 ChunkTemplates.GetFromJson();
-
+                ChunkTemplates.GetObstaclesFromJson();
+            }
 
             ChangeBlockType(0);
         }
@@ -53,12 +55,12 @@ namespace MapEditor
         {
 
             Debug.Log("Generating chunk (" + ChunkTemplates.chunkWidth + "x" + ChunkTemplates.chunkHeight + ")");
-            for (int i = 0; i < ChunkTemplates.chunkHeight; i++)
+            for (int y = 0; y < ChunkTemplates.chunkHeight; y++)
             {
-                mapGenBlocks[i] = new Block[ChunkTemplates.chunkWidth];
-                for (int k = 0; k < ChunkTemplates.chunkWidth; k++)
+                mapGenBlocks[y] = new Block[ChunkTemplates.chunkWidth];
+                for (int x = 0; x < ChunkTemplates.chunkWidth; x++)
                 {
-                    Block block = SpawnBlock(k, i + 1, true);
+                    Block block = SpawnBlock(x, y, true);
                 }
             }
 
@@ -72,11 +74,12 @@ namespace MapEditor
         void SetChunk(ChunkTemplates.Template template)
         {
             currentTemplate = template;
-            for (int i = 0; i < ChunkTemplates.chunkHeight; i++)
+            for (int y = 0; y < ChunkTemplates.chunkHeight; y++)
             {
-                for (int k = 0; k < ChunkTemplates.chunkWidth; k++)
+                for (int x = 0; x < ChunkTemplates.chunkWidth; x++)
                 {
-                    mapGenBlocks[i][k].SetBlockType(template.elements[i*ChunkTemplates.chunkWidth+k].ttype);
+                    Debug.Log(x + " " + y);
+                    mapGenBlocks[y][x].SetBlockType(template.elements[y*ChunkTemplates.chunkWidth+x].ttype);
                 }
             }
 
@@ -186,12 +189,11 @@ namespace MapEditor
         {
 
             GameObject b = Instantiate(mapGenBlock, this.transform, false);
-            b.transform.localPosition = new Vector3((float)x / 2, (float)-y / 2);
-            //b.GetComponent<Block>().SetBlockType(type);
+            b.transform.localPosition = new Vector3((float)x / 2, (float)-(y+1) / 2);
+            b.GetComponent<Block>().coordinates = new Vector2Int(x, y);
 
-            //Debug.Log(x + " " + y);
             if (toMatrix)
-                mapGenBlocks[y - 1][x] = b.GetComponent<Block>();
+                mapGenBlocks[y][x] = b.GetComponent<Block>();
             return b.GetComponent<Block>();
 
         }
@@ -210,7 +212,7 @@ namespace MapEditor
                 {
                     ChunkTemplates.Block block = new ChunkTemplates.Block();
                     block.ttype = mapGenBlocks[i][k].blockType;
-                    block.coordinates = new Vector2(k, i);
+                    block.coordinates = new Vector2Int(k, i);
 
                     template.elements[i * ChunkTemplates.chunkWidth + k] = block;
                 }
@@ -237,7 +239,7 @@ namespace MapEditor
 
                     ChunkTemplates.Block block = new ChunkTemplates.Block();
                     block.ttype = mapGenBlocks[i][k].blockType;
-                    block.coordinates = new Vector2(k, i);
+                    block.coordinates = new Vector2Int(k, i);
 
                     template.elements[i * ChunkTemplates.chunkWidth + k] = block;
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Chunk : MonoBehaviour
 {
@@ -17,16 +18,35 @@ public class Chunk : MonoBehaviour
 
     public void GenerateRandomByType(int ttype)
     {
-        //ChunkTemplates.templatesContainer.templates[Random.Range(0, ChunkTemplates.templatesContainer.templates.Count)]
-        int randomTemplateId = Random.Range(0, ChunkTemplates.templatesContainer.templates.Count);
-        ChunkTemplates.Template randomTemplate = ChunkTemplates.templatesContainer.templates[randomTemplateId];
-        if ((ttype == 0 && randomTemplate.ttype != 4 && randomTemplate.ttype != 5) || randomTemplate.ttype == ttype)
-        {
-            Generate(randomTemplateId);
-        }
-        else
-            GenerateRandomByType(ttype);
+        //1 left right; 2 up down; 3 up left; 4 down left; 5 up rigth; 6 down right;
+        //7 комната спауна, 8 комната выхода
+        ChunkTemplates.Template template;
 
+        //по умолчанию (ttype == 0) это может быть любая комната, кроме стартовой и конечной
+        template = ChunkTemplates.templatesContainer.templates.Where(i => i.ttype != 4 && i.ttype != 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault();
+
+        //start room
+        if (ttype == 7)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.ttype == 4).OrderBy(n => UnityEngine.Random.value).FirstOrDefault(); //use whatever you prefer for random
+        //exit room
+        if (ttype == 8)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.ttype == 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault();
+
+        if (ttype == 1)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.leftExit == true && i.rightExit == true && i.ttype != 4 && i.ttype != 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault(); //use whatever you prefer for random
+        if (ttype == 2)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.topExit == true && i.bottomExit == true && i.ttype != 4 && i.ttype != 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault();
+        if (ttype == 3)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.topExit == true && i.leftExit == true && i.ttype != 4 && i.ttype != 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault(); //use whatever you prefer for random
+        if (ttype == 4)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.bottomExit == true && i.leftExit == true && i.ttype != 4 && i.ttype != 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault();
+        if (ttype == 5)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.topExit == true && i.rightExit == true && i.ttype != 4 && i.ttype != 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault(); //use whatever you prefer for random
+        if (ttype == 6)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.bottomExit == true && i.rightExit == true && i.ttype != 4 && i.ttype != 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault();
+
+
+        Generate(template);
     }
 
     public void Generate(int tempId )
@@ -42,7 +62,7 @@ public class Chunk : MonoBehaviour
         foreach (ChunkTemplates.Block block in chunkTemplateJson.elements)
         {
 
-            SpawnBlock((int)block.coordinates.x, (int)block.coordinates.y, block.ttype);
+            SpawnBlock(block.coordinates.x, block.coordinates.y, block.ttype);
             //Debug.Log(block.coordinates.y);
         }
 
