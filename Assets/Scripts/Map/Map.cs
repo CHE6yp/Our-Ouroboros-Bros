@@ -306,9 +306,7 @@ public class Map : MonoBehaviour
         Debug.Log(layoutString);
 
         //Конвертируем лэйаут пути в улучшенный лэйаут, с учетом стен и прочего.
-
-
-
+        mapLayout = ConvertLayout(mapLayout);
 
         //Импортируем из джейсона 
         ChunkTemplates.GetFromJson();
@@ -324,66 +322,67 @@ public class Map : MonoBehaviour
         }
     }
 
-    void ConvertLayout()
+
+    /// <summary>
+    /// конвертируем обычный лэйаут пути, в лейаут показывающий где должны быть обызательные выходы у чанков
+    /// </summary>
+    /// <returns>лэйаут с выходами</returns>
+    int[][] ConvertLayout(int[][] layout)
     {
         int[][] convertedLayout = EmptyLayout();
 
-        //1 up; 2 down; 4 left; 8 right;
+        //обозначения выходов в новом лэйауте
+        //1 left right; 2 up down; 3 up left; 4 down left; 5 up rigth; 6 down right;
+        //7 комната спауна, 8 комната выхода
 
-        for (int y = 0; y < mapLayout.Length; y++)
+        for (int y = 0; y < layout.Length; y++)
         {
-            for (int x = 0; x < mapLength; x++)
+            for (int x = 0; x < layout[0].Length; x++)
             {
-                 
-                if (mapLayout[y][x] == 1)
+                if (layout[y][x] == 1)
                 {
-                    //1 всегда имеет выход налево потому что ведет налево лэйаут
-                    convertedLayout[y][x] += 4;
-
                     //если лэаут шел сверху, нужен обязательный выход сверху.
-                    if (y != 0 && mapLayout[y - 1][x] == 3)
-                        convertedLayout[y][x] += 1; // =5
+                    if (y != 0 && layout[y - 1][x] == 3)
+                        convertedLayout[y][x] = 3; // =5
                     else
                         //если лэйаут шел не сверху, значит он шел справа, нужен выход направо
-                        convertedLayout[y][x] += 8; // =12
+                        convertedLayout[y][x] = 1; // =12
                 }
-                if (mapLayout[y][x] == 2)
+                if (layout[y][x] == 2)
                 {
-                    //2 всегда имеет выход направо потому что ведет туда лэйаут
-                    convertedLayout[y][x] += 8;
-
                     //если лэаут шел сверху, нужен обязательный выход сверху.
-                    if (y != 0 && mapLayout[y - 1][x] == 3)
-                        convertedLayout[y][x] += 1; //=9
+                    if (y != 0 && layout[y - 1][x] == 3)
+                        convertedLayout[y][x] = 5; //=9
                     else
                         //если лэйаут шел не сверху, значит он шел слева, нужен выход направо
-                        convertedLayout[y][x] += 4; //=12
+                        convertedLayout[y][x] = 1; //=12
                 }
-                if (mapLayout[y][x] == 3)
+                if (layout[y][x] == 3)
                 {
-                    //3 всегда имеет выход вниз
-                    convertedLayout[y][x] += 2;
-                    //если лэаут шел сверху, нужен обязательный выход сверху.
-
-                    if (y != 0 && mapLayout[y - 1][x] == 3)
-                        convertedLayout[y][x] += 1; //=3
+                    if (y != 0 && layout[y - 1][x] == 3)
+                        convertedLayout[y][x] = 2; //=3
                     else
                     {
-                        if (x != 0 && (mapLayout[y][x - 1] == 2 || mapLayout[y][x - 1] == 4))
+                        if (x != 0 && (layout[y][x - 1] == 2 || layout[y][x - 1] == 4))
                             //слева
-                            convertedLayout[y][x] += 4; //=6
+                            convertedLayout[y][x] = 4; //=6
                         else
                             //справа
-                            convertedLayout[y][x] += 8; //=10
+                            convertedLayout[y][x] = 6; //=10
                     }
                 }
-                if (mapLayout[y][x] == 4)
-                { }
-                if (mapLayout[y][x] == 5)
-                { }
-
+                if (layout[y][x] == 4)
+                {
+                    convertedLayout[y][x] = 7;
+                }
+                if (layout[y][x] == 5)
+                {
+                    convertedLayout[y][x] = 8;
+                }
             }
         }
+
+        return convertedLayout;
     }
 
     void PlayTestTemplate(ChunkTemplates.Template template)
