@@ -61,13 +61,30 @@ public class Chunk : MonoBehaviour
 
         foreach (ChunkTemplates.Block block in chunkTemplateJson.elements)
         {
-
-            SpawnBlock(block.coordinates.x, block.coordinates.y, block.ttype);
-            //Debug.Log(block.coordinates.y);
+            //если блок это начало препятствия, запускаем процедуру установки препятствия
+            if (block.ttype == 12)
+            {
+                SpawnObstacle(block.coordinates.x, block.coordinates.y);
+            }
+            else
+            if (block.ttype == 13)
+            {
+                continue;
+            }
+            else
+                SpawnBlock(block.coordinates.x, block.coordinates.y, block.ttype);
         }
 
         chunkTypeText.text = "ttype "+template.ttype.ToString(); //debugging
         Map.instance.ChunkDone();
+    }
+
+    void SpawnObstacle(int x, int y)
+    {
+        foreach (ChunkTemplates.Block block in ChunkTemplates.obstacleTemplatesContainer.templates.OrderBy(n => Random.value).FirstOrDefault().elements)
+        {
+            SpawnBlock(block.coordinates.x+x, block.coordinates.y+y, block.ttype);
+        }
     }
 
 
