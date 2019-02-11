@@ -30,10 +30,12 @@ namespace MapEditor
         public void Awake()
         {
             instance = this;
+            Debug.Log("Chunk Awake");
         }
 
         public void Start()
         {
+            Debug.Log("Chunk Start");
             Debug.Log("playtesting " + playTesting);
             GenerateChunk();
             if (playTesting)
@@ -53,7 +55,7 @@ namespace MapEditor
         /// </summary>
         void GenerateChunk()
         {
-
+            Debug.Log("Chunk GenerateChunk");
             Debug.Log("Generating chunk (" + ChunkTemplates.chunkWidth + "x" + ChunkTemplates.chunkHeight + ")");
             for (int y = 0; y < ChunkTemplates.chunkHeight; y++)
             {
@@ -73,12 +75,13 @@ namespace MapEditor
         /// <param name="template"></param>
         void SetChunk(ChunkTemplates.Template template)
         {
+            Debug.Log("Chunk SetChunk");
             currentTemplate = template;
             for (int y = 0; y < ChunkTemplates.chunkHeight; y++)
             {
                 for (int x = 0; x < ChunkTemplates.chunkWidth; x++)
                 {
-                    Debug.Log(x + " " + y);
+                    //Debug.Log(x + " " + y);
                     mapGenBlocks[y][x].SetBlockType(template.elements[y*ChunkTemplates.chunkWidth+x].ttype);
                 }
             }
@@ -91,6 +94,7 @@ namespace MapEditor
         /// </summary>
         public void SaveTemplate()
         {
+            Debug.Log("Chunk SaveTemplate");
             if (newChunk)
                 SaveTemplateAsNew();
             else
@@ -103,6 +107,7 @@ namespace MapEditor
 
         void SaveTemplateAsNew()
         {
+            Debug.Log("Chunk SaveTemplateAsNew");
             ChunkTemplates.templatesContainer.templates.Add(GetTemplateMatrix());
             ChunkTemplates.SaveToTxt();
         }
@@ -112,6 +117,7 @@ namespace MapEditor
         /// </summary>
         public void NewTemplate()
         {
+            Debug.Log("Chunk NewTemplate");
             newChunk = true;
             SetChunk(new ChunkTemplates.Template());
             switchTemplate();
@@ -122,6 +128,7 @@ namespace MapEditor
         /// </summary>
         public void DeleteTemplate()
         {
+            Debug.Log("Chunk DeleteTemplate");
             if (newChunk)
             {
                 Debug.LogWarning("Can't delete new template");
@@ -137,6 +144,7 @@ namespace MapEditor
 
         public void NextTemplate()
         {
+            Debug.Log("Chunk NextTemplate");
             newChunk = false;
             if (currentTemplateId == ChunkTemplates.templatesContainer.templates.Count - 1)
                 currentTemplateId = 0;
@@ -148,6 +156,7 @@ namespace MapEditor
 
         public void PreviousTemplate()
         {
+            Debug.Log("Chunk PreviousTemplate");
             newChunk = false;
             if (currentTemplateId == 0)
                 currentTemplateId = ChunkTemplates.templatesContainer.templates.Count - 1;
@@ -161,6 +170,7 @@ namespace MapEditor
 
         public void NextBlockType()
         {
+            Debug.Log("Chunk NextBlockType");
             //Debug.Log(currentBlockType + "   " + BlockLibrary.instance.blocks.Count);
             if (currentBlockType == BlockLibrary.instance.blocks.Count - 1)
                 currentBlockType = 0;
@@ -171,6 +181,7 @@ namespace MapEditor
 
         public void PreviousBlockType()
         {
+            Debug.Log("Chunk PreviousBlockType");
             if (currentBlockType == 0)
                 currentBlockType = BlockLibrary.instance.blocks.Count - 1;
             else
@@ -180,6 +191,7 @@ namespace MapEditor
 
         public void ChangeBlockType(int id)
         {
+            Debug.Log("Chunk ChangeBlockType");
             placedBlockType = id;
             switchBlock();
         }
@@ -187,10 +199,14 @@ namespace MapEditor
 
         Block SpawnBlock(int x, int y, bool toMatrix)
         {
-
+            Debug.Log("Chunk SpawnBlock");
             GameObject b = Instantiate(mapGenBlock, this.transform, false);
             b.transform.localPosition = new Vector3((float)x / 2, (float)-(y+1) / 2);
             b.GetComponent<Block>().coordinates = new Vector2Int(x, y);
+
+            Debug.Log("MapGenBlock collider issue brute solving is here");
+            //b.GetComponent<BoxCollider2D>().enabled = false;
+            //b.GetComponent<BoxCollider2D>().enabled = true;
 
             if (toMatrix)
                 mapGenBlocks[y][x] = b.GetComponent<Block>();
@@ -204,7 +220,7 @@ namespace MapEditor
         /// <returns></returns>
         public ChunkTemplates.Template GetTemplateMatrix()
         {
-            
+            Debug.Log("Chunk GetTemplateMatrix");
             ChunkTemplates.Template template = new ChunkTemplates.Template();
             for (int i = 0; i < mapGenBlocks.Length; i++)
             {
@@ -230,6 +246,7 @@ namespace MapEditor
 
         public ChunkTemplates.Template GetTemplate()
         {
+            Debug.Log("Chunk GetTemplate");
             ChunkTemplates.Template template = new ChunkTemplates.Template();
 
             for (int i = 0; i < mapGenBlocks.Length; i++)
