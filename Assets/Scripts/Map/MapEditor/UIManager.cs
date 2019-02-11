@@ -9,6 +9,8 @@ namespace MapEditor
     {
         public static UIManager instance;
 
+        public GameObject chunkCanvas;
+        public GameObject obstacleCanvas;
 
         public Text templateNameText;
         public Text blockNameText;
@@ -21,12 +23,17 @@ namespace MapEditor
         public Toggle leftExit;
         public Toggle rightExit;
 
+        //
+        public Text obstacleNameText;
+
 
         void Awake()
         {
             instance = this;
+            Debug.Log("UI manager Awake");
             Chunk.instance.switchTemplate += ChangeTemplate;
-            Chunk.instance.switchBlock += ChangeBlock;
+            Obstacle.instance.switchTemplate += ChangeObstacle;
+            BlockPlacer.instance.switchBlock += ChangeBlock;
 
         }
 
@@ -37,13 +44,21 @@ namespace MapEditor
 
         public void ChangeTemplate()
         {
-            if (Chunk.newChunk)
+            if (Chunk.newTemplate)
                 templateNameText.text = "New Template";
             else
                 templateNameText.text = "Template #" + Chunk.currentTemplateId;
             GetChunkType();
             GetChunkExits();
 
+        }
+
+        public void ChangeObstacle()
+        {
+            if (Obstacle.newTemplate)
+                obstacleNameText.text = "New Obstacle";
+            else
+                obstacleNameText.text = "Obstacle #" + Obstacle.currentTemplateId;
         }
 
         public void GetChunkType()
@@ -88,10 +103,16 @@ namespace MapEditor
 
         public void ChangeBlock()
         {
-            string blockText = BlockLibrary.instance.blocks[Chunk.placedBlockType].name;
+            string blockText = BlockLibrary.instance.blocks[BlockPlacer.placedBlockType].name;
 
             blockNameText.text = blockText;
-            blockSprite.sprite = BlockLibrary.instance.blocks[Chunk.placedBlockType].sprite;
+            blockSprite.sprite = BlockLibrary.instance.blocks[BlockPlacer.placedBlockType].sprite;
         }
+
+        public void SwichToObstacles(bool obstacles)
+        {
+            chunkCanvas.SetActive(!obstacles);
+            obstacleCanvas.SetActive(obstacles);
+    }
     }
 }

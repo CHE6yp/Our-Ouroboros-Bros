@@ -35,6 +35,9 @@ public class ChunkTemplates
     };
     //public static Templates templates;
 
+    public static int obstacleHeight = 3;
+    public static int obstacleWidth = 5;
+
 
 
     public static void GetFromJson()
@@ -83,11 +86,29 @@ public class ChunkTemplates
         }
     }
 
+    public static void SaveObstaclesToTxt()
+    {
+        string filePathJson = Application.streamingAssetsPath + "/obstaclesJson.txt";
+
+        if (File.Exists(filePathJson))
+        {
+            File.WriteAllText(filePathJson, GetObstacleTemplateMatrixTxtJson());
+        }
+    }
+
     static string GetTemplateMatrixTxtJson()
     {
         string newTemplate = "";
         
         newTemplate = JsonUtility.ToJson(templatesContainer);
+        return newTemplate;
+    }
+
+    static string GetObstacleTemplateMatrixTxtJson()
+    {
+        string newTemplate = "";
+
+        newTemplate = JsonUtility.ToJson(obstacleTemplatesContainer);
         return newTemplate;
     }
 
@@ -127,6 +148,7 @@ public class ChunkTemplates
     public class ObstacleTemplate
     {
         public int id;
+        public int ttype = 1;
         public Block[] elements = new Block[15];
 
         public ObstacleTemplate()

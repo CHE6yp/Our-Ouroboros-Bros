@@ -5,16 +5,16 @@ using UnityEngine;
 
 namespace MapEditor
 {
-    public class Chunk : MonoBehaviour
+    public class TemplateEditor : MonoBehaviour
     {
-        public static Chunk instance;
+        public static TemplateEditor instance;
 
         public delegate void EditorChunkEvent();
         public event EditorChunkEvent switchTemplate;
 
         public static bool newTemplate = true;
         public static int currentTemplateId = 0;
-        
+
 
         public GameObject mapGenBlock;
         public Block[][] mapGenBlocks = new Block[ChunkTemplates.chunkHeight][];
@@ -29,16 +29,16 @@ namespace MapEditor
 
         public void Start()
         {
-            GenerateChunk();
+            GenerateTemplate();
             ChunkTemplates.GetFromJson();
         }
 
         /// <summary>
         /// Подготовка чанка, расстановка блоков итд
         /// </summary>
-        void GenerateChunk()
+        void GenerateTemplate()
         {
-            Debug.Log("Chunk GenerateChunk");
+            Debug.Log("TemplateEditor GenerateChunk");
             Debug.Log("Generating chunk (" + ChunkTemplates.chunkWidth + "x" + ChunkTemplates.chunkHeight + ")");
             for (int y = 0; y < ChunkTemplates.chunkHeight; y++)
             {
@@ -53,10 +53,10 @@ namespace MapEditor
         }
 
         /// <summary>
-        /// Применение темплейта на чанк
+        /// Применение темплейта 
         /// </summary>
         /// <param name="template"></param>
-        void SetChunk(ChunkTemplates.Template template)
+        void SetTemplate(ChunkTemplates.Template template)
         {
             Debug.Log("Chunk SetChunk");
             currentTemplate = template;
@@ -65,11 +65,11 @@ namespace MapEditor
                 for (int x = 0; x < ChunkTemplates.chunkWidth; x++)
                 {
                     //Debug.Log(x + " " + y);
-                    mapGenBlocks[y][x].SetBlockType(template.elements[y*ChunkTemplates.chunkWidth+x].ttype);
+                    mapGenBlocks[y][x].SetBlockType(template.elements[y * ChunkTemplates.chunkWidth + x].ttype);
                 }
             }
 
-            
+
         }
 
         /// <summary>
@@ -77,7 +77,6 @@ namespace MapEditor
         /// </summary>
         public void SaveTemplate()
         {
-            Debug.Log("Chunk SaveTemplate");
             if (newTemplate)
                 SaveTemplateAsNew();
             else
@@ -102,7 +101,7 @@ namespace MapEditor
         {
             Debug.Log("Chunk NewTemplate");
             newTemplate = true;
-            SetChunk(new ChunkTemplates.Template());
+            SetTemplate(new ChunkTemplates.Template());
             switchTemplate();
         }
 
@@ -131,7 +130,7 @@ namespace MapEditor
                 currentTemplateId = 0;
             else
                 currentTemplateId++;
-            SetChunk(ChunkTemplates.templatesContainer.templates[currentTemplateId]);
+            SetTemplate(ChunkTemplates.templatesContainer.templates[currentTemplateId]);
             switchTemplate();
         }
 
@@ -143,18 +142,17 @@ namespace MapEditor
                 currentTemplateId = ChunkTemplates.templatesContainer.templates.Count - 1;
             else
                 currentTemplateId--;
-            SetChunk(ChunkTemplates.templatesContainer.templates[currentTemplateId]);
+            SetTemplate(ChunkTemplates.templatesContainer.templates[currentTemplateId]);
             switchTemplate();
         }
 
         Block SpawnBlock(int x, int y, bool toMatrix)
         {
-            //Debug.Log("Chunk SpawnBlock");
             GameObject b = Instantiate(mapGenBlock, this.transform, false);
-            b.transform.localPosition = new Vector3((float)x / 2, (float)-(y+1) / 2);
+            b.transform.localPosition = new Vector3((float)x / 2, (float)-(y + 1) / 2);
             b.GetComponent<Block>().coordinates = new Vector2Int(x, y);
 
-            //Debug.Log("MapGenBlock collider issue brute solving is here");
+            //Это тут потому что юнити тупит
             b.GetComponent<BoxCollider2D>().enabled = false;
             b.GetComponent<BoxCollider2D>().enabled = true;
 
@@ -212,11 +210,6 @@ namespace MapEditor
             }
 
             return template;
-        }
-
-        public void ClearEvents()
-        {
-            
         }
     }
 }

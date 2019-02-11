@@ -70,7 +70,7 @@ namespace MapEditor
 
             if (Input.GetMouseButton(0))
                 //SetBlockType(Chunk.placedBlockType);
-                SetBlockType(BlockLibrary.instance.blocks[Chunk.placedBlockType]);
+                SetBlockType(BlockLibrary.instance.blocks[BlockPlacer.placedBlockType]);
             else
                 if (Input.GetMouseButton(1))
                 SetBlockType(0);

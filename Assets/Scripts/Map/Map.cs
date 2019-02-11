@@ -34,11 +34,8 @@ public class Map : MonoBehaviour
 
     void Start()
     {
-        if (MapEditor.Chunk.playTesting)
-            PlayTestTemplate(MapEditor.Chunk.playTestTemplate);
-        else
-            if (generateAtStart)
-            GenerateMapJson();
+
+        GenerateMapJson();
 
         PlayerController.instance.playerCharacter.transform.position = playerSpawn.transform.position;
     }
