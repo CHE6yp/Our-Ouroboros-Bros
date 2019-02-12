@@ -136,6 +136,20 @@ public class ChunkTemplates
                 elements[i] = new Block();
             }
         }
+
+        public int[][] GetMatrix()
+        {
+            int[][] matrix = new int[chunkHeight][];
+            for (int y = 0; y < chunkHeight; y++)
+            {
+                matrix[y] = new int[chunkWidth];
+            }
+            foreach(Block block in elements)
+            {
+                matrix[block.coordinates.y][block.coordinates.x] = block.ttype;
+            }
+            return matrix;
+        }
     }
 
     [System.Serializable]
@@ -157,6 +171,20 @@ public class ChunkTemplates
             {
                 elements[i] = new Block();
             }
+        }
+
+        public int[][] GetMatrix()
+        {
+            int[][] matrix = new int[obstacleHeight][];
+            for (int y = 0; y < obstacleHeight; y++)
+            {
+                matrix[y] = new int[obstacleWidth];
+            }
+            foreach (Block block in elements)
+            {
+                matrix[block.coordinates.y][block.coordinates.x] = block.ttype;
+            }
+            return matrix;
         }
     }
 

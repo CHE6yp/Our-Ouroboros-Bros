@@ -102,13 +102,7 @@ public class Chunk : MonoBehaviour
         }
     }
 
-    public void Clear()
-    {
-        foreach (Transform child in transform)
-        {
-            Destroy(child.gameObject);
-        }
-    }
+
 
     void SendBoxColliderCoordinates(int x, int y)
     {
@@ -123,5 +117,13 @@ public class Chunk : MonoBehaviour
     public void DebugMode(bool flag)
     {
         debuggingGameobjects.SetActive(flag);
+    }
+
+    public void Clear()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

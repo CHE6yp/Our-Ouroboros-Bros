@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using System;
+using System.Linq;
 
 using ClipperLib;
 using Path = System.Collections.Generic.List<ClipperLib.IntPoint>;
@@ -12,7 +12,7 @@ public class Map : MonoBehaviour
 
     public static Map instance;
     [Min(2)]
-    public int mapLength = 5;
+    public int mapLayoutLength = 5;
     public GameObject chunkPrefab;
     public float chunkDistance = 16f;
     public GameObject camBoundary;
@@ -59,8 +59,8 @@ public class Map : MonoBehaviour
         //создаем массив с нулями
         for (int y = 0; y < layout.Length; y++)
         {
-            layout[y] = new int[mapLength];
-            for (int x = 0; x < mapLength; x++)
+            layout[y] = new int[mapLayoutLength];
+            for (int x = 0; x < mapLayoutLength; x++)
             {
                 layout[y][x] = 0;
             }
@@ -225,7 +225,7 @@ public class Map : MonoBehaviour
         int layoutType = Random.Range(1, 4);
         //1 up, 2 down, 3 right
 
-        if (x != mapLength - 1)
+        if (x != mapLayoutLength - 1)
         {
             if (layoutType == 1)
             {
@@ -294,7 +294,7 @@ public class Map : MonoBehaviour
         string layoutString = "";
         for (int y = 0; y < mapLayout.Length; y++)
         { 
-            for (int x = 0; x < mapLength; x++)
+            for (int x = 0; x < mapLayoutLength; x++)
             {
                 layoutString += mapLayout[y][x].ToString();
             }
@@ -309,7 +309,7 @@ public class Map : MonoBehaviour
         layoutString = "";
         for (int y = 0; y < mapLayout.Length; y++)
         {
-            for (int x = 0; x < mapLength; x++)
+            for (int x = 0; x < mapLayoutLength; x++)
             {
                 layoutString += mapLayout[y][x].ToString();
             }
@@ -322,6 +322,78 @@ public class Map : MonoBehaviour
         ChunkTemplates.GetFromJson();
         ChunkTemplates.GetObstaclesFromJson();
 
+        //create big map template, //!fill it with zeros
+        int mapHeight = mapLayout.Length * ChunkTemplates.chunkHeight;
+        int mapkWidth = mapLayoutLength * ChunkTemplates.chunkWidth;
+
+        int[][] mapTemplate = new int[mapHeight][];
+        for (int y = 0; y < mapHeight; y++)
+        {
+            mapTemplate[y] = new int[mapkWidth];
+            for (int x = 0; x < mapkWidth; x++)
+            {
+                mapTemplate[y][x] = 0;
+            }
+        }
+
+        //write all into mapTemplate
+        for (int y = 0; y < mapLayout.Length; y++)
+        {
+            for (int x = 0; x < mapLayoutLength; x++)
+            {
+                int [][] templateMatrix = GenerateRandomByType(mapLayout[y][x]);
+                for (int yM = 0; yM < templateMatrix.Length; yM++)
+                {
+                    for (int xM = 0; xM < templateMatrix[y].Length; xM++)
+                    {
+                        //if not obstacle space
+                        if (templateMatrix[yM][xM]!=13)
+                            mapTemplate[y * ChunkTemplates.chunkHeight + yM][x * ChunkTemplates.chunkWidth + xM] = templateMatrix[yM][xM];
+                        //if obstacle
+                        if (templateMatrix[yM][xM] == 12)
+                        {
+                            int[][] obstacleMatrix = ChunkTemplates.obstacleTemplatesContainer.templates.OrderBy(n => Random.value).FirstOrDefault().GetMatrix();
+                            for (int yO = 0; yO < ChunkTemplates.obstacleHeight; yO++)
+                            {
+                                for (int xO = 0; xO < ChunkTemplates.obstacleWidth; xO++)
+                                {
+                                    mapTemplate[y * ChunkTemplates.chunkHeight + yM+yO][x * ChunkTemplates.chunkWidth + xM+xO] = obstacleMatrix[yO][xO];
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+
+        //show mapTemplate
+        layoutString = "";
+        for (int y = 0; y < mapTemplate.Length; y++)
+        {
+            for (int x = 0; x < mapTemplate[y].Length; x++)
+            {
+                layoutString += mapTemplate[y][x].ToString();
+            }
+            layoutString += "\n";
+        }
+        Debug.Log(layoutString);
+
+        //spawn blocks
+        for (int y = 0; y < mapTemplate.Length; y++)
+        {
+            for (int x = 0; x < mapTemplate[y].Length; x++)
+            {
+                SpawnBlock(x, y, mapTemplate[y][x]);
+            }
+        }
+
+        PrepareColliders();
+
+
+
+        //а нужно ли отдельно создавать чанки? попробуем без них
+        /*
         for (int y = 0; y < mapLayout.Length; y++)
         {
             for (int x = 0; x < mapLength; x++)
@@ -332,6 +404,67 @@ public class Map : MonoBehaviour
                 ch.GetComponent<Chunk>().GenerateRandomByType(mapLayout[y][x]);
             }
         }
+        */
+    }
+
+    void SpawnBlock(int x, int y, int type)
+    {
+        if (type == 0)
+            return;
+
+        GameObject block = Instantiate(BlockLibrary.instance.blocks[type - 1].prefab, this.transform, false);
+        block.transform.localPosition = new Vector3(x, -y);
+        if (block.GetComponent<Box>())
+        {
+            //block.GetComponent<Box>().AssignSprite(x, y, this);
+            SendBoxColliderCoordinates(x, y);
+        }
+    }
+
+
+
+    void SendBoxColliderCoordinates(int x, int y)
+    {
+        List<Vector2> coords = new List<Vector2>() {    new Vector2(transform.localPosition.x + x - 0.5f, transform.localPosition.y -y + 0.5f),
+                                                        new Vector2(transform.localPosition.x + x + 0.5f, transform.localPosition.y -y + 0.5f),
+                                                        new Vector2(transform.localPosition.x + x + 0.5f, transform.localPosition.y -y - 0.5f),
+                                                        new Vector2(transform.localPosition.x + x - 0.5f, transform.localPosition.y -y - 0.5f) };
+        //Debug.Log(coords);
+        Map.instance.colliderCoordinates.Add(coords);
+    }
+
+
+    public int[][] GenerateRandomByType(int ttype)
+    {
+        //1 left right; 2 up down; 3 up left; 4 down left; 5 up rigth; 6 down right;
+        //7 комната спауна, 8 комната выхода
+        ChunkTemplates.Template template;
+
+        //по умолчанию (ttype == 0) это может быть любая комната, кроме стартовой и конечной
+        template = ChunkTemplates.templatesContainer.templates.Where(i => i.ttype != 4 && i.ttype != 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault();
+
+        //start room
+        if (ttype == 7)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.ttype == 4).OrderBy(n => UnityEngine.Random.value).FirstOrDefault(); //use whatever you prefer for random
+        //exit room
+        if (ttype == 8)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.ttype == 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault();
+
+        if (ttype == 1)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.leftExit == true && i.rightExit == true && i.ttype != 4 && i.ttype != 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault(); //use whatever you prefer for random
+        if (ttype == 2)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.topExit == true && i.bottomExit == true && i.ttype != 4 && i.ttype != 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault();
+        if (ttype == 3)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.topExit == true && i.leftExit == true && i.ttype != 4 && i.ttype != 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault(); //use whatever you prefer for random
+        if (ttype == 4)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.bottomExit == true && i.leftExit == true && i.ttype != 4 && i.ttype != 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault();
+        if (ttype == 5)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.topExit == true && i.rightExit == true && i.ttype != 4 && i.ttype != 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault(); //use whatever you prefer for random
+        if (ttype == 6)
+            template = ChunkTemplates.templatesContainer.templates.Where(i => i.bottomExit == true && i.rightExit == true && i.ttype != 4 && i.ttype != 5).OrderBy(n => UnityEngine.Random.value).FirstOrDefault();
+
+
+        return template.GetMatrix();
     }
 
 
@@ -406,7 +539,7 @@ public class Map : MonoBehaviour
         start_ch.GetComponent<Chunk>().Generate(0);
         Instantiate(camBoundary, new Vector3(7f, 0), Quaternion.identity);
 
-        for (int i = 1; i < mapLength - 1; i++)
+        for (int i = 1; i < mapLayoutLength - 1; i++)
         {
             GameObject ch = Instantiate(chunkPrefab, transform, false);
             ch.transform.localPosition = new Vector3(i * chunkDistance, 0);
@@ -414,7 +547,7 @@ public class Map : MonoBehaviour
         }
 
         GameObject finish_ch = Instantiate(chunkPrefab, transform, false);
-        finish_ch.transform.localPosition = new Vector3((mapLength - 1) * chunkDistance, 0);
+        finish_ch.transform.localPosition = new Vector3((mapLayoutLength - 1) * chunkDistance, 0);
         finish_ch.GetComponent<Chunk>().Generate(1);
         Instantiate(camBoundary, new Vector3(finish_ch.transform.position.x + 24.5f, 0), Quaternion.identity);
     }
@@ -551,46 +684,51 @@ public class Map : MonoBehaviour
     public void ChunkDone()
     {
         chunkDone++;
-        if (chunkDone == mapLength*mapLayout.Length)
+        if (chunkDone == mapLayoutLength*mapLayout.Length)
         {
 
            
-            //new Vector2(-0.5f, 0.5f),  верх лево 
-            //new Vector2(32 * mapLength + 0.5f, +0.5f), верх право
-            //new Vector2(32 * mapLength + 0.5f, -19 - 0.5f), низ право
-            //new Vector2(-0.5f, -19 - 0.5f) }; низ лево
-
-
-            //up
-            List<Vector2> coords = new List<Vector2>() {        new Vector2(- 3f, 0.5f),
-                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3f, 0.5f),
-                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3f, 3f),
-                                                                new Vector2(- 3f, 3f) };
-            //left
-            List<Vector2> coords2 = new List<Vector2>() {       new Vector2(- 0.5f, 0.5f),
-                                                                new Vector2(-3f,    0.5f),
-                                                                new Vector2(-3f,    -ChunkTemplates.chunkHeight*mapLayout.Length + 0.5f),
-                                                                new Vector2(- 0.5f, -ChunkTemplates.chunkHeight*mapLayout.Length + 0.5f) };
-            //down
-            List<Vector2> coords3 = new List<Vector2>() {       new Vector2(- 3f,                                     -ChunkTemplates.chunkHeight*mapLayout.Length - 3),
-                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3f, -ChunkTemplates.chunkHeight*mapLayout.Length - 3),
-                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3f, -ChunkTemplates.chunkHeight*mapLayout.Length + 0.5f),
-                                                                new Vector2(- 3f,                                     -ChunkTemplates.chunkHeight*mapLayout.Length + 0.5f) };
-            //right
-            List<Vector2> coords4 = new List<Vector2>() {       new Vector2(ChunkTemplates.chunkWidth*mapLength + 3,     0.5f),
-                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength - 0.5f,  0.5f),
-                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength - 0.5f,  -ChunkTemplates.chunkHeight*mapLayout.Length - 3),
-                                                                new Vector2(ChunkTemplates.chunkWidth*mapLength + 3,     -ChunkTemplates.chunkHeight*mapLayout.Length - 3) };
-
-            colliderCoordinates.Add(coords);
-            colliderCoordinates.Add(coords2);
-            colliderCoordinates.Add(coords3);
-            colliderCoordinates.Add(coords4);
-
-            CreateLevelCollider(UniteCollisionPolygons(colliderCoordinates));
+            
 
         }
            
+    }
+
+    void PrepareColliders()
+    {
+        //new Vector2(-0.5f, 0.5f),  верх лево 
+        //new Vector2(32 * mapLength + 0.5f, +0.5f), верх право
+        //new Vector2(32 * mapLength + 0.5f, -19 - 0.5f), низ право
+        //new Vector2(-0.5f, -19 - 0.5f) }; низ лево
+
+
+        //up
+        List<Vector2> coords = new List<Vector2>() {        new Vector2(- 3f, 0.5f),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLayoutLength + 3f, 0.5f),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLayoutLength + 3f, 3f),
+                                                                new Vector2(- 3f, 3f) };
+        //left
+        List<Vector2> coords2 = new List<Vector2>() {       new Vector2(- 0.5f, 0.5f),
+                                                                new Vector2(-3f,    0.5f),
+                                                                new Vector2(-3f,    -ChunkTemplates.chunkHeight*mapLayout.Length + 0.5f),
+                                                                new Vector2(- 0.5f, -ChunkTemplates.chunkHeight*mapLayout.Length + 0.5f) };
+        //down
+        List<Vector2> coords3 = new List<Vector2>() {       new Vector2(- 3f,                                     -ChunkTemplates.chunkHeight*mapLayout.Length - 3),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLayoutLength + 3f, -ChunkTemplates.chunkHeight*mapLayout.Length - 3),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLayoutLength + 3f, -ChunkTemplates.chunkHeight*mapLayout.Length + 0.5f),
+                                                                new Vector2(- 3f,                                     -ChunkTemplates.chunkHeight*mapLayout.Length + 0.5f) };
+        //right
+        List<Vector2> coords4 = new List<Vector2>() {       new Vector2(ChunkTemplates.chunkWidth*mapLayoutLength + 3,     0.5f),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLayoutLength - 0.5f,  0.5f),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLayoutLength - 0.5f,  -ChunkTemplates.chunkHeight*mapLayout.Length - 3),
+                                                                new Vector2(ChunkTemplates.chunkWidth*mapLayoutLength + 3,     -ChunkTemplates.chunkHeight*mapLayout.Length - 3) };
+
+        colliderCoordinates.Add(coords);
+        colliderCoordinates.Add(coords2);
+        colliderCoordinates.Add(coords3);
+        colliderCoordinates.Add(coords4);
+
+        CreateLevelCollider(UniteCollisionPolygons(colliderCoordinates));
     }
 
 
