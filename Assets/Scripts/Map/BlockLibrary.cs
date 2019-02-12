@@ -19,6 +19,13 @@ public class BlockLibrary : MonoBehaviour
         public int id;
         public string name;
         public Sprite sprite;
+        public List<BlockChance> prefabs;
+    }
+
+    [System.Serializable]
+    public struct BlockChance
+    {
+        public int divider; //the chance of spawning the block is 1/divider
         public GameObject prefab;
     }
 }

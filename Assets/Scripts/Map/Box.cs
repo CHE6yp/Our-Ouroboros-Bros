@@ -21,15 +21,12 @@ public class Box : MonoBehaviour
         spriteRenderer.sprite = surfaceSprites[Random.Range(0, surfaceSprites.Length)];
     }
 
-    public void AssignSprite(int x, int y, Chunk chunk)
+    public void AssignSprite(int x, int y)
     {
-        chunkCoordinates = new Vector2(x, y);
-
-
         if (y != 0)
         {
-            ChunkTemplates.Block upperBlock = chunk.chunkTemplateJson.elements.First(item => item.coordinates == new Vector2Int(x, y -1));
-            if (!upperBlock.ttype.In(1, 6, 7, 8, 9))
+            int upperBlockType = Map.instance.mapTemplate[y-1][x];
+            if (!upperBlockType.In(1, 6, 7, 8, 9))
             {
                 //Debug.Log(chunk.chunkTemplate[y - 1][x]);
                 spriteRenderer.sprite = surfaceSprites[Random.Range(0, surfaceSprites.Length)];

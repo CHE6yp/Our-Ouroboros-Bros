@@ -12,15 +12,15 @@ public class Map : MonoBehaviour
 
     public static Map instance;
     [Min(2)]
-    public int mapLayoutLength = 5;
-    public GameObject chunkPrefab;
-    public float chunkDistance = 16f;
+    public int mapLayoutLength = 4;
+
     public GameObject camBoundary;
 
     public bool generateAtStart = true;
     public bool chunkDebugMode = false;
 
     public int[][] mapLayout = new int[4][];
+    public int[][] mapTemplate;
     public PlayerSpawn playerSpawn;
 
     //списки координат для генерации больших коллайдеров
@@ -326,7 +326,7 @@ public class Map : MonoBehaviour
         int mapHeight = mapLayout.Length * ChunkTemplates.chunkHeight;
         int mapkWidth = mapLayoutLength * ChunkTemplates.chunkWidth;
 
-        int[][] mapTemplate = new int[mapHeight][];
+        mapTemplate = new int[mapHeight][];
         for (int y = 0; y < mapHeight; y++)
         {
             mapTemplate[y] = new int[mapkWidth];
@@ -367,18 +367,6 @@ public class Map : MonoBehaviour
             }
         }
 
-        //show mapTemplate
-        layoutString = "";
-        for (int y = 0; y < mapTemplate.Length; y++)
-        {
-            for (int x = 0; x < mapTemplate[y].Length; x++)
-            {
-                layoutString += mapTemplate[y][x].ToString();
-            }
-            layoutString += "\n";
-        }
-        Debug.Log(layoutString);
-
         //spawn blocks
         for (int y = 0; y < mapTemplate.Length; y++)
         {
@@ -412,13 +400,21 @@ public class Map : MonoBehaviour
         if (type == 0)
             return;
 
-        GameObject block = Instantiate(BlockLibrary.instance.blocks[type - 1].prefab, this.transform, false);
-        block.transform.localPosition = new Vector3(x, -y);
-        if (block.GetComponent<Box>())
+        foreach (BlockLibrary.BlockChance blockChance in BlockLibrary.instance.blocks[type - 1].prefabs)
         {
-            //block.GetComponent<Box>().AssignSprite(x, y, this);
-            SendBoxColliderCoordinates(x, y);
+            if (Random.Range(0,blockChance.divider) == 0)
+            {
+                GameObject block = Instantiate(blockChance.prefab, this.transform, false);
+                block.transform.localPosition = new Vector3(x, -y);
+                if (block.GetComponent<Box>())
+                {
+                    block.GetComponent<Box>().AssignSprite(x, y);
+                    SendBoxColliderCoordinates(x, y);
+                }
+                break;
+            }
         }
+        
     }
 
 
@@ -530,27 +526,6 @@ public class Map : MonoBehaviour
         return convertedLayout;
     }
 
-    void PlayTestTemplate(ChunkTemplates.Template template)
-    {
-        //Clear();
-
-        GameObject start_ch = Instantiate(chunkPrefab, transform, false);
-        start_ch.transform.localPosition = new Vector3(0, 0);
-        start_ch.GetComponent<Chunk>().Generate(0);
-        Instantiate(camBoundary, new Vector3(7f, 0), Quaternion.identity);
-
-        for (int i = 1; i < mapLayoutLength - 1; i++)
-        {
-            GameObject ch = Instantiate(chunkPrefab, transform, false);
-            ch.transform.localPosition = new Vector3(i * chunkDistance, 0);
-            ch.GetComponent<Chunk>().Generate(template);
-        }
-
-        GameObject finish_ch = Instantiate(chunkPrefab, transform, false);
-        finish_ch.transform.localPosition = new Vector3((mapLayoutLength - 1) * chunkDistance, 0);
-        finish_ch.GetComponent<Chunk>().Generate(1);
-        Instantiate(camBoundary, new Vector3(finish_ch.transform.position.x + 24.5f, 0), Quaternion.identity);
-    }
 
     public void Clear()
     {
