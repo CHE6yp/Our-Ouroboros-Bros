@@ -19,11 +19,11 @@ namespace MapEditor
                 spriteRenderer.sprite = null;
             else
                 //spriteRenderer.sprite = sprites[type - 1];
-                spriteRenderer.sprite = BlockLibrary.instance.blocks[type-1].sprite;
+                spriteRenderer.sprite = BlockPlacer.instance.blocks[type-1].sprite;
         }
 
         //Надо переделать метод, чтобы в него передавался не инт а BlockType
-        public void SetBlockType(BlockLibrary.BlockType bType)
+        public void SetBlockType(BlockPlacer.BlockType bType)
         {
             
             if (blockType == 13)
@@ -70,7 +70,7 @@ namespace MapEditor
 
             if (Input.GetMouseButton(0))
                 //SetBlockType(Chunk.placedBlockType);
-                SetBlockType(BlockLibrary.instance.blocks[BlockPlacer.placedBlockType]);
+                SetBlockType(BlockPlacer.instance.blocks[BlockPlacer.placedBlockType]);
             else
                 if (Input.GetMouseButton(1))
                 SetBlockType(0);

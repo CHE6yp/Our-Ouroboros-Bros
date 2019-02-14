@@ -48,11 +48,15 @@ public class PlayerController : MonoBehaviour
                 x = 0;
             playerCharacter.walking.GetMoveX(x);
 
+
+
+
             if (Input.GetButtonDown("Jump"))
                 playerCharacter.walking.Jump();
 
             if (Input.GetButtonUp("Jump"))
                 playerCharacter.walking.BreakJump();
+
 
             if (Input.GetButtonDown("Fire3"))
                 playerCharacter.weapon.Strike(Input.GetAxis("Vertical"));

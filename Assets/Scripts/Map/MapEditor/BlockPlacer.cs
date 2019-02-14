@@ -12,6 +12,8 @@ public class BlockPlacer : MonoBehaviour
     public static int placedBlockType = 1;//b
     public static int currentBlockType = 0;//b
 
+    public List<BlockType> blocks = new List<BlockType>();
+
 
     void Awake()
     {
@@ -20,14 +22,14 @@ public class BlockPlacer : MonoBehaviour
 
     void Start()
     {
-        ChangeBlockType(0);
+        //ChangeBlockType(0);
     }
 
     public void NextBlockType()
     {
         Debug.Log("Chunk NextBlockType");
         //Debug.Log(currentBlockType + "   " + BlockLibrary.instance.blocks.Count);
-        if (currentBlockType == BlockLibrary.instance.blocks.Count - 1)
+        if (currentBlockType == blocks.Count - 1)
             currentBlockType = 0;
         else
             currentBlockType++;
@@ -38,7 +40,7 @@ public class BlockPlacer : MonoBehaviour
     {
         Debug.Log("Chunk PreviousBlockType");
         if (currentBlockType == 0)
-            currentBlockType = BlockLibrary.instance.blocks.Count - 1;
+            currentBlockType = blocks.Count - 1;
         else
             currentBlockType--;
         ChangeBlockType(currentBlockType);
@@ -50,4 +52,26 @@ public class BlockPlacer : MonoBehaviour
         placedBlockType = id;
         switchBlock();
     }
+
+    [System.Serializable]
+    public struct BlockType
+    {
+        public int id;
+        public string name;
+        public Sprite sprite;
+        public List<BlockChance> prefabs;
+
+
+    }
+
+    [System.Serializable]
+    public struct BlockChance
+    {
+        public int divider; //the chance of spawning the block is 1/divider
+        public int blockLibraryId;
+    }
+
+
+
+
 }

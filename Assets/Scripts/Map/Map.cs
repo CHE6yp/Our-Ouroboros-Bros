@@ -291,31 +291,13 @@ public class Map : MonoBehaviour
         GenerateMapLayout();
 
         //Выдаем лэйаут в консоль
-        string layoutString = "";
-        for (int y = 0; y < mapLayout.Length; y++)
-        { 
-            for (int x = 0; x < mapLayoutLength; x++)
-            {
-                layoutString += mapLayout[y][x].ToString();
-            }
-            layoutString += "\n";
-        }
-        Debug.Log(layoutString);
+        Debug.Log(mapLayout.ToDebugLogString("Map layout"));
 
         //Конвертируем лэйаут пути в улучшенный лэйаут, с учетом стен и прочего.
         mapLayout = ConvertLayout(mapLayout);
 
         //Выдаем лэйаут в консоль
-        layoutString = "";
-        for (int y = 0; y < mapLayout.Length; y++)
-        {
-            for (int x = 0; x < mapLayoutLength; x++)
-            {
-                layoutString += mapLayout[y][x].ToString();
-            }
-            layoutString += "\n";
-        }
-        Debug.Log(layoutString);
+        Debug.Log(mapLayout.ToDebugLogString("Converted map layout"));
 
 
         //Импортируем из джейсона 
@@ -346,6 +328,8 @@ public class Map : MonoBehaviour
                 {
                     for (int xM = 0; xM < templateMatrix[y].Length; xM++)
                     {
+
+
                         //if not obstacle space
                         if (templateMatrix[yM][xM]!=13)
                             mapTemplate[y * ChunkTemplates.chunkHeight + yM][x * ChunkTemplates.chunkWidth + xM] = templateMatrix[yM][xM];
@@ -367,6 +351,57 @@ public class Map : MonoBehaviour
             }
         }
 
+        //convert from BlockPlacerMatrix into BlockLibraryMatrix
+        for (int y = 0; y < mapTemplate.Length; y++)
+        {
+            for (int x = 0; x < mapTemplate[y].Length; x++)
+            {
+                int type = mapTemplate[y][x];
+                
+                if (type == 0)
+                    continue;
+                bool flag = false;
+                foreach (BlockPlacer.BlockChance blockChance in BlockPlacer.instance.blocks[type - 1].prefabs)
+                {
+                    if (Random.Range(0, blockChance.divider) == 0)
+                    {
+                        mapTemplate[y][x] = blockChance.blockLibraryId;
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag)
+                    mapTemplate[y][x] = 0;
+            }
+        }
+
+        Debug.Log(mapTemplate.ToDebugLogString("Converted to BlockLibraryMatrix map template"));
+
+
+        //Set monsters
+        for (int y = 1; y < mapTemplate.Length-1; y++)
+        {
+            for (int x = 1; x < mapTemplate[y].Length - 1; x++)
+            {
+
+                if (mapTemplate[y][x] == 0 && mapTemplate[y][x - 1] == 0 && mapTemplate[y][x + 1] == 0 && mapTemplate[y + 1][x] == 1 && mapTemplate[y + 1][x - 1] == 1 && mapTemplate[y + 1][x + 1] == 1)
+                {
+                    Debug.Log("Found!!");
+                    if (Random.Range(0, 10) == 0)
+                        mapTemplate[y][x] = 2;
+                }
+                if (mapTemplate[y][x]     == 0 && mapTemplate[y + 1][x] == 1 &&  mapTemplate[y - 1][x] == 1 && 
+                  ((mapTemplate[y][x - 1] == 1 && mapTemplate[y][x + 1] == 0)|| (mapTemplate[y][x - 1] == 0 && mapTemplate[y][x + 1] == 1)))
+                {
+                    if (Random.Range(0, 3) == 0)
+                        mapTemplate[y][x] = 5;
+                }
+
+            }
+        }
+
+
+
         //spawn blocks
         for (int y = 0; y < mapTemplate.Length; y++)
         {
@@ -378,21 +413,6 @@ public class Map : MonoBehaviour
 
         PrepareColliders();
 
-
-
-        //а нужно ли отдельно создавать чанки? попробуем без них
-        /*
-        for (int y = 0; y < mapLayout.Length; y++)
-        {
-            for (int x = 0; x < mapLength; x++)
-            {
-                GameObject ch = Instantiate(chunkPrefab, transform, false);
-                ch.transform.localPosition = new Vector3(x * chunkDistance, -y*8);
-                ch.GetComponent<Chunk>().DebugMode(chunkDebugMode);
-                ch.GetComponent<Chunk>().GenerateRandomByType(mapLayout[y][x]);
-            }
-        }
-        */
     }
 
     void SpawnBlock(int x, int y, int type)
@@ -400,20 +420,15 @@ public class Map : MonoBehaviour
         if (type == 0)
             return;
 
-        foreach (BlockLibrary.BlockChance blockChance in BlockLibrary.instance.blocks[type - 1].prefabs)
+        //Debug.Log(type);
+        GameObject block = Instantiate(BlockLibrary.instance.blocks.Where(i => i.id == type).FirstOrDefault().prefab, this.transform, false);
+        block.transform.localPosition = new Vector3(x, -y);
+        if (block.GetComponent<Box>())
         {
-            if (Random.Range(0,blockChance.divider) == 0)
-            {
-                GameObject block = Instantiate(blockChance.prefab, this.transform, false);
-                block.transform.localPosition = new Vector3(x, -y);
-                if (block.GetComponent<Box>())
-                {
-                    block.GetComponent<Box>().AssignSprite(x, y);
-                    SendBoxColliderCoordinates(x, y);
-                }
-                break;
-            }
+            block.GetComponent<Box>().AssignSprite(x, y);
+            SendBoxColliderCoordinates(x, y);
         }
+
         
     }
 

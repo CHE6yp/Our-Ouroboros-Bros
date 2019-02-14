@@ -20,4 +20,21 @@ public static class ExtensionMethods
         return args.Contains(obj);
     }
 
+    public static string ToDebugLogString(this int[][] matrix, string message)
+    {
+        //Выдаем лэйаут в консоль
+        string layoutString = message+"\n";
+        for (int y = 0; y < matrix.Length; y++)
+        {
+            layoutString += "|";
+            for (int x = 0; x < matrix[y].Length; x++)
+            {
+                string element = matrix[y][x].ToString();
+                element = (element.Length == 1) ? " " + element + "|" :  element + "|";
+                layoutString += element;
+            }
+            layoutString += "\n";
+        }
+        return layoutString;
+    }
 }

@@ -103,10 +103,10 @@ namespace MapEditor
 
         public void ChangeBlock()
         {
-            string blockText = BlockLibrary.instance.blocks[BlockPlacer.placedBlockType].name;
+            string blockText = BlockPlacer.instance.blocks[BlockPlacer.placedBlockType].name;
 
             blockNameText.text = blockText;
-            blockSprite.sprite = BlockLibrary.instance.blocks[BlockPlacer.placedBlockType].sprite;
+            blockSprite.sprite = BlockPlacer.instance.blocks[BlockPlacer.placedBlockType].sprite;
         }
 
         public void SwichToObstacles(bool obstacles)

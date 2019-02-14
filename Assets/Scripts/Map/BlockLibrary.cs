@@ -6,7 +6,7 @@ public class BlockLibrary : MonoBehaviour
 {
     public static BlockLibrary instance;
     //all block types
-    public List<BlockLibrary.BlockType> blocks = new List<BlockLibrary.BlockType>();
+    public List<BlockLibrary.Block> blocks = new List<BlockLibrary.Block>();
 
     private void Awake()
     {
@@ -14,18 +14,12 @@ public class BlockLibrary : MonoBehaviour
     }
 
     [System.Serializable]
-    public struct BlockType
+    public struct Block
     {
         public int id;
         public string name;
         public Sprite sprite;
-        public List<BlockChance> prefabs;
-    }
-
-    [System.Serializable]
-    public struct BlockChance
-    {
-        public int divider; //the chance of spawning the block is 1/divider
         public GameObject prefab;
     }
+
 }
