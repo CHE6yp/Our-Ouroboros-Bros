@@ -93,7 +93,7 @@ public class CreaturePhysics : MonoBehaviour
                 // а вообще это дерьмо тут чтобы враг мог нормально проходить через игрока. Без условия он останавливался, хотя в слоях я прописал им чтобы они не сталкивались
                 // разобраться со слоями короче надо
                 //if (hitBuffer[i].collider.tag != "Player")
-                    hitBufferList.Add(hitBuffer[i]);
+                hitBufferList.Add(hitBuffer[i]);
                 //Debug.Log(hitBuffer[i].collider.name);
             }
 
@@ -123,11 +123,11 @@ public class CreaturePhysics : MonoBehaviour
 
         }
         //if (gameObject.tag == "Player")
-            //Debug.Log(velocity);
+        //Debug.Log(velocity);
         //if (Mathf.Abs(velocity.y) > maxVelocityY)
-            //velocity = new Vector2(velocity.x, maxVelocityY * velocity.normalized.y);
+        //velocity = new Vector2(velocity.x, maxVelocityY * velocity.normalized.y);
         //if (gameObject.tag == "Player")
-            //Debug.Log("After "+velocity);
+        //Debug.Log("After "+velocity);
 
         rb2d.position = rb2d.position + move.normalized * distance;
     }
