@@ -1981,7 +1981,7 @@ GameObject:
   - component: {fileID: 8010134242180221443}
   - component: {fileID: 8010134242180221440}
   - component: {fileID: 8010134242180221441}
-  - component: {fileID: 8010134242180221446}
+  - component: {fileID: 4812015665299506302}
   m_Layer: 5
   m_Name: Options
   m_TagString: Untagged
@@ -2079,7 +2079,7 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 8010134242103963959}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
---- !u!114 &8010134242180221446
+--- !u!114 &4812015665299506302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2088,16 +2088,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 8010134242180221444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 13c994c3406d1f749af1f47c306f83a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
+  m_VerticalAxis2: VerticalGamePadArrows
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
+  m_AllowActivationOnMobileDevice: 0
 --- !u!1 &8010134242243423173
 GameObject:
   m_ObjectHideFlags: 0

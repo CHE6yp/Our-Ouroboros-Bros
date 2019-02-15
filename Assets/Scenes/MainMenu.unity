@@ -2372,16 +2372,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2005322339}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 13c994c3406d1f749af1f47c306f83a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
+  m_VerticalAxis2: VerticalGamePadArrows
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
+  m_AllowActivationOnMobileDevice: 0
 --- !u!114 &2005322341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2543,6 +2543,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 184802844}
     m_Modifications:
+    - target: {fileID: 8010134242180221444, guid: 3457818ff27c46a488db29abcafc2ce0,
+        type: 3}
+      propertyPath: m_Name
+      value: Options
+      objectReference: {fileID: 0}
     - target: {fileID: 8010134242180221447, guid: 3457818ff27c46a488db29abcafc2ce0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2647,11 +2652,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8010134242180221444, guid: 3457818ff27c46a488db29abcafc2ce0,
-        type: 3}
-      propertyPath: m_Name
-      value: Options
       objectReference: {fileID: 0}
     - target: {fileID: 8010134242103963953, guid: 3457818ff27c46a488db29abcafc2ce0,
         type: 3}
