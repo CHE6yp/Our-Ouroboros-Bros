@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AI : MonoBehaviour
 {
-    Creature creature;
+    protected Creature creature;
 
     public bool goRight = false;
     public float timeSpan = 10;
@@ -44,7 +44,7 @@ public class AI : MonoBehaviour
         return (goRight) ? 1 : -1;
     }
 
-    public float DetectGround()
+    public virtual float DetectGround()
     {
 
         RaycastHit2D groundInfo = Physics2D.Raycast(detectionPointCurrent.position, Vector2.down, groundDetectionDistance);

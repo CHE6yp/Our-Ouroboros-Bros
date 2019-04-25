@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         instance = this;
+        instance = this;
         controllingCharacter = true;
         coins = 0;
         Time.timeScale = 1;
