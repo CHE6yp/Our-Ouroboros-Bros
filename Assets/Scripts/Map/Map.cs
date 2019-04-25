@@ -386,9 +386,13 @@ public class Map : MonoBehaviour
 
                 if (mapTemplate[y][x] == 0 && mapTemplate[y][x - 1] == 0 && mapTemplate[y][x + 1] == 0 && mapTemplate[y + 1][x] == 1 && mapTemplate[y + 1][x - 1] == 1 && mapTemplate[y + 1][x + 1] == 1)
                 {
-                    Debug.Log("Found!!");
-                    if (Random.Range(0, 10) == 0)
-                        mapTemplate[y][x] = 2;
+                    Debug.Log("Found place for enemy to spawn!!");
+
+                    if (Random.Range(0, 30) == 0)
+                        mapTemplate[y][x] = 12; //charging skeleton
+                    else
+                        if (Random.Range(0, 10) == 0)
+                            mapTemplate[y][x] = 2;//regular skeleton
                 }
                 if (mapTemplate[y][x]     == 0 && mapTemplate[y + 1][x] == 1 &&  mapTemplate[y - 1][x] == 1 && 
                   ((mapTemplate[y][x - 1] == 1 && mapTemplate[y][x + 1] == 0)|| (mapTemplate[y][x - 1] == 0 && mapTemplate[y][x + 1] == 1)))
@@ -671,18 +675,6 @@ public class Map : MonoBehaviour
 
     #endregion
 
-    public void ChunkDone()
-    {
-        chunkDone++;
-        if (chunkDone == mapLayoutLength*mapLayout.Length)
-        {
-
-           
-            
-
-        }
-           
-    }
 
     void PrepareColliders()
     {

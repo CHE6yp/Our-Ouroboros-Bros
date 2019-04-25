@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
+  m_HorizontalAxis2: HorizontalGamePadArrows
   m_VerticalAxis: Vertical
   m_VerticalAxis2: VerticalGamePadArrows
   m_SubmitButton: Submit
@@ -2024,21 +2025,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1418214239394262083, guid: 0c33ce18b4144c145ae8696250340ec6,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 604676114757327756, guid: 0c33ce18b4144c145ae8696250340ec6,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4284524035780603573, guid: 0c33ce18b4144c145ae8696250340ec6,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6751574817614124745, guid: 0c33ce18b4144c145ae8696250340ec6,
         type: 3}
       propertyPath: health
@@ -2048,6 +2034,21 @@ PrefabInstance:
         type: 3}
       propertyPath: maxVelocityY
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4284524035780603573, guid: 0c33ce18b4144c145ae8696250340ec6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1418214239394262083, guid: 0c33ce18b4144c145ae8696250340ec6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 604676114757327756, guid: 0c33ce18b4144c145ae8696250340ec6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c33ce18b4144c145ae8696250340ec6, type: 3}
@@ -2791,6 +2792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
+  m_HorizontalAxis2: HorizontalGamePadArrows
   m_VerticalAxis: Vertical
   m_VerticalAxis2: VerticalGamePadArrows
   m_SubmitButton: Submit

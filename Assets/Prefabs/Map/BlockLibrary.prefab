@@ -98,3 +98,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 2625c89036bc6b24182f815bd58fc2bd, type: 3}
     prefab: {fileID: 1927055553922694520, guid: 71a24375c14a5be4295d471f6f0911c1,
       type: 3}
+  - id: 12
+    name: Skeleton Charging
+    sprite: {fileID: 21300006, guid: c46dcf3462b189a4ab56b13c61e391fd, type: 3}
+    prefab: {fileID: 478905583866855572, guid: 30f37d536f9c0b84c97a034eb749401b, type: 3}
