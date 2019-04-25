@@ -7,6 +7,7 @@ public class ChargingEnemy : AI
 {
     //Creature creature;
 
+
     
     public float walkingDuration = 3;
     public float standingDuration = 2;
@@ -18,6 +19,8 @@ public class ChargingEnemy : AI
     public bool charging = false;
     public float chargingDuration = 1;
     public float attackDuration = 3;
+
+    public ParticleSystem runningDustParticle;
 
     public override float DetectGround()
     {
@@ -51,6 +54,7 @@ public class ChargingEnemy : AI
                     standing = true;
                     detected = false;
                     timer = 0;
+                    runningDustParticle.Stop();
                     return 0;
                 }
                 else
@@ -81,6 +85,7 @@ public class ChargingEnemy : AI
                 {
                     charging = false;
                     timer = 0;
+                    
                     return 0;
                 }
                 else
@@ -104,6 +109,7 @@ public class ChargingEnemy : AI
                 detected = true;
                 charging = true;
                 timer = 0;
+                runningDustParticle.Play();
                 return 0;
             }
 
