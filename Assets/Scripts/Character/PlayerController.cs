@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public static event PlayerDelegate addCoin;
     public bool controllingCharacter = true;
     public static int coins = 0;
+    public static int health = 5;
 
 
     public Creature playerCharacter;
@@ -23,8 +24,11 @@ public class PlayerController : MonoBehaviour
         instance = this;
         instance = this;
         controllingCharacter = true;
-        coins = 0;
+        //coins = 0;
         Time.timeScale = 1;
+        playerCharacter.health.health = health;
+        playerCharacter.health.damaged += ChangeHealth;
+        playerCharacter.health.died += ResetPlayer;
 
 
         //надо привязать чуть получше. Ккто тупо.
@@ -89,6 +93,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void ChangeHealth()
+    {
+        health = playerCharacter.health.health;
+    }
+
+    void ResetPlayer()
+    {
+        health = 5;
+        coins = 0;
+    }
 
     public static void AddCoin()
     {

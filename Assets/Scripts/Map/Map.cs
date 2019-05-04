@@ -388,10 +388,10 @@ public class Map : MonoBehaviour
                 {
                     Debug.Log("Found place for enemy to spawn!!");
 
-                    if (Random.Range(0, 30) == 0)
+                    if (Random.Range(0, 10) == 0)
                         mapTemplate[y][x] = 12; //charging skeleton
                     else
-                        if (Random.Range(0, 10) == 0)
+                        if (Random.Range(0, 5) == 0)
                             mapTemplate[y][x] = 2;//regular skeleton
                 }
                 if (mapTemplate[y][x]     == 0 && mapTemplate[y + 1][x] == 1 &&  mapTemplate[y - 1][x] == 1 && 

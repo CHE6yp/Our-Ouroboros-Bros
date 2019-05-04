@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
         AttachToPlayer(currentPlayer.gameObject);
-        
+        DrawCoins();
         PlayerController.addCoin += DrawCoins;
     }
 
@@ -37,10 +37,6 @@ public class UIManager : MonoBehaviour
         coinsText.text = "Coins x" + PlayerController.coins;
     }
 
-    void SwitchPlayers(Walking player)
-    {
-        
-    }
 
     public void AttachToPlayer(GameObject player)
     {
