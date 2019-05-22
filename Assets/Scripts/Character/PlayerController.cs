@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
                 //cam.ChangeCamPosition();
 
 
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton6))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7))
             {
                 //SceneManager.LoadScene(2);
                 if (!PauseMenu.instance.shown)
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton6))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7))
             {
                 //SceneManager.LoadScene(2);
                 if (PauseMenu.instance.shown)
